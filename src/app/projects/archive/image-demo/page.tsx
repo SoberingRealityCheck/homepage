@@ -1,7 +1,6 @@
 'use client';
 
 import { PaletteProvider, IKEDA_PALETTES } from '@/utils/palette';
-import { IkedaImage } from '@/utils/ikedaImage';
 
 export default function ImageProcessingDemo() {
 	return (
@@ -23,7 +22,7 @@ export default function ImageProcessingDemo() {
 					<p>
 						The IkedaImage component automatically processes images using dithering algorithms and
 						replaces colors with your chosen palette. This creates the high-contrast, data-visualization
-						aesthetic characteristic of Ryoji Ikeda's work.
+						aesthetic characteristic of Ryoji Ikeda&apos;s work.
 					</p>
 
 					<h3>Usage Example</h3>
@@ -94,7 +93,7 @@ const dataUrl = await processIkedaImage(
 					<h2>Options</h2>
 					<ul>
 						<li>
-							<strong>ditherMethod:</strong> 'floyd-steinberg' | 'atkinson' | 'ordered'
+							<strong>ditherMethod:</strong> &apos;floyd-steinberg&apos; | &apos;atkinson&apos; | &apos;ordered&apos;
 						</li>
 						<li>
 							<strong>threshold:</strong> 0-255, controls black/white cutoff
@@ -105,7 +104,7 @@ const dataUrl = await processIkedaImage(
 					</ul>
 
 					<blockquote>
-						The Atkinson method produces results most similar to Ikeda's Dataverse aesthetic, with sharp
+						The Atkinson method produces results most similar to Ikeda&apos;s Dataverse aesthetic, with sharp
 						contrasts and geometric patterns.
 					</blockquote>
 				</div>

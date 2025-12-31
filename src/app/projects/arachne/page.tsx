@@ -117,7 +117,7 @@ export default function ProjectTemplate() {
 				</ul>
 
 				<h2>Code Example</h2>
-				<pre><code>const example = "Your code here";
+				<pre><code>const example = &quot;Your code here&quot;;
 console.log(example);</code></pre>
 
 				<blockquote>

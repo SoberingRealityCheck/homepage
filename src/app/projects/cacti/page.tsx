@@ -72,6 +72,7 @@
 
 import { PaletteProvider, IKEDA_PALETTES } from "@/utils/palette";
 import { IkedaImage } from "@/utils/ikedaImage";
+import Image from "next/image";
 
 export default function ProjectTemplate() {
 	return (
@@ -122,7 +123,18 @@ export default function ProjectTemplate() {
 			</div>
 			<div className="image-gallery my-8">
 				<div className="gallery-item">
-					<img src="/cacti/showcase.gif" alt="Cheetah Ball Robot in action" />
+					<div className="image-wrapper">
+						<video 
+							autoPlay 
+							loop 
+							muted 
+							playsInline
+							style={{width: '100%', height: '100%', objectFit: 'cover'}}
+						>
+							<source src="/cacti/showcase.mp4" type="video/mp4" />
+							<source src="/cacti/showcase.webm" type="video/webm" />
+						</video>
+					</div>
 					<div className="gallery-item-caption">
 						CACTI Cheetah Ball Robot in action
 					</div>
@@ -143,7 +155,7 @@ export default function ProjectTemplate() {
 						Cheetahs in captivity often face challenges related to boredom and lack of stimulation, which can lead to stress and behavioral issues.  To keep the cheetahs active and engaged, zookeepers provide them with daily enrichment activities that encourage mental stimulation through play. 
 					</p>
 					<p>
-						The most effective existing enrichment was the "Cheetah Lure"—a winch and pulley system that dragged prey-like objects across a field to simulate a chase. However, new safety regulations prevented the cheetahs from leaving their habitat, restricting them to solutions that worked within their existing space.
+						The most effective existing enrichment was the &quot;Cheetah Lure&quot;—a winch and pulley system that dragged prey-like objects across a field to simulate a chase. However, new safety regulations prevented the cheetahs from leaving their habitat, restricting them to solutions that worked within their existing space.
 					</p>
 					<p>
 						We set out to design a durable, remote-controlled enrichment ball that would stimulate their natural hunting, chasing, and surveying behaviors within the confines of their habitat.
@@ -152,7 +164,9 @@ export default function ProjectTemplate() {
 				
 				<div className="image-gallery flex-[1.5]">
 					<div className="gallery-item">
-						<img src="/cacti/boys.png" alt="Dash & Dinari" />
+						<div className="image-wrapper">
+							<Image src="/cacti/boys.png" alt="Dash & Dinari" fill style={{objectFit: "cover"}} />
+						</div>
 						<div className="gallery-item-caption">
 						Dash & Dinari selfie
 						</div>
@@ -160,7 +174,9 @@ export default function ProjectTemplate() {
 				</div>
 				<div className="image-gallery flex-[1.5]">
 					<div className="gallery-item">
-						<img src="/cacti/habitat.png" alt="Zoo habitat" />
+						<div className="image-wrapper">
+							<Image src="/cacti/habitat.png" alt="Zoo habitat" fill style={{objectFit: "cover"}} />
+						</div>
 						<div className="gallery-item-caption">
 						Houston Zoo Cheetah Habitat
 						</div>
@@ -174,7 +190,9 @@ export default function ProjectTemplate() {
 				<div className="flex justify-center my-6">
 					<div className="image-gallery flex-[3]">
 							<div className="gallery-item">
-								<img src="/cacti/old-toy.png" alt="old ball toy" />
+								<div className="image-wrapper">
+									<Image src="/cacti/old-toy.png" alt="old ball toy" fill style={{objectFit: "cover"}} />
+								</div>
 								<div className="gallery-item-caption">
 								Previous non-motorized ball toy used at the Houston Zoo
 								</div>
@@ -188,7 +206,7 @@ export default function ProjectTemplate() {
 							<strong>Safety:</strong> The ball shell needed to be between 6 inches and 2 feet in diameter to be safe to bat while avoiding choking risk. It should be heavy enough for stability but light enough to move safely. Material had to be hard, non-porous plastic with no rubber, breakable components, holes, or tight spaces that could trap teeth. All internal components must be completely inaccessible to the cheetahs.
 						</p>
 						<p>
-							<strong>Mobility:</strong> The device needed remote control with at least 50-foot range, capable of reaching speeds around 5-10 mph with variable speed control. It must navigate grassy terrain, climb slopes, and avoid getting stuck in the exhibit's pool. The shell should be weatherproof (sun, rain, wind) and protect electronics from slobber, water, and rough play.
+							<strong>Mobility:</strong> The device needed remote control with at least 50-foot range, capable of reaching speeds around 5-10 mph with variable speed control. It must navigate grassy terrain, climb slopes, and avoid getting stuck in the exhibit&apos;s pool. The shell should be weatherproof (sun, rain, wind) and protect electronics from slobber, water, and rough play.
 						</p>
 						<p>
 							<strong>Maintenance:</strong> The ball should be openable (screw panel or similar) for maintenance, repairs, and access to electronics. A rechargeable battery with easily accessible charging port was required. Runtime needed to exceed 15 minutes to cover the duration of Keeper Talks.
@@ -215,7 +233,9 @@ export default function ProjectTemplate() {
 		</div>
 		<div className="flex-[1] ml-6 image-gallery">
 			<div className="gallery-item">
-				<img src="/cacti/initial_prototype.png" alt="intiial prototype" />
+				<div className="image-wrapper">
+					<Image src="/cacti/initial_prototype.png" alt="intiial prototype" fill style={{objectFit: "cover"}} />
+				</div>
 				<div className="gallery-item-caption">
 				First working prototype of the full electronics & drive system
 				</div>
@@ -224,13 +244,15 @@ export default function ProjectTemplate() {
 	</div>
 
 	<div className="content-block-highlight blog-content">
-		<h2>Final Design: "Munchkin"</h2>
+		<h2>Final Design: &quot;Munchkin&quot;</h2>
 		<p>
 			Our final design functions as a remote-controlled car housed inside a ball—when the car moves, it propels the ball forward. The system consists of three main subsystems: the drive mechanism, electrical system, and shell.
 		</p>
-		<div className="image-gallery">
+		<div className="image-gallery" style={{minHeight: '500px'}}>
 			<div className="gallery-item">
-				<img src="/cacti/poster.png" alt="project poster" />
+				<div className="image-wrapper">
+					<Image src="/cacti/poster.png" alt="project poster" fill style={{objectFit: "cover"}} />
+				</div>
 				<div className="gallery-item-caption">
 				Project Poster
 				</div>
@@ -254,7 +276,7 @@ export default function ProjectTemplate() {
 				As electronics lead, I designed the control system around an Arduino Nano microcontroller. The signal flow works as follows: a DS-600 RC boat controller transmits PWM (pulse width modulation) signals to the receiver, which the Arduino interprets and converts to motor control signals sent to an XY-160D H-Bridge motor driver. The motor driver then controls the flow of power to the motors in the correct direction and speed.
 			</p>
 			<p>
-				The REV 12V battery powers the system, but since 12V would overload the Arduino and receiver, we use a step-down converter to reduce voltage to 5V for these components. A resistor on the back of the system limits inrush current to the motor driver's 1000µF capacitor, preventing destructive capacitance. This does heat up slightly during extended use, but remained cool during our 2-hour continuous test runs.
+				The REV 12V battery powers the system, but since 12V would overload the Arduino and receiver, we use a step-down converter to reduce voltage to 5V for these components. A resistor on the back of the system limits inrush current to the motor driver&apos;s 1000µF capacitor, preventing destructive capacitance. This does heat up slightly during extended use, but remained cool during our 2-hour continuous test runs.
 			</p>
 			<p>
 				I wrote custom control code that reads PWM signals from the RC antenna (one for left/right, one for forward/backward), determines the dominant direction and speed, and handles dead-zone logic when the joystick is centered. The code then translates these inputs into the correct output signals for the motor controller. All electronics are connected via custom 3D-printed enclosures to minimize wiring distance and protect components.
@@ -264,7 +286,7 @@ export default function ProjectTemplate() {
 		<div className="content-block blog-content">
 			<h3>Shell Design</h3>
 			<p>
-				The shell—which we named "Munchkin"—protects all internal components and serves as the interface for cheetah interaction. It's made from ASA plastic, a durable material designed for outdoor use that resists UV degradation. The shell has a 10-inch inner diameter with 0.25-inch wall thickness and features ridged exterior surfaces for traction and tactile interest.
+				The shell—which we named &quot;Munchkin&quot;—protects all internal components and serves as the interface for cheetah interaction. It&apos;s made from ASA plastic, a durable material designed for outdoor use that resists UV degradation. The shell has a 10-inch inner diameter with 0.25-inch wall thickness and features ridged exterior surfaces for traction and tactile interest.
 			</p>
 			<p>
 				The shell splits into two hemispherical halves with overlapping lips that seal together. Four symmetrically-placed holes go through both halves: the top half has threaded brass inserts soldered in place, while the bottom half has holes sized for M3x7.5mm screw heads. Assembly simply requires aligning the holes and screwing in four bolts.
@@ -282,7 +304,7 @@ export default function ProjectTemplate() {
 				
 				<h3>Durability Testing</h3>
 				<p>
-					We performed drop tests by throwing the shell down stairs at two different locations—the interlocking mechanism kept the shell together with no visible cracking or damage. We also kicked the assembled ball at high impact on grass to test the shell's integrity during rough play. Both tests were successful.
+					We performed drop tests by throwing the shell down stairs at two different locations—the interlocking mechanism kept the shell together with no visible cracking or damage. We also kicked the assembled ball at high impact on grass to test the shell&apos;s integrity during rough play. Both tests were successful.
 				</p>
 
 				<h3>Engagement Testing</h3>
@@ -307,7 +329,9 @@ export default function ProjectTemplate() {
 			</div>
 			<div className="image-gallery flex-[2]">
 				<div className="gallery-item">
-					<img src="/cacti/jaguar.png" alt="jaguar testing" />
+					<div className="image-wrapper">
+						<Image src="/cacti/jaguar.png" alt="jaguar testing" fill style={{objectFit: "cover"}} />
+					</div>
 					<div className="gallery-item-caption">
 						Baby Jaguar engagement test
 					</div>
@@ -319,11 +343,13 @@ export default function ProjectTemplate() {
 	<div className="content-block-highlight mt-8 blog-content">
 		<h2>Project Outcomes</h2>
 		<p>
-			As of May 2025, we handed the ball off to the Houston Zoo for testing with Dash and Dinari. The device successfully met our core design criteria: it's safe for cheetah use, mobile enough to navigate the enclosure terrain, durable enough to withstand cheetah play, and maintainable with simple tools.
+			As of May 2025, we handed the ball off to the Houston Zoo for testing with Dash and Dinari. The device successfully met our core design criteria: it&apos;s safe for cheetah use, mobile enough to navigate the enclosure terrain, durable enough to withstand cheetah play, and maintainable with simple tools.
 		</p>
-		<div className="image-gallery my-6">
+		<div className="image-gallery my-6" style={{minHeight: '800px'}}>
 			<div className="gallery-item">
-				<img src="/cacti/in_hab.png" alt="cheetah with ball" />
+				<div className="image-wrapper">
+					<Image src="/cacti/in_hab.png" alt="cheetah with ball" fill style={{objectFit: "cover"}} />
+				</div>
 				<div className="gallery-item-caption">
 				Dinari investigating Munchkin
 				</div>
@@ -347,7 +373,9 @@ export default function ProjectTemplate() {
 			</div>
 			<div className="flex-[1] ml-6 image-gallery">
 				<div className="gallery-item">
-					<img src="/cacti/showcase.png" alt="final design" />
+					<div className="image-wrapper">
+						<Image src="/cacti/showcase.png" alt="final design" fill style={{objectFit: "cover"}} />
+					</div>
 					<div className="gallery-item-caption">
 					Final design & Poster at the 2025 OEDK Engineering Showcase
 					</div>
@@ -356,7 +384,7 @@ export default function ProjectTemplate() {
 		</div>
 		<h3>Future Improvements</h3>
 		<p>
-			While we're proud of what we accomplished, we identified several areas for future enhancement. The primary challenge is improving the robot's ability to apply torque to the shell—it sometimes moves inside the shell without pushing it effectively. Other potential improvements include better waterproofing for the interlocking mechanism, optimization of the weight distribution, and exploring autonomous movement patterns that could maintain cheetah interest when keepers aren't present. While my team's time with this project has concluded, it's possible that future students in Rice Engineering Design may continue development. 
+			While we&apos;re proud of what we accomplished, we identified several areas for future enhancement. The primary challenge is improving the robot&apos;s ability to apply torque to the shell—it sometimes moves inside the shell without pushing it effectively. Other potential improvements include better waterproofing for the interlocking mechanism, optimization of the weight distribution, and exploring autonomous movement patterns that could maintain cheetah interest when keepers aren&apos;t present. While my team&apos;s time with this project has concluded, it&apos;s possible that future students in Rice Engineering Design may continue development. 
 		</p>
 	</div>
 </div>

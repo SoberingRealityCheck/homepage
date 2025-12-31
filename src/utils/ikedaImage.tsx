@@ -37,7 +37,6 @@ export async function processIkedaImage(
 }> {
 	const {
 		ditherMethod = 'floyd-steinberg',
-		threshold = 128,
 		contrastBoost = 1.5,
 		brightnessAdjust = 0,
 		saturation = 1.0,
@@ -243,28 +242,6 @@ function multiLevelAtkinson(data: Uint8ClampedArray, width: number, height: numb
 }
 
 /**
- * Ordered (Bayer matrix) dithering
- */
-function orderedDither(data: Uint8ClampedArray, width: number, height: number) {
-	// 4x4 Bayer matrix
-	const bayerMatrix = [
-		[0, 8, 2, 10],
-		[12, 4, 14, 6],
-		[3, 11, 1, 9],
-		[15, 7, 13, 5],
-	];
-
-	for (let y = 0; y < height; y++) {
-		for (let x = 0; x < width; x++) {
-			const i = (y * width + x) * 4;
-			const threshold = (bayerMatrix[y % 4][x % 4] / 16) * 255;
-			const newPixel = data[i] > threshold ? 255 : 0;
-			data[i] = data[i + 1] = data[i + 2] = newPixel;
-		}
-	}
-}
-
-/**
  * Multi-level ordered (Bayer matrix) dithering
  */
 function multiLevelOrdered(data: Uint8ClampedArray, width: number, height: number, levels: number[]) {
@@ -340,7 +317,7 @@ function calculateHistogramThresholds(
 	const totalPixels = data.length / 4;
 
 	// Find threshold values based on cumulative distribution
-	const [blackPct, color1Pct, color2Pct, color3Pct] = distribution;
+	const [blackPct, color1Pct, color2Pct] = distribution;
 	const thresholds: [number, number, number] = [0, 0, 0];
 	const targetCounts = [
 		(blackPct / 100) * totalPixels,
@@ -424,7 +401,7 @@ export function IkedaImage({
 }) {
 	const [processedSrc, setProcessedSrc] = useState<string>('');
 	const [loading, setLoading] = useState(true);
-	const [debugInfo, setDebugInfo] = useState<any>(null);
+	const [debugInfo, setDebugInfo] = useState<{ thresholds: number[], colorCounts: number[], totalPixels: number, colorPercentages: number[] } | null>(null);
 
 	useEffect(() => {
 		processIkedaImage(src, palette, { 
@@ -459,6 +436,7 @@ export function IkedaImage({
 
 	return processedSrc ? (
 		<div className="flex gap-4">
+			{/* eslint-disable-next-line @next/next/no-img-element */}
 			<img src={processedSrc} alt={alt} className={className} />
 			{showDebug && debugInfo && (
 				<div className="content-block text-sm font-mono space-y-2">

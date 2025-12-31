@@ -4,7 +4,7 @@ import { PaletteProvider, IKEDA_PALETTES } from '@/utils/palette';
 
 export default function AboutPage() {
 	return (
-		<PaletteProvider palette={IKEDA_PALETTES.monochrome}>
+		<PaletteProvider palette={IKEDA_PALETTES.homepage}>
 			<div className="section">
 			<div className="mb-12">
 				<h1 className="text-display mb-4">
@@ -18,14 +18,14 @@ export default function AboutPage() {
 					<div className="content-block blog-content">
 						<h2>Background</h2>
 						<p>
-							I'm a software engineer specializing in data-intensive applications, distributed systems, and
+							I&apos;m a software engineer specializing in data-intensive applications, distributed systems, and
 							machine learning infrastructure. With a focus on building scalable, reliable solutions that
 							process and visualize complex data.
 						</p>
 
 						<h2>Expertise</h2>
 						<p>
-							My work spans full-stack development, data engineering, and DevOps. I'm passionate about
+							My work spans full-stack development, data engineering, and DevOps. I&apos;m passionate about
 							creating systems that are not only functional but also maintainable and performant at scale.
 						</p>
 

@@ -6,7 +6,7 @@ import { PROJECTS } from '@/data/projects';
 
 export default function ProjectsPage() {
 	return (
-		<PaletteProvider palette={IKEDA_PALETTES.monochrome}>
+		<PaletteProvider palette={IKEDA_PALETTES.homepage}>
 			<div className="section">
 			<div className="mb-12">
 				<h1 className="text-display mb-4">

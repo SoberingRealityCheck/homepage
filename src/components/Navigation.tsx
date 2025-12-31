@@ -12,6 +12,7 @@ export default function Navigation() {
         { href: '/art', label: 'Art' },
         { href: '/community', label: 'Community' },
         { href: '/about', label: 'About' },
+        { href: 'https://github.com/soberingrealitycheck', label: 'GitHub' },
 	];
 
 	return (
@@ -19,7 +20,7 @@ export default function Navigation() {
 			<div className="max-w-[1400px] mx-auto px-8 py-4 flex justify-between items-center">
 				<Link href="/" className="text-data text-xl font-bold tracking-wider hover:text-[var(--ikeda-red)] transition-colors">
 					<span className="text-[var(--ikeda-red)]">[</span>
-					PORTFOLIO
+					CLAYGOLDSMITH.COM
 					<span className="text-[var(--ikeda-red)]">]</span>
 				</Link>
 

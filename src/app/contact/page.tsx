@@ -4,14 +4,14 @@ import { PaletteProvider, IKEDA_PALETTES } from '@/utils/palette';
 
 export default function ContactPage() {
 	return (
-		<PaletteProvider palette={IKEDA_PALETTES.monochrome}>
+		<PaletteProvider palette={IKEDA_PALETTES.homepage}>
 			<div className="section">
 			<div className="mb-12">
 				<h1 className="text-display mb-4">
 					<span className="text-highlight">{'>'}</span> Contact
 				</h1>
 				<div className="data-stripe" />
-				<p className="text-xl mt-6 text-gray-300">Let's connect and discuss your next project.</p>
+				<p className="text-xl mt-6 text-gray-300">Let&apos;s connect and discuss your next project.</p>
 			</div>
 
 			<div className="grid md:grid-cols-2 gap-8">

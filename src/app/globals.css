@@ -254,6 +254,16 @@ body {
 	margin: 1rem 0;
 }
 
+.data-stripe-colorless {
+	height: 4px;
+	background: linear-gradient(90deg, 
+		#cccccc 0%, 
+		#cccccc 50%,
+		#cccccc 100%
+	);
+	margin: 1rem 0;
+}
+
 .data-pulse {
 	animation: pulse 2s ease-in-out infinite;
 }
@@ -458,6 +468,20 @@ body {
 	object-fit: cover;
 	border: 1px solid var(--grid-accent);
 	cursor: zoom-in;
+}
+
+.gallery-item .image-wrapper {
+	position: relative;
+	width: 100%;
+	flex: 1;
+	min-height: 250px;
+	border: 1px solid var(--grid-accent);
+}
+
+.gallery-item .image-wrapper img {
+	border: none;
+	cursor: zoom-in;
+	margin: 0;
 }
 
 .gallery-item-title {

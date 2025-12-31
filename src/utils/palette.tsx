@@ -78,6 +78,18 @@ export const IKEDA_PALETTES: Record<string, ColorPalette> = {
         color2: '#efb24fff',
         color3: '#ea1616ff',
     },
+    homeimg: {
+        name: 'Homepage Image',
+        color1: '#000000ff',
+        color2: '#61be63ff',
+        color3: '#91ec92ff',
+    },
+    homepage: {
+        name: 'Homepage',
+        color1: '#91ec92ff',
+        color2: '#61be63ff',
+        color3: '#33be36ff',
+    }
 };
 
 const PaletteContext = createContext<ColorPalette | null>(null);

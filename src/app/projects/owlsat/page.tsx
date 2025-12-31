@@ -72,8 +72,9 @@
 
 import { PaletteProvider, IKEDA_PALETTES } from "@/utils/palette";
 import { IkedaImage } from "@/utils/ikedaImage";
+import Image from "next/image";
 
-export default function ProjectTemplate() {
+export default function OwlsatPage() {
 	return (
 <PaletteProvider palette={IKEDA_PALETTES.owlsat}>
 	{/* Background image layer */}
@@ -89,23 +90,24 @@ export default function ProjectTemplate() {
 	</div>
 
 	{/* Content layer */}
-	<div className="relative z-10 section">
-	{/* rest of your content */}
-
+	<div className="relative z-10">
+		{/* Spacer to view full image */}
+		<div className="h-[50vh]" />
+		
 		<div className="section">
-			{/* Project Header - Always include this */}
+			{/* Project Header */}
 			<div className="content-block-highlight mb-8">
 				<div className="flex justify-between items-start mb-4">
-					<h1 className="text-display text-4xl">OWLSAT CubeSAT Mission</h1>
+					<h1 className="text-display text-4xl">OWLSAT CubeSat Mission</h1>
 					<span className="text-data text-accent">2025</span>
 				</div>
 				<div className="data-stripe mb-6" />
 				<p className="text-xl text-gray-300 leading-relaxed">
-					Development of a NASA-supported CubeSAT mission for studying Extreme-UV Radiation in Low Earth Orbit.
+					Development of a NASA-supported CubeSat mission for studying Extreme-UV Radiation in Low Earth Orbit.
 				</p>
 			</div>
 
-			{/* Optional: Project Info Grid */}
+			{/* Project Info Grid */}
 			<div className="grid-3 mb-12">
 				<div className="data-box">
 					<h3 className="text-data text-accent mb-2">Role</h3>
@@ -113,7 +115,7 @@ export default function ProjectTemplate() {
 				</div>
 				<div className="data-box">
 					<h3 className="text-data text-secondary mb-2">Timeline</h3>
-					<p>January-November, 2025</p>
+					<p>January - November 2025</p>
 				</div>
 				<div className="data-box">
 					<h3 className="text-data text-highlight mb-2">Status</h3>
@@ -121,49 +123,245 @@ export default function ProjectTemplate() {
 				</div>
 			</div>
 
-			{/* Main Content - Wrap in blog-content for automatic styling */}
-			<div className="content-block blog-content">
-				<h2>Section Heading</h2>
-				<p>
-					Your paragraph content here. The blog-content class automatically styles all HTML elements
-					with the Ikeda aesthetic.
-				</p>
-
-				<h3>Subsection</h3>
-				<p>More content here.</p>
-
-				<ul>
-					<li>List item 1</li>
-					<li>List item 2</li>
-					<li>List item 3</li>
-				</ul>
-
-				<h2>Code Example</h2>
-				<pre><code>const example = "Your code here";
-console.log(example);</code></pre>
-
-				<blockquote>
-					Quotes are automatically styled with an accent border.
-				</blockquote>
-
-				{/* You can also add custom grid layouts within blog-content */}
-				<h2>Two-Column Layout Example</h2>
-				<div className="grid-2">
-					<div className="data-box">
-						<h4 className="text-data text-accent mb-3">Left Column</h4>
-						<p>Content here</p>
+			{/* Optional showcase image/video */}
+			{/* <div className="image-gallery my-8">
+				<div className="gallery-item">
+					<div className="image-wrapper">
+						<Image src="/owlsat/showcase.png" alt="OWLSAT CubeSat" fill style={{objectFit: "cover"}} />
 					</div>
-					<div className="data-box">
-						<h4 className="text-data text-secondary mb-3">Right Column</h4>
-						<p>Content here</p>
+					<div className="gallery-item-caption">
+						OWLSAT CubeSat mission overview
+					</div>
+				</div>
+			</div> */}
+
+			{/* Main Content */}
+			<div className="content-block-highlight blog-content whitespace-pre-wrap">
+				<h2>Project Description</h2>
+				<p>
+					[Add your project description here - explain what OWLSAT is, your role, and the mission objectives]
+				</p>
+			</div>
+
+			{/* Background section with side images */}
+			<div className="content-block flex gap-6">
+				<div className="flex-[8] blog-content whitespace-pre-line">
+					<h2>Background</h2>
+					<p>
+						[Explain the context and motivation for the OWLSAT mission]
+					</p>
+					<p>
+						[Add details about the scientific goals and why studying EUV radiation is important]
+					</p>
+					<p>
+						[Discuss the challenges or opportunities this mission addresses]
+					</p>
+				</div>
+				
+				{/* Optional side images */}
+				{/* <div className="image-gallery flex-[1.5]">
+					<div className="gallery-item">
+						<div className="image-wrapper">
+							<Image src="/owlsat/image1.png" alt="Description" fill style={{objectFit: "cover"}} />
+						</div>
+						<div className="gallery-item-caption">
+							Caption text
+						</div>
+					</div>
+				</div>
+				<div className="image-gallery flex-[1.5]">
+					<div className="gallery-item">
+						<div className="image-wrapper">
+							<Image src="/owlsat/image2.png" alt="Description" fill style={{objectFit: "cover"}} />
+						</div>
+						<div className="gallery-item-caption">
+							Caption text
+						</div>
+					</div>
+				</div> */}
+			</div>
+
+			{/* Mission Objectives / Technical Requirements */}
+			<div className="content-block blog-content">
+				<h2>Mission Objectives</h2>
+				
+				<div className="flex justify-center my-6">
+					{/* Optional side image */}
+					{/* <div className="image-gallery flex-[3]">
+						<div className="gallery-item">
+							<div className="image-wrapper">
+								<Image src="/owlsat/diagram.png" alt="Mission diagram" fill style={{objectFit: "cover"}} />
+							</div>
+							<div className="gallery-item-caption">
+								Mission architecture
+							</div>
+						</div>
+					</div> */}
+					<div className="flex-[8] ml-6 blog-content whitespace-pre-line">
+						<p>
+							[Describe the primary scientific objectives]
+						</p>
+						<p>
+							<strong>Primary Goals:</strong> [List main mission goals and what you&apos;re measuring/studying]
+						</p>
+						<p>
+							<strong>Technical Requirements:</strong> [Describe technical constraints, orbit requirements, payload specifications]
+						</p>
+						<p>
+							<strong>Success Criteria:</strong> [What defines mission success, data requirements, operational duration]
+						</p>
 					</div>
 				</div>
 			</div>
 
-			{/* Optional: Additional highlighted section */}
+			{/* Technical Design */}
+			<div className="flex content-block-highlight blog-content">
+				<div className="flex-[2] mr-6">
+					<h2>CubeSat Design</h2>
+					<p>
+						[Describe the overall satellite design and architecture]
+					</p>
+					<p>
+						[Explain key subsystems: payload, communications, power, attitude control, etc.]
+					</p>
+					<p>
+						[Detail your specific contributions to the software/systems]
+					</p>
+				</div>
+				{/* Optional side image */}
+				{/* <div className="flex-[1] ml-6 image-gallery">
+					<div className="gallery-item">
+						<div className="image-wrapper">
+							<Image src="/owlsat/design.png" alt="CubeSat design" fill style={{objectFit: "cover"}} />
+						</div>
+						<div className="gallery-item-caption">
+							CubeSat system diagram
+						</div>
+					</div>
+				</div> */}
+			</div>
+
+			{/* Software Development */}
+			<div className="content-block-highlight blog-content">
+				<h2>Software & Systems Development</h2>
+				<p>
+					[Describe the software systems you worked on]
+				</p>
+				
+				{/* Optional large image */}
+				{/* <div className="image-gallery">
+					<div className="gallery-item">
+						<div className="image-wrapper">
+							<Image src="/owlsat/software.png" alt="Software architecture" fill style={{objectFit: "cover"}} />
+						</div>
+						<div className="gallery-item-caption">
+							Software architecture diagram
+						</div>
+					</div>
+				</div> */}
+
+				<div className="content-block blog-content">
+					<h3>Flight Software</h3>
+					<p>
+						[Describe the onboard software you developed - real-time systems, data handling, etc.]
+					</p>
+				</div>
+
+				<div className="content-block blog-content">
+					<h3>Ground Systems</h3>
+					<p>
+						[Describe ground station software, telemetry processing, mission operations tools]
+					</p>
+				</div>
+
+				<div className="content-block blog-content">
+					<h3>Testing & Validation</h3>
+					<p>
+						[Describe testing procedures, simulation environments, validation processes]
+					</p>
+				</div>
+			</div>
+
+			{/* Testing section with images */}
+			<div className="content-block blog-content">
+				<h2>Integration & Testing</h2>
+				
+				<div className="flex gap-6 my-8">
+					<div className="flex-[3] blog-content">
+						<h3>[Test Category 1]</h3>
+						<p>
+							[Describe specific tests performed and results]
+						</p>
+
+						<h3>[Test Category 2]</h3>
+						<p>
+							[More testing details]
+						</p>
+					</div>
+
+					{/* Optional side image */}
+					{/* <div className="image-gallery flex-[2]">
+						<div className="gallery-item">
+							<div className="image-wrapper">
+								<Image src="/owlsat/testing.png" alt="Testing" fill style={{objectFit: "cover"}} />
+							</div>
+							<div className="gallery-item-caption">
+								Integration and testing
+							</div>
+						</div>
+					</div> */}
+				</div>
+			</div>
+
+			{/* Outcomes */}
 			<div className="content-block-highlight mt-8 blog-content">
-				<h2>Results & Impact</h2>
-				<p>Highlight your achievements and impact here.</p>
+				<h2>Project Outcomes</h2>
+				<p>
+					[Summarize the final state of the project and your contributions]
+				</p>
+				
+				{/* Optional large image */}
+				{/* <div className="image-gallery my-6">
+					<div className="gallery-item">
+						<div className="image-wrapper">
+							<Image src="/owlsat/final.png" alt="Final system" fill style={{objectFit: "cover"}} />
+						</div>
+						<div className="gallery-item-caption">
+							Final integrated system
+						</div>
+					</div>
+				</div> */}
+				
+				<div className="flex">
+					<div className="flex-[4] mr-6">
+						<p>
+							[Reflect on what you learned and the impact of your work]
+						</p>
+						<h3>Key Achievements:</h3>
+						<ul>
+							<li>- [Achievement 1]</li>
+							<li>- [Achievement 2]</li>
+							<li>- [Achievement 3]</li>
+							<li>- [Achievement 4]</li>
+						</ul>
+					</div>
+					{/* Optional side image */}
+					{/* <div className="flex-[1] ml-6 image-gallery">
+						<div className="gallery-item">
+							<div className="image-wrapper">
+								<Image src="/owlsat/team.png" alt="Team photo" fill style={{objectFit: "cover"}} />
+							</div>
+							<div className="gallery-item-caption">
+								OWLSAT team
+							</div>
+						</div>
+					</div> */}
+				</div>
+
+				<h3>Lessons Learned</h3>
+				<p>
+					[Discuss key lessons from the project]
+				</p>
 			</div>
 		</div>
 	</div>
