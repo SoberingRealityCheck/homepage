@@ -1,47 +1,74 @@
-# OpenNext Starter
+# Ryoji Ikeda Dataverse-Inspired Portfolio
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+A Next.js portfolio website with an aesthetic inspired by Ryoji Ikeda's Dataverse exhibition, featuring dynamic color palettes, image processing, and a comprehensive design system.
 
-## Getting Started
+## ✨ Features
 
-Read the documentation at https://opennext.js.org/cloudflare.
+### Design System
+- **Ikeda Aesthetic**: Dark backgrounds, grid patterns, scanline effects, monospace typography
+- **8 Predefined Palettes**: Classic, Infrared, Data Blue, Electric, Neon, Monochrome, Sunset, Arctic
+- **Custom Palette Support**: Create your own 3-color schemes
+- **Utility Classes**: 40+ classes for rapid development
 
-## Develop
+### Image Processing
+- **Automatic Dithering**: 3 algorithms (Floyd-Steinberg, Atkinson, Ordered)
+- **Palette Mapping**: Converts images to high-contrast 4-color output
+- **React Component**: Simple `<IkedaImage>` component
 
-Run the Next.js development server:
+## 🚀 Quick Start
 
 ```bash
+npm install
 npm run dev
-# or similar package manager command
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎨 Using Palettes
 
-## Preview
+```tsx
+'use client';
+import { PaletteProvider, IKEDA_PALETTES } from '@/utils/palette';
 
-Preview the application locally on the Cloudflare runtime:
-
-```bash
-npm run preview
-# or similar package manager command
+export default function MyPage() {
+  return (
+    <PaletteProvider palette={IKEDA_PALETTES.infrared}>
+      <div className="section">
+        <h1 className="text-accent">Infrared colors!</h1>
+      </div>
+    </PaletteProvider>
+  );
+}
 ```
 
-## Deploy
+## 🖼️ Processing Images
 
-Deploy the application to Cloudflare:
+```tsx
+import { IkedaImage } from '@/utils/ikedaImage';
 
-```bash
-npm run deploy
-# or similar package manager command
+<IkedaImage 
+  src="/photo.jpg"
+  palette={IKEDA_PALETTES.electric}
+  alt="Processed"
+  ditherMethod="atkinson"
+/>
 ```
 
-## Learn More
+## 📚 Documentation
 
-To learn more about Next.js, take a look at the following resources:
+- **[DESIGN_SYSTEM.md](DESIGN_SYSTEM.md)** - Complete design system reference
+- **[PALETTE_GUIDE.md](PALETTE_GUIDE.md)** - Palette & image processing guide
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Adding Projects
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Copy `src/app/projects/template-example`
+2. Edit content using `blog-content` class
+3. Add to `src/app/projects/page.tsx`
+
+See demos at:
+- `/projects/palette-demo`
+- `/projects/image-demo`
+
+---
+
+Inspired by [Ryoji Ikeda](http://www.ryojiikeda.com/)'s Dataverse
