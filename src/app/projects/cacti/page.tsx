@@ -85,6 +85,8 @@ export default function ProjectTemplate() {
 		alt="Background"
 		ditherMethod="ordered"
 		className="w-[90%] h-[90vh] mx-auto object-contain opacity-40"
+		brightnessAdjust={50}
+		targetWidth={600}
 	/>
 	</div>
 
@@ -345,9 +347,9 @@ export default function ProjectTemplate() {
 		<p>
 			As of May 2025, we handed the ball off to the Houston Zoo for testing with Dash and Dinari. The device successfully met our core design criteria: it&apos;s safe for cheetah use, mobile enough to navigate the enclosure terrain, durable enough to withstand cheetah play, and maintainable with simple tools.
 		</p>
-		<div className="image-gallery my-6" style={{minHeight: '800px'}}>
-			<div className="gallery-item">
-				<div className="image-wrapper">
+		<div className="image-gallery my-6">
+			<div className="gallery-item" style={{justifyContent: 'flex-start'}}>
+				<div className="image-wrapper" style={{minHeight: '500px'}}>
 					<Image src="/cacti/in_hab.png" alt="cheetah with ball" fill style={{objectFit: "cover"}} />
 				</div>
 				<div className="gallery-item-caption">

@@ -35,6 +35,13 @@ export function ProjectCard({
 				e.currentTarget.style.borderColor = 'var(--grid-color)';
 				e.currentTarget.style.borderTopColor = palette.color1;
 			}}
+			onTouchStart={(e) => {
+				e.currentTarget.style.borderColor = palette.color1;
+			}}
+			onTouchEnd={(e) => {
+				e.currentTarget.style.borderColor = 'var(--grid-color)';
+				e.currentTarget.style.borderTopColor = palette.color1;
+			}}
 		>
 			{/* Palette indicator stripe */}
 			<div 
@@ -45,7 +52,7 @@ export function ProjectCard({
 			/>
 			
 			<div className="flex justify-between items-start mb-3">
-				<h2 className="text-heading text-2xl">{title}</h2>
+				<h2 className="text-heading text-2xl padding-1">{title}</h2>
 				<span className="text-data text-xs text-gray-500">{year}</span>
 			</div>
 			<p className="mb-4 leading-relaxed text-gray-300">{description}</p>

@@ -10,8 +10,7 @@ export default function Home() {
 	return (
 		<PaletteProvider palette={IKEDA_PALETTES.homepage}>
 			{/* Background image layer */}
-			<div className="flex items-center justify-center min-h-screen fixed inset-0 z-0"
-			style={{marginLeft: '500px'}}>
+			<div className="flex items-center justify-center min-h-screen fixed inset-0 z-0 ml-0 md:ml-[300px] lg:ml-[500px]">
 			<IkedaImage
 				src="/home/me.png" 
 				palette={IKEDA_PALETTES.homeimg}
@@ -19,6 +18,7 @@ export default function Home() {
 				ditherMethod="atkinson"
 				className="w-[90%] h-[90vh] mx-auto object-contain opacity-40"
 				brightnessAdjust={12.0}
+				targetWidth={800}
 			/>
 				</div>
 			
@@ -32,11 +32,13 @@ export default function Home() {
 					<span className="text-accent">{'>'}</span> Clay Goldsmith
 				</h1>
 
-			<p className="text-xl max-w-2xl mb-8 leading-relaxed whitespace-pre-line">
-					Rice University, Class of 2027 &#8212; B.S. in Computational Physics, Minor in Engineering Design.
+			<p className="text-base md:text-xl max-w-2xl mb-8 leading-relaxed whitespace-pre-line">
+					Rice University, Class of 2027 
+			<br /> 
+			B.S. in Computational Physics, Minor in Engineering Design.
 				</p>
 
-				<div className="flex gap-4 mt-4">
+				<div className="flex flex-col sm:flex-row gap-4 mt-4">
 					<Link href="/projects" className="btn btn-accent">
 						View Projects
 					</Link>
@@ -119,15 +121,5 @@ export default function Home() {
 			</section>
 		</>
 		</PaletteProvider>
-	);
-}
-
-// Stat Box Component
-function StatBox({ label, value }: { label: string; value: string }) {
-	return (
-		<div className="data-box text-center">
-			<div className="text-4xl text-accent mb-2">{value}</div>
-			<div className="text-data text-sm">{label}</div>
-		</div>
 	);
 }

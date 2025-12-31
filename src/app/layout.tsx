@@ -16,8 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "Portfolio | Data-Driven Engineering",
-	description: "Personal portfolio showcasing engineering projects with a data visualization aesthetic",
+	title: "Clay Goldsmith",
+	description: "Clay's Awesome Website",
+	viewport: "width=device-width, initial-scale=1, maximum-scale=5",
 };
 
 export default function RootLayout({

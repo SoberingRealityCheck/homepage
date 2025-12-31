@@ -5,8 +5,8 @@
 	/* Core Colors - Dark theme with data visualization palette */
 	--background: #000000;
 	--foreground: #ffffff;
-	--grid-color: #252525;
-	--grid-accent: #2a2a2a;
+	--grid-color: #535252;
+	--grid-accent: #b9b9b9;
 	
 	/* Ikeda signature colors (can be overridden by PaletteProvider) */
 	--ikeda-red: #ff0033;
@@ -32,6 +32,15 @@ body {
 	background: var(--background);
 	color: var(--foreground);
 	font-family: var(--font-geist-sans), -apple-system, sans-serif;
+	overflow-x: hidden;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+	max-width: 100vw;
 	overflow-x: hidden;
 }
 
@@ -91,7 +100,7 @@ body {
 .section {
 	position: relative;
 	z-index: 10;
-	padding: 4rem 2rem;
+	padding: 2rem 1rem;
 	max-width: 1400px;
 	margin: 0 auto;
 }
@@ -160,6 +169,7 @@ body {
 	letter-spacing: 0.1em;
 	text-transform: uppercase;
 	line-height: 1.2;
+	padding:1px;
 }
 
 .text-display {
@@ -202,7 +212,7 @@ body {
 	padding: 2rem;
 	transition: all 0.3s ease;
 	position: relative;
-	overflow: hidden;
+	overflow: visible;
 	cursor: pointer;
 }
 
@@ -435,6 +445,12 @@ body {
 	border: 1px solid var(--grid-accent);
 }
 
+/* Override blog-content img margins for images inside wrappers */
+.image-wrapper img,
+.gallery-item img {
+	margin: 0 !important;
+}
+
 /* Image Gallery */
 .image-gallery {
 	display: grid;
@@ -530,6 +546,20 @@ body {
 	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
+/* Hide scrollbar for horizontal scrolling nav */
+.scrollbar-hide {
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	overflow-y: hidden;
+	overflow-x: auto;
+	touch-action: pan-x;
+	overscroll-behavior-x: contain;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+	display: none;
+}
+
 /* Responsive utilities */
 @media (max-width: 768px) {
 	.section {
@@ -541,10 +571,147 @@ body {
 	}
 	
 	.text-display {
-		font-size: 2rem;
+		font-size: 1.75rem;
 	}
 	
 	.grid-2, .grid-3 {
 		grid-template-columns: 1fr;
+	}
+	
+	.content-block,
+	.content-block-highlight {
+		padding: 1.25rem;
+		margin-bottom: 1rem;
+	}
+	
+	.data-box {
+		padding: 1.25rem;
+	}
+	
+	/* Make flex layouts stack on mobile */
+	.flex.gap-6,
+	.flex.my-6,
+	.flex.content-block,
+	.flex.content-block-highlight,
+	.content-block .flex,
+	.content-block-highlight .flex {
+		flex-direction: column;
+		gap: 1rem;
+	}
+	
+	/* Reset flex ratios on mobile - make all children full width */
+	.flex-\[8\],
+	.flex-\[4\],
+	.flex-\[3\],
+	.flex-\[2\],
+	.flex-\[1\.5\] {
+		flex: 1 1 100% !important;
+	}
+	
+	/* Remove horizontal margins on mobile to prevent squashing */
+	.ml-6,
+	.mr-6 {
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+	}
+	
+	/* Ensure images don't overflow */
+	img, video {
+		max-width: 100%;
+		height: auto;
+	}
+	
+	/* Adjust image wrapper heights for mobile */
+	.image-wrapper {
+		min-height: 200px !important;
+	}
+	
+	/* Make gallery items stack */
+	.gallery-container {
+		grid-template-columns: 1fr !important;
+	}
+	
+	/* Gallery items padding */
+	.gallery-item {
+		padding: 0.75rem;
+	}
+	
+	/* Adjust blog content for mobile - keep padding for text */
+	.blog-content {
+		padding: 0.5rem;
+	}
+	
+	.blog-content h1 {
+		font-size: 1.75rem;
+		margin-bottom: 1rem;
+	}
+	
+	.blog-content h2 {
+		font-size: 1.5rem;
+		margin-top: 1.5rem;
+		margin-bottom: 0.75rem;
+	}
+	
+	.blog-content h3 {
+		font-size: 1.25rem;
+		margin-top: 1rem;
+		margin-bottom: 0.5rem;
+	}
+	
+	.blog-content p {
+		font-size: 0.95rem;
+		margin-bottom: 1rem;
+		line-height: 1.6;
+	}
+	
+	.blog-content ul, .blog-content ol {
+		padding-left: 1.5rem;
+		margin-bottom: 1rem;
+	}
+	
+	.blog-content pre {
+		padding: 1rem;
+		overflow-x: auto;
+	}
+	
+	.blog-content blockquote {
+		padding-left: 1rem;
+		margin: 1rem 0;
+	}
+	
+	/* Button responsiveness */
+	.btn {
+		width: 100%;
+		text-align: center;
+		padding: 0.75rem 1.5rem;
+	}
+	
+	/* Project card responsiveness */
+	.project-card {
+		padding: 1.25rem;
+	}
+	
+	/* Adjust heading sizes */
+	.text-heading {
+		font-size: 1.5rem;
+	}
+	
+	h1 {
+		font-size: 2rem;
+	}
+	
+	h2 {
+		font-size: 1.5rem;
+	}
+	
+	/* Ensure proper text wrapping */
+	p, li, blockquote {
+		word-wrap: break-word;
+		overflow-wrap: break-word;
+	}
+	
+	/* Prevent long words or URLs from breaking layout */
+	* {
+		max-width: 100%;
 	}
 }

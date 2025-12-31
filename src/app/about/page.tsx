@@ -18,30 +18,26 @@ export default function AboutPage() {
 					<div className="content-block blog-content">
 						<h2>Background</h2>
 						<p>
-							I&apos;m a software engineer specializing in data-intensive applications, distributed systems, and
-							machine learning infrastructure. With a focus on building scalable, reliable solutions that
-							process and visualize complex data.
+							I&apos;m a student at Rice University pursuing a B.S. in Computational Physics with a minor in Engineering Design. I&apos;m interested in robotics and space technology, particularly involving systems that can learn and develop over time.
 						</p>
 
 						<h2>Expertise</h2>
 						<p>
-							My work spans full-stack development, data engineering, and DevOps. I&apos;m passionate about
-							creating systems that are not only functional but also maintainable and performant at scale.
+							My work spans physics, computer science, and engineering. I have experience in physics research, engineering design projects, and software development, with an overarching focus on machine learning and sensor data processing.
 						</p>
 
 						<h3>Focus Areas</h3>
 						<ul>
-							<li>Real-time data processing and streaming architectures</li>
-							<li>Interactive data visualization and analytics platforms</li>
-							<li>Machine learning model deployment and MLOps</li>
-							<li>Cloud infrastructure and containerization</li>
+							<li>robots, man</li>
+							<li>cool systems that learn shit</li>
+							<li>jazz piano idk</li>
+							<li>hell yeah</li>
+							<li>hell yeah</li>
 						</ul>
 
 						<h2>Philosophy</h2>
 						<p>
-							I believe in writing clean, well-documented code and building systems with observability
-							built-in from the start. Every project is an opportunity to learn new technologies and
-							refine best practices.
+							i have that
 						</p>
 					</div>
 				</div>
@@ -53,27 +49,27 @@ export default function AboutPage() {
 							<p>
 								<span className="text-gray-500">Email:</span>
 								<br />
-								<a href="mailto:hello@example.com" className="link">
-									hello@example.com
+								<a href="mailto:clayton.goldsmith@rice.edu" className="link">
+									clayton.goldsmith@rice.edu
 								</a>
 							</p>
 							<p>
 								<span className="text-gray-500">GitHub:</span>
 								<br />
-								<a href="https://github.com" target="_blank" rel="noopener noreferrer" className="link">
-									github.com/username
+								<a href="https://github.com/soberingrealitycheck" target="_blank" rel="noopener noreferrer" className="link">
+									github.com/soberingrealitycheck
 								</a>
 							</p>
 							<p>
 								<span className="text-gray-500">LinkedIn:</span>
 								<br />
 								<a
-									href="https://linkedin.com"
+									href="https://linkedin.com/in/spaceclay"
 									target="_blank"
 									rel="noopener noreferrer"
 									className="link"
 								>
-									linkedin.com/in/username
+									linkedin.com/in/spaceclay
 								</a>
 							</p>
 						</div>
@@ -82,9 +78,9 @@ export default function AboutPage() {
 					<div className="data-box">
 						<h3 className="text-data text-secondary mb-4">Currently</h3>
 						<ul className="space-y-2 text-sm">
-							<li>Building distributed systems</li>
-							<li>Exploring edge computing</li>
-							<li>Contributing to open source</li>
+							<li>Building awesome robots</li>
+							<li>Trying not to fail quantum physics</li>
+							<li>Solving real-world problems</li>
 						</ul>
 					</div>
 				</div>

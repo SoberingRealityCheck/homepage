@@ -72,7 +72,6 @@
 
 import { PaletteProvider, IKEDA_PALETTES } from "@/utils/palette";
 import { IkedaImage } from "@/utils/ikedaImage";
-import Image from "next/image";
 
 export default function RiceRoboticsPage() {
 	return (
@@ -83,9 +82,11 @@ export default function RiceRoboticsPage() {
 		src="/robotics/servobot.png"
 		palette={IKEDA_PALETTES.robotics}
 		alt="Background"
-		ditherMethod="ordered"
+		ditherMethod="atkinson"
 		className="w-[90%] h-[90vh] mx-auto object-contain opacity-40"
 		showDebug={false}
+		brightnessAdjust={5}
+		targetWidth={600}
 	/>
 	</div>
 
@@ -147,7 +148,7 @@ export default function RiceRoboticsPage() {
 			<div className="content-block-highlight blog-content whitespace-pre-wrap">
 				<h2>Project Description</h2>
 				<p>
-					I am currently serving as the Software Co-Lead for the Rice Robotics team's quadruped robot project. Our team's goal is the ongoing development of a cat-inspired robot capable of autonomously navigating to follow the guidance of a laser-pointer-inspired targeting controller. To do this, we are leveraging reinforcement learning (RL) techniques to optimize the robot's gait and locomotion strategies.
+					I am currently serving as the Software Co-Lead for the Rice Robotics team&apos;s quadruped robot project. Our team&apos;s goal is the ongoing development of a cat-inspired robot capable of autonomously navigating to follow the guidance of a laser-pointer-inspired targeting controller. To do this, we are leveraging reinforcement learning (RL) techniques to optimize the robot&apos;s gait and locomotion strategies.
 				</p>
 			</div>
 
@@ -156,10 +157,10 @@ export default function RiceRoboticsPage() {
 				<div className="flex-[8] blog-content whitespace-pre-line">
 					<h2>Background</h2>
 					<p>
-						This project started around two years ago as an initially mechanical design challenge to create a leg capable of powerful 'jumping' motions. Over time, the project and team have grown significantly, evolving into a full quadruped robot platform with advanced locomotion capabilities. The inspiration for the robot's design comes from feline biology, aiming to replicate the agility and fluid movement of cats.
+						This project started around two years ago as an initially mechanical design challenge to create a leg capable of powerful &apos;jumping&apos; motions. Over time, the project and team have grown significantly, evolving into a full quadruped robot platform with advanced locomotion capabilities. The inspiration for the robot&apos;s design comes from feline biology, aiming to replicate the agility and fluid movement of cats.
 					</p>
 					<p>
-						As the Software Co-Lead since August 2025, my responsibilities include overseeing the development of the robot's control systems, implementing reinforcement learning algorithms for gait optimization, and integrating sensor feedback for real-time navigation. The project combines elements of mechanical engineering, computer science, and robotics to create a sophisticated autonomous system.
+						As the Software Co-Lead since August 2025, my responsibilities include overseeing the development of the robot&apos;s control systems, implementing reinforcement learning algorithms for gait optimization, and integrating sensor feedback for real-time navigation. The project combines elements of mechanical engineering, computer science, and robotics to create a sophisticated autonomous system.
 					</p>
 					<p>
 						This project is cool for a number of reasons: designing an agility-focused quadruped like this is a unique challenge that reinforcement learning is uniquely suited to, and brings with it a high level of complexity in both the computational and the physical engineering aspects of the problem. Additionally, the team at Rice Robotics is made up of a talented, interdisciplinary, and incredibly passionate group of both undergrad and graduate students who are all dedicated to pushing this project as far as we can.
@@ -210,7 +211,7 @@ export default function RiceRoboticsPage() {
 							[Describe the primary research questions and goals]
 						</p>
 						<p>
-							<strong>Primary Goals:</strong> [List main research objectives, what you&apos;re trying to achieve or prove]
+							<strong>Primary Goals:</strong> [Main objectives: handle laser-point following, recover from disturbances, navigate to target]
 						</p>
 						<p>
 							<strong>Technical Approach:</strong> [Describe your methodology - RL algorithms, training approach, hardware platform]

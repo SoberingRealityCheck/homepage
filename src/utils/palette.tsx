@@ -74,10 +74,16 @@ export const IKEDA_PALETTES: Record<string, ColorPalette> = {
     },
     robotics: {
         name: 'Robotics',
-        color1: '#8031e7ff',
-        color2: '#efb24fff',
-        color3: '#ea1616ff',
+        color1: '#7ea9e5ff',
+        color2: '#80e6a2ff',
+        color3: '#ea9516ff',
     },
+	arachne: {
+		name: 'Arachne',
+		color1: '#a361ffff',
+		color2: '#6b5b95',
+		color3: '#88b04b',
+	},
     homeimg: {
         name: 'Homepage Image',
         color1: '#000000ff',

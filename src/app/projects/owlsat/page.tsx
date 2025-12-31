@@ -72,7 +72,6 @@
 
 import { PaletteProvider, IKEDA_PALETTES } from "@/utils/palette";
 import { IkedaImage } from "@/utils/ikedaImage";
-import Image from "next/image";
 
 export default function OwlsatPage() {
 	return (
@@ -86,6 +85,7 @@ export default function OwlsatPage() {
 		ditherMethod="ordered"
 		className="w-[90%] h-[90vh] mx-auto object-contain opacity-40"
 		showDebug={false}
+		targetWidth={600}
 	/>
 	</div>
 

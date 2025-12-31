@@ -22,6 +22,15 @@ export const PROJECTS: Project[] = [
 		link: '/projects/rice-robotics',
 		featured: true,
 	},
+	{	id: 'arachne',
+		title: 'Arachne Hexapod Robot',
+		description: 'ROS2-Powered Hexapod Robot Dorm Pet to torment my roommates with.',
+		tags: ['ROS2', 'C++', 'Python', 'Computer Vision', 'Web Development'],
+		year: '2025',
+		palette: IKEDA_PALETTES.arachne,
+		link: '/projects/arachne',
+		featured: false,
+	},
 	{
 		id: 'owlsat',
 		title: 'OwlSAT CubeSAT Mission',
@@ -34,12 +43,13 @@ export const PROJECTS: Project[] = [
 	},
 	{
 		id: 'cacti',
-		title: 'CACTI Cheetah Ball Robot',
-		description: 'Design and implementation of a spherical robot with omni-directional movement for enrichment of Houston Zoo cheetahs.',
+		title: '"CACTI" Cheetah Ball Robot',
+		description: 'Design and implementation of a spherical robot toy for enrichment of Houston Zoo cheetahs.',
 		tags: ['C++', 'Real-World', 'Electrical Design', 'Arduino'],
 		year: '2024-2025',
 		palette: IKEDA_PALETTES.cacti,
 		link: '/projects/cacti',
 		featured: true,
 	},
+
 ];
