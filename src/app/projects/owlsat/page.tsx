@@ -99,7 +99,7 @@ export default function OwlsatPage() {
 			<div className="content-block-highlight mb-8">
 				<div className="flex justify-between items-start mb-4">
 					<h1 className="text-display text-4xl">OWLSAT CubeSat Mission</h1>
-					<span className="text-data text-accent">2025</span>
+					<span className="text-data text-accent">2025-2026</span>
 				</div>
 				<div className="data-stripe mb-6" />
 				<p className="text-xl text-gray-300 leading-relaxed">
@@ -119,7 +119,7 @@ export default function OwlsatPage() {
 				</div>
 				<div className="data-box">
 					<h3 className="text-data text-highlight mb-2">Status</h3>
-					<p>Concluded</p>
+					<p>Ongoing</p>
 				</div>
 			</div>
 
@@ -139,7 +139,7 @@ export default function OwlsatPage() {
 			<div className="content-block-highlight blog-content whitespace-pre-wrap">
 				<h2>Project Description</h2>
 				<p>
-					[Add your project description here - explain what OWLSAT is, your role, and the mission objectives]
+					OWLSAT is a Rice student organization focused on the development of a CubeSat mission to study Extreme Ultraviolet (EUV) radiation in Low Earth Orbit (LEO). The primary scientific objective of OWLSAT is to measure these radiation levels to better understand their impact on satellite operations and space weather phenomena. As one of only 3-4 software team members, I contributed to the development of the satellite&apos;s embedded microcontroller task-handling framework and navigated challenges brought on by unexpected NASA funding cuts and personnel changes. 
 				</p>
 			</div>
 
@@ -148,13 +148,14 @@ export default function OwlsatPage() {
 				<div className="flex-[8] blog-content whitespace-pre-line">
 					<h2>Background</h2>
 					<p>
-						[Explain the context and motivation for the OWLSAT mission]
+						This is a long-running project at Rice, with previous iterations and teams dating back several years. The graduation of the initial team of grad student designers led to the project being recently revived by a new group of undergraduates. As part of this new, small but passionate team, I have been working on developing the software systems necessary for the CubeSat&apos;s On-Board Computer (OBC). Our team is responsible for designing, implementing, and testing the flight software that will manage the satellite&apos;s operations, data handling, and communication with our ground station.
 					</p>
 					<p>
-						[Add details about the scientific goals and why studying EUV radiation is important]
+						I joined OWLSAT in early 2025, attracted by the opportunity to work on a real-world space mission and contribute to the growing field of small satellite technology. I&apos;ve been excited about space technology since I was a kid, and the chance to actually help design and build a satellite was something I couldn&apos;t pass up. The project also aligned well with my past experience in engineering and embedded software development.
 					</p>
+					
 					<p>
-						[Discuss the challenges or opportunities this mission addresses]
+						My specific contributions have included setting up the initial framework for asynchronous task management on the OBC, given that it&apos;s a single-threaded microcontroller environment with limited resources. After extensive research, I decided on utilizing CircuitPython&apos;s Tasko libary due to its lightweight nature and convenience of use (much of our team are new programmers, and CircuitPython is very beginner-friendly). This has allowed us to efficiently manage multiple concurrent tasks, such as sensor data acquisition, data storage, and communication with the ground station, all while adhering to the strict timing requirements of satellite operations.
 					</p>
 				</div>
 				
@@ -199,16 +200,16 @@ export default function OwlsatPage() {
 					</div> */}
 					<div className="flex-[8] ml-6 blog-content whitespace-pre-line">
 						<p>
-							[Describe the primary scientific objectives]
+						The primary scientific objective of the OWLSAT mission is to measure EUV radiation levels in Low Earth Orbit. This topic is of particular interest due to EUV radiation&apos;s effects on satellite materials and electronics, as well as its role in space weather dynamics. Understanding these radiation levels is crucial for the design and operation of future satellite missions, especially as the number of satellites in orbit continues to grow.
 						</p>
 						<p>
-							<strong>Primary Goals:</strong> [List main mission goals and what you&apos;re measuring/studying]
+							<strong>Primary Goals:</strong> The mission&apos;s primary goal is to sit in a stable orbit and collect accurate measurements of EUV radiation intensity over time, while also monitoring the satellite&apos;s health and status.
 						</p>
 						<p>
-							<strong>Technical Requirements:</strong> [Describe technical constraints, orbit requirements, payload specifications]
+							<strong>Technical Requirements:</strong> The satellite must be capable of autonomous operation, including data acquisition, storage, and transmission to the ground station. The flight software must efficiently manage limited resources, handle potential faults, and ensure reliable communication. In event of communication loss, the satellite should be able to store data onboard and transmit it once the link is re-established.
 						</p>
 						<p>
-							<strong>Success Criteria:</strong> [What defines mission success, data requirements, operational duration]
+							<strong>Success Criteria:</strong> The mission will be considered successful if it can consistently collect and transmit EUV radiation data over its operational lifespan, while maintaining the health and functionality of its onboard systems. It is challenging and intimidating to design a system that must operate flawlessly in the challenging environment of space, but I was eager to take on the challenge and learn as much as I could through the process.
 						</p>
 					</div>
 				</div>
@@ -219,13 +220,10 @@ export default function OwlsatPage() {
 				<div className="flex-[2] mr-6">
 					<h2>CubeSat Design</h2>
 					<p>
-						[Describe the overall satellite design and architecture]
+						The satellite is built around a standard 3U CubeSat form factor, measuring 10x10x30 cm. It houses several key subsystems, including the OBC, power system, communication system, and the scientific payload for EUV measurement.
 					</p>
 					<p>
-						[Explain key subsystems: payload, communications, power, attitude control, etc.]
-					</p>
-					<p>
-						[Detail your specific contributions to the software/systems]
+						The OBC was originally intended to utilize the open-source Pycubed board, but due to the board&apos;s extreme vulnerability to space radiation, we pivoted to a custom RP2350 board. We then discovered the recently-released <a href="https://nyansat.org/blog/cpb-and-obc-opensource/" style={{color: 'cyan'}}><u>NyanSat</u></a> platform, which we intend to slightly modify for our own hardware needs but largely base our softwrae development around. This board utilizes the RP2350 microcontroller, which is well-suited for student space applications due to its low power consumption, radiation tolerance, and wide multitude of development board options.
 					</p>
 				</div>
 				{/* Optional side image */}
@@ -245,7 +243,7 @@ export default function OwlsatPage() {
 			<div className="content-block-highlight blog-content">
 				<h2>Software & Systems Development</h2>
 				<p>
-					[Describe the software systems you worked on]
+					I worked on the selection, integration, and development of the task handling system for the OBC software. Given the constraints of the microcontroller environment, I researched various lightweight task management libraries and settled on CircuitPython&apos;s Tasko library due to its simplicity and effectiveness for our needs. I helped integrate and test Tasko with our RP2350 development board, writing template high-level pseudocode for various satellite functions such as sensor data acquisition, data storage, and communication handling.
 				</p>
 				
 				{/* Optional large image */}
@@ -259,43 +257,26 @@ export default function OwlsatPage() {
 						</div>
 					</div>
 				</div> */}
-
-				<div className="content-block blog-content">
-					<h3>Flight Software</h3>
-					<p>
-						[Describe the onboard software you developed - real-time systems, data handling, etc.]
-					</p>
-				</div>
-
-				<div className="content-block blog-content">
-					<h3>Ground Systems</h3>
-					<p>
-						[Describe ground station software, telemetry processing, mission operations tools]
-					</p>
-				</div>
-
-				<div className="content-block blog-content">
-					<h3>Testing & Validation</h3>
-					<p>
-						[Describe testing procedures, simulation environments, validation processes]
-					</p>
-				</div>
 			</div>
 
 			{/* Testing section with images */}
 			<div className="content-block blog-content">
-				<h2>Integration & Testing</h2>
+				<h2>Unexpected Issues</h2>
 				
 				<div className="flex gap-6 my-8">
 					<div className="flex-[3] blog-content">
-						<h3>[Test Category 1]</h3>
+						<h3>Loss of Funding</h3>
 						<p>
-							[Describe specific tests performed and results]
+							One of the unexpected challenges we faced during the project was the sudden loss of our launch window due to NASA cutting funding for student CubeSat launches. This forced us to reevaluate our project timeline and objectives, as we had to delay our planned launch and seek alternative funding sources for a private launch. It was a difficult setback, but it also taught us the importance of adaptability and resilience in project management.
 						</p>
 
-						<h3>[Test Category 2]</h3>
 						<p>
-							[More testing details]
+							An unexpected role I found myself in was researching and reaching out to private launch providers to inquire about potential opportunities for launching our CubeSat and/or quotes for launch costs. This was a fairly different role than I&apos;d anticipated taking on, but I was happy to help the team in any way I could given the circumstances.
+						</p>
+
+						<h3>Loss of Personnel</h3>
+						<p>
+							Another significant challenge we encountered was the sudden departure of the founding members due to personal commitments. This left our team without any experienced leadership, forcing us to go back through old documentation and piece together the project&apos;s history and current status. It was a daunting task, but it also provided an opportunity for the remaining team members to step up and take on leadership roles, fostering a strong sense of camaraderie and shared responsibility. We&apos;ve since been able to recruit some new members to help fill the gaps, and the team is slowly but surely regaining momentum.
 						</p>
 					</div>
 
@@ -317,7 +298,7 @@ export default function OwlsatPage() {
 			<div className="content-block-highlight mt-8 blog-content">
 				<h2>Project Outcomes</h2>
 				<p>
-					[Summarize the final state of the project and your contributions]
+					Currently, the project is in a bit of a rebuilding phase after the setbacks we&apos;ve faced. However, we&apos;ve made significant progress in reestablishing our team structure, refining our mission objectives, and continuing the development of our flight software. My contributions to the task management system have laid a solid foundation for the OBC software, and I&apos;m excited to see how it will evolve as we move closer to our eventual launch. We&apos;ve gathered a lot of new members recently who are enthusiastic about the potential of the project, and I believe we have a strong chance of successfully launching OWLSAT in the near future.
 				</p>
 				
 				{/* Optional large image */}
@@ -335,14 +316,14 @@ export default function OwlsatPage() {
 				<div className="flex">
 					<div className="flex-[4] mr-6">
 						<p>
-							[Reflect on what you learned and the impact of your work]
+							While this is certainly not the outcome I&apos;d initially envisioned when joining the project, I&apos;m proud of the resilience and determination our team has shown in the face of adversity. The experience has taught me valuable lessons in adaptability, teamwork, and problem-solving that I&apos;ll carry with me in my future endeavors.
 						</p>
 						<h3>Key Achievements:</h3>
 						<ul>
-							<li>- [Achievement 1]</li>
-							<li>- [Achievement 2]</li>
-							<li>- [Achievement 3]</li>
-							<li>- [Achievement 4]</li>
+							<li>- Successfully developed and implemented a task management system for the OBC software.</li>
+							<li>- Navigated years of old club documentation to understand the reasoning behind design decisions and how to improve upon flawed systems.</li>
+							<li>- Researched CubeSat private launch opportunities and costs. Obtained preliminary quotes and established contacts with several providers.</li>
+							<li>- Overcame significant team challenges including loss of founding members and rebuilding team structure.</li>
 						</ul>
 					</div>
 					{/* Optional side image */}
@@ -360,7 +341,7 @@ export default function OwlsatPage() {
 
 				<h3>Lessons Learned</h3>
 				<p>
-					[Discuss key lessons from the project]
+					One of the biggest lessons I learned from this project was that real-world engineering projects rarely go as planned. The setbacks we faced had little to do with actual engineering challenges, and more to do with factors beyond our control like NASA&apos;s funding. It taught me the importance of adaptability and resilience in project management, as well as the value of a strong team culture to weather unexpected challenges. I also learned a substantial amount about embedded systems programming and the unique constraints of space systems and radio communications, which has broadened my technical skill set significantly.
 				</p>
 			</div>
 		</div>

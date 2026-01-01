@@ -18,13 +18,7 @@ export default function ImageGalleryModal() {
 		modalImage.className = 'max-w-full max-h-[95vh] object-contain';
 		modalImage.style.cursor = 'zoom-out';
 		
-		const modalCaption = document.createElement('div');
-		modalCaption.id = 'modal-caption';
-		modalCaption.className = 'absolute bottom-0 left-0 right-0 bg-black/90 text-white p-4 text-center font-mono text-sm border-t-2';
-		modalCaption.style.borderColor = 'var(--accent)';
-		
 		modalContent.appendChild(modalImage);
-		modalContent.appendChild(modalCaption);
 		modal.appendChild(modalContent);
 		document.body.appendChild(modal);
 
@@ -36,10 +30,9 @@ export default function ImageGalleryModal() {
 		};
 
 		// Open modal function
-		const openModal = (src: string, alt: string, caption?: string) => {
+		const openModal = (src: string, alt: string) => {
 			modalImage.src = src;
 			modalImage.alt = alt;
-			modalCaption.textContent = caption || alt || '';
 			modal.classList.remove('hidden');
 			modal.classList.add('flex');
 			document.body.style.overflow = 'hidden';
@@ -68,14 +61,12 @@ export default function ImageGalleryModal() {
 			if (!galleryItem) return;
 
 			const img = galleryItem.querySelector('img');
-			const captionEl = galleryItem.querySelector('.gallery-item-caption');
 			
 			if (img) {
 				e.preventDefault();
 				const src = img.src;
 				const alt = img.alt;
-				const caption = captionEl?.textContent?.trim() || alt;
-				openModal(src, alt, caption);
+				openModal(src, alt);
 			}
 		};
 

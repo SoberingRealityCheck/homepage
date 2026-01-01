@@ -10,7 +10,6 @@ export default function Navigation() {
 		{ href: '/', label: 'Home' },
 		{ href: '/projects', label: 'Projects' },
         { href: '/art', label: 'Art' },
-        { href: '/community', label: 'Community' },
         { href: '/about', label: 'About' },
         { href: 'https://github.com/soberingrealitycheck', label: 'GitHub' },
 	];

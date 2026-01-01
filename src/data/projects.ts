@@ -22,6 +22,7 @@ export const PROJECTS: Project[] = [
 		link: '/projects/rice-robotics',
 		featured: true,
 	},
+	/*
 	{	id: 'arachne',
 		title: 'Arachne Hexapod Robot',
 		description: 'ROS2-Powered Hexapod Robot Dorm Pet to torment my roommates with.',
@@ -31,16 +32,18 @@ export const PROJECTS: Project[] = [
 		link: '/projects/arachne',
 		featured: false,
 	},
+	*/
 	{
 		id: 'owlsat',
 		title: 'OwlSAT CubeSAT Mission',
 		description: 'Development of a NASA-supported CubeSAT mission for studying Extreme-UV Radiation in Low Earth Orbit.',
 		tags: ['Microcontrollers', 'CircuitPython', 'Embedded Systems'],
-		year: '2025',
+		year: '2025-2026',
 		palette: IKEDA_PALETTES.owlsat,
 		link: '/projects/owlsat',
 		featured: true,
 	},
+	 
 	{
 		id: 'cacti',
 		title: '"CACTI" Cheetah Ball Robot',
@@ -51,5 +54,6 @@ export const PROJECTS: Project[] = [
 		link: '/projects/cacti',
 		featured: true,
 	},
+
 
 ];

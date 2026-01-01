@@ -118,8 +118,14 @@ export default function Home() {
 						</div>
 					</div>
 				</div>
+				<div className="data-stripe-colorless mt-8" />
+				<div className="text-sm text-gray-400 mt-4">
+					This site was built using Next.js and TypeScript. Hosted on Cloudflare Workers. Design was lightly inspired by Ryoji Ikeda&apos;s Dataverse series, which is super cool and something I highly recommend checking out.
+				</div>
 			</section>
 		</>
+		<div className="h-32" /> {/* Spacer at bottom */}
+		
 		</PaletteProvider>
 	);
 }
