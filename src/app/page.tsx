@@ -9,6 +9,7 @@ import { IkedaImage } from '@/utils/ikedaImage';
 export default function Home() {
 	return (
 		<PaletteProvider palette={IKEDA_PALETTES.homepage}>
+		<div className="relative overflow-hidden">
 			{/* Background image layer */}
 			<div className="flex items-center justify-center min-h-screen fixed inset-0 z-0 ml-0 md:ml-[300px] lg:ml-[500px]">
 			<IkedaImage
@@ -51,7 +52,7 @@ export default function Home() {
 			</section>
 
 			{/* Featured Projects Section */}
-			<section className="section">
+			<section className="section no-print">
 				<h2 className="text-heading text-3xl mb-8 flex items-center gap-4">
 					<span className="text-accent">{"//"}</span>
 					Featured Projects
@@ -99,7 +100,7 @@ export default function Home() {
 					<div className="data-box">
 						<h3 className="text-data text-highlight mb-4">{'>'} Infrastructure</h3>
 						<div className="flex flex-wrap gap-2">
-							{['Workers', 'Docker', 'Linux'].map((skill) => (
+							{['Cloudflare', 'Docker', 'Linux'].map((skill) => (
 								<span key={skill} className="text-data text-sm px-3 py-1 border border-[var(--grid-color)]">
 									{skill}
 								</span>
@@ -119,13 +120,13 @@ export default function Home() {
 					</div>
 				</div>
 				<div className="data-stripe-colorless mt-8" />
-				<div className="text-sm text-gray-400 mt-4">
+				<div className="text-sm text-gray-400 mt-4 no-print">
 					This site was built using Next.js and TypeScript. Hosted on Cloudflare Workers. Design was lightly inspired by Ryoji Ikeda&apos;s Dataverse series, which is super cool and something I highly recommend checking out.
 				</div>
 			</section>
 		</>
 		<div className="h-32" /> {/* Spacer at bottom */}
-		
+	</div>
 		</PaletteProvider>
 	);
 }

@@ -28,16 +28,26 @@ export default function AboutPage() {
 
 						<h3>Focus Areas</h3>
 						<ul>
-							<li>robots, man</li>
-							<li>cool systems that learn shit</li>
-							<li>jazz piano idk</li>
-							<li>hell yeah</li>
-							<li>hell yeah</li>
+							<li>Machine Learning</li>
+							<li>Robotics</li>
+							<li>Space Technology</li>
+							<li>Engineering Design</li>
+							<li>Particle Physics</li>
 						</ul>
 
 						<h2>Philosophy</h2>
 						<p>
-							i have that
+							I want to build technology that makes a positive impact on the world, and I want to keep learning and growing as a person along the way. I believe in the importance of continuous improvement - I seek out challenges that push me to develop new skills and perspectives. 
+							
+							<br />
+							<br />
+
+							I believe that innovation comes from understanding a problem at a fundamental level - this is what led me to study physics despite my long-term interests in engineering and technology. By understanding the underlying principles, I can create solutions that are not only effective but also elegant and efficient.
+
+							<br />
+							<br />
+
+							Most of all, though, I believe that the biggest obstacle to achieving great things is the belief that one lacks the required skills or expertise to do so. I&apos;m a big believer in starting first, learning what I need to along the way, and iterating towards success.
 						</p>
 					</div>
 				</div>

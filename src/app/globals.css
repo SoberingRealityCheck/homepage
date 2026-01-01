@@ -716,3 +716,182 @@ html, body {
 		max-width: 100%;
 	}
 }
+
+/* Print Styles - Ensure clean printing without cutoffs */
+@media print {
+	/* Remove unnecessary elements */
+	nav,
+	.navigation,
+	.scanline,
+	button,
+	.btn,
+	[class*="button"],
+	[type="button"],
+	[type="submit"],
+	.no-print {
+		display: none !important;
+	}
+	
+	/* Ensure content is visible */
+	/* body {
+		background: white;
+		color: black;
+	} */
+	
+	/* Reset margins for print */
+	@page {
+		margin: 1cm;
+		size: auto;
+	}
+	
+	/* Avoid page breaks inside important elements */
+	.content-block,
+	.content-block-highlight,
+	.data-box,
+	.blog-content h1,
+	.blog-content h2,
+	.blog-content h3,
+	.project-card,
+	.gallery-item,
+	pre,
+	blockquote {
+		page-break-inside: avoid;
+		break-inside: avoid;
+	}
+	
+	/* Keep headings with their content */
+	h1, h2, h3, h4, h5, h6 {
+		page-break-after: avoid;
+		break-after: avoid;
+		page-break-inside: avoid;
+		break-inside: avoid;
+	}
+	
+	/* Ensure images fit on page */
+	img {
+		max-width: 100% !important;
+		max-height: 60vh !important;
+		height: auto !important;
+		object-fit: contain !important;
+		page-break-inside: avoid;
+		break-inside: avoid;
+	}
+	
+	/* Limit image wrappers to fit on page */
+	.image-gallery .image-wrapper {
+		max-height: 60vh !important;
+		min-height: auto !important;
+		height: auto !important;
+	}
+	
+	/* Handle background image layout for print - first page only */
+	.fixed.inset-0.z-0 {
+		position: absolute !important;
+		height: 100vh;
+		page-break-after: avoid;
+		break-after: avoid;
+	}
+	
+	/* Scale up background image when printing */
+	.fixed.inset-0.z-0 img,
+	.fixed.inset-0.z-0 canvas {
+		transform: scale(1.5) !important;
+		opacity: 0.5 !important;
+	}
+	
+	/* Make background image container part of first page */
+	.fixed.inset-0.z-0 + .relative.z-10 {
+		position: relative;
+		z-index: 10;
+	}
+	
+	/* Hide the spacer div in print */
+	/* .h-\[50vh\] {
+		display: none !important;
+	} */
+	
+	/* Ensure other gallery images are not affected */
+	.gallery-item img,
+	.image-wrapper img,
+	.blog-content img {
+		position: relative !important;
+		height: auto !important;
+	}
+	
+	/* Reset fixed positioning for other elements */
+	.fixed:not(.inset-0.z-0),
+	[class*="fixed"]:not(.inset-0.z-0) {
+		position: relative !important;
+	}
+	
+	/* Ensure readable text */
+	/* .blog-content,
+	.content-block,
+	.content-block-highlight {
+		color: black !important;
+		background: white !important;
+		border-color: #333 !important;
+	} */
+	
+	/* Show URLs for links */
+	a[href]:after {
+		content: " (" attr(href) ")";
+		font-size: 0.8em;
+		color: #666;
+	}
+	
+	/* Don't show URLs for anchor links */
+	a[href^="#"]:after,
+	a[href^="javascript:"]:after {
+		content: "";
+	}
+	
+	/* Adjust spacing for print */
+	.section {
+		padding: 1rem !important;
+	}
+	
+	/* Compact hero section for print */
+	.section.min-h-\[80vh\] {
+		min-height: 40rem !important;
+		padding-top: 10rem !important;
+		padding-bottom: 5rem !important;
+	}
+	
+	/* Print page wrapper - wrap content blocks in this to center them on each page */
+	.print-page {
+		min-height: 100vh !important;
+		display: flex !important;
+		flex-direction: column !important;
+		justify-content: center !important;
+		page-break-after: always !important;
+		break-after: page !important;
+	}
+	
+	/* Last print page shouldn't force a page break */
+	.print-page:last-child {
+		page-break-after: avoid !important;
+		break-after: avoid !important;
+	}
+	
+	/* Ensure content blocks group together when multiple fit on page */
+	.content-block,
+	.content-block-highlight {
+		margin-bottom: 2rem !important;
+	}
+	
+	/* Keep grid layouts horizontal in print */
+	.grid-2 {
+		grid-template-columns: repeat(4, 1fr) !important;
+	}
+	
+	.grid-3 {
+		grid-template-columns: repeat(3, 1fr) !important;
+	}
+	
+	/* Make data boxes more compact for print */
+	.data-box {
+		padding: 0.5rem !important;
+		font-size: 0.75em;
+	}
+}

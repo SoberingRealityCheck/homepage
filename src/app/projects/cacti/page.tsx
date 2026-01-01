@@ -77,6 +77,7 @@ import Image from "next/image";
 export default function ProjectTemplate() {
 	return (
 <PaletteProvider palette={IKEDA_PALETTES.cacti}>
+	<div className="print-page">
 	{/* Background image layer */}
 	<div className="flex items-center justify-center min-h-screen fixed inset-0 z-0">
 	<IkedaImage
@@ -123,6 +124,8 @@ export default function ProjectTemplate() {
 					<p>Complete!!</p>
 				</div>
 			</div>
+	</div>
+	<div className="print-page">
 			<div className="image-gallery my-8">
 				<div className="gallery-item">
 					<div className="image-wrapper">
@@ -149,7 +152,10 @@ export default function ProjectTemplate() {
 				<p>
 					I was on a team of 5 Rice Engineering Design students who, over the course of the 2024-2025 academic year, designed and built a remote-controlled robotic ball to provide enrichment for the cheetahs at the Houston Zoo. Our objective was to enhance the quality of life and health of the cheetahs by stimulating their natural chase behavior. My role on the team was handling all of the electrical systems and onboard software to enable the robot to run and be remotely controlled.
 				</p>
-
+			</div>
+	</div>
+	<div className="print-page">
+			{/* Background Section */}
 			<div className="content-block flex gap-6">
 				<div className="flex-[8] blog-content whitespace-pre-line">
 					<h2>Background</h2>
@@ -185,8 +191,10 @@ export default function ProjectTemplate() {
 					</div>
 				</div>
 			</div>
-
-			<div className="content-block blog-content">
+	</div>
+	<div className="print-page">
+			{/* Design Criteria Section */}
+			<div className="content-block-highlight blog-content">
 				<h2>Design Criteria</h2>
 				
 				<div className="flex justify-center my-6">
@@ -219,182 +227,225 @@ export default function ProjectTemplate() {
 					</div>
 				</div>
 			</div>
-		</div>
-	<div className="flex content-block blog-content">
-		<div className="flex-[2] mr-6">
-			<h2>Design Process & Brainstorming</h2>
-			<p>
-				With our design criteria established, we began brainstorming possible solutions. We explored several mechanical approaches for achieving movement, including hamster ball mechanisms, tracked systems, and various wheel configurations. Using brainstorming and scoring methods including a Pugh Screening Matrix, we evaluated each option against our constraints.
-			</p>
-			<p>
-				Our winning design featured a single-handed joystick for control, a 2-axis four-wheel drive base design, tire-type grooves on the outside of the ball, and an interlocking shell mechanism. This solution scored highest due to its lightweight design (fewer motors and smaller frame), rechargeable operation, flexible four-directional movement, intuitive control, and the ability to 3D print the interlocking shell mechanism at the OEDK rather than manufacturing externally.
-			</p>
-			<p>
-				However, during early prototyping, we encountered significant issues with mounting the two-axis four-wheel drive mechanism inside of a spherical shell. We attempted to resolve these, but ended up needing to pivot to a tank drive design instead. This was a critical decision that shaped the rest of development.
-			</p>
-		</div>
-		<div className="flex-[1] ml-6 image-gallery">
-			<div className="gallery-item">
-				<div className="image-wrapper">
-					<Image src="/cacti/initial_prototype.png" alt="intiial prototype" fill style={{objectFit: "cover"}} />
+	</div>
+	<div className="print-page">
+			{/* Design Process Section */}
+			<div className="content-block flex gap-6">
+				<div className="flex-[2] mr-6 blog-content">
+					<h2>Design Process & Brainstorming</h2>
+					<p>
+						With our design criteria established, we began brainstorming possible solutions. We explored several mechanical approaches for achieving movement, including hamster ball mechanisms, tracked systems, and various wheel configurations. Using brainstorming and scoring methods including a Pugh Screening Matrix, we evaluated each option against our constraints.
+					</p>
+					<p>
+						Our winning design featured a single-handed joystick for control, a 2-axis four-wheel drive base design, tire-type grooves on the outside of the ball, and an interlocking shell mechanism. This solution scored highest due to its lightweight design (fewer motors and smaller frame), rechargeable operation, flexible four-directional movement, intuitive control, and the ability to 3D print the interlocking shell mechanism at the OEDK rather than manufacturing externally.
+					</p>
+					<p>
+						However, during early prototyping, we encountered significant issues with mounting the two-axis four-wheel drive mechanism inside of a spherical shell. We attempted to resolve these, but ended up needing to pivot to a tank drive design instead. This was a critical decision that shaped the rest of development.
+					</p>
 				</div>
-				<div className="gallery-item-caption">
-				First working prototype of the full electronics & drive system
+				<div className="flex-[1] ml-6 image-gallery">
+					<div className="gallery-item">
+						<div className="image-wrapper">
+							<Image src="/cacti/initial_prototype.png" alt="intiial prototype" fill style={{objectFit: "cover"}} />
+						</div>
+						<div className="gallery-item-caption">
+						First working prototype of the full electronics & drive system
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
 	</div>
+	<div className="print-page">
+			{/* Final Design Overview */}
+			<div className="content-block-highlight blog-content">
+				<h2>Final Design: &quot;Munchkin&quot;</h2>
+				<p>
+					Our final design is a remote-controlled robot protected by a shell.
+				</p>
+				<div className="image-gallery" style={{minHeight: '350px'}}>
+					<div className="gallery-item">
+						<div className="image-wrapper">
+							<Image src="/cacti/poster.png" alt="project poster" fill style={{objectFit: "cover"}} />
+						</div>
+						<div className="gallery-item-caption">
+						Project Poster
+						</div>
+					</div>
+				</div>
 
-	<div className="content-block-highlight blog-content">
-		<h2>Final Design: &quot;Munchkin&quot;</h2>
-		<p>
-			Our final design functions as a remote-controlled car housed inside a ball. When the car moves, it propels the ball forward. The system consists of three main subsystems: the drive mechanism, electrical system, and shell.
-		</p>
-		<div className="image-gallery" style={{minHeight: '500px'}}>
-			<div className="gallery-item">
-				<div className="image-wrapper">
-					<Image src="/cacti/poster.png" alt="project poster" fill style={{objectFit: "cover"}} />
-				</div>
-				<div className="gallery-item-caption">
-				Project Poster
-				</div>
+				<p> 
+					The system consists of three main subsystems: the drive mechanism, electrical system, and shell.
+				</p>
 			</div>
-		</div>
-
-
-		<div className="content-block blog-content">
-			<h3>Drive Mechanism</h3>
-			<p>
-				The ball is driven by two 12V REV Hex motors arranged on opposite corners of the mechanism—one powered wheel on either side of the ball, with two unpowered wheels. This tank drive configuration allows the robot to roll forwards, backwards, and turn as normal.
-			</p>
-			<p>
-				To prevent the internal robot from teetering or flipping inside the ball, we added two ball bearings pressed against the top of the shell on the corners without powered wheels. These act as suspension, mounted on springs to absorb impacts. The motors are secured with a custom 3D-printed ABS plastic body that has three layers—the top and middle sections sandwich the motors with bolt holes, while the bottom section holds the battery and additional weights to increase system torque.
-			</p>
-		</div>
-
-		`<div className="content-block blog-content">
-			<h3>Electronics & Control System</h3>
-			<p>
-				As electronics lead, I designed the control system around an Arduino Nano microcontroller. The signal flow works as follows: a DS-600 RC boat controller transmits PWM (pulse width modulation) signals to the receiver, which the Arduino interprets and converts to motor control signals sent to a motor driver. The motor driver then controls the flow of power to the motors in the correct direction and speed.
-			</p>
-			<p>
-				The REV 12V battery powers the system, but since 12V would overload the Arduino and receiver, we use a step-down converter to reduce voltage to 5V for these components. A resistor on the back of the system limits inrush current to the motor driver&apos;s 1000µF capacitor, preventing destructive capacitance. This does heat up slightly during extended use, but remained cool during our 2-hour continuous test runs (well within the safe range for our expected 15-30 minute runtime).
-			</p>
-			<p>
-				I wrote custom control code that reads PWM signals from the RC antenna (one for left/right, one for forward/backward), determines the dominant direction and speed, and handles dead-zone logic when the joystick is centered. The code then translates these inputs into the correct output signals for the motor controller. All electronics are connected via custom 3D-printed enclosures that I designed, printed, and assembled to minimize wiring distance and protect components.
-			</p>
-		</div>
-
-		<div className="content-block blog-content">
-			<h3>Shell Design</h3>
-			<p>
-				The shell (which we named &quot;Munchkin&quot;) protects all internal components and serves as the interface for cheetah interaction. It&apos;s made from ASA plastic, a durable material designed for outdoor use that resists UV degradation. The shell has a 10-inch inner diameter with 0.25-inch wall thickness and features ridged exterior surfaces for traction and tactile interest.
-			</p>
-			<p>
-				The shell splits into two hemispherical halves with overlapping lips that seal together. Brass insert holes along each lip can be fastened to hold it shut more securely to withstand impact forces. Assembly simply requires aligning the holes and screwing in four bolts.
-			</p>
-			<p>
-				We manufactured each half using Prusa XL 3D printers at the Rice OEDK, with each half taking about two days to print. We tested the shell extensively—throwing it down stairs, hitting it with tools, kicking it around, and dropping it repeatedly. This was one of the most fun parts of the process. When properly screwed together, it stays intact and can withstand significant force. The shell handles slobber and water sprays but is not fully waterproof.
-			</p>
-		</div>
 	</div>
-	<div className="content-block gap-6 my-8">
-		<div className="flex">
-			<div className="blog-content flex-[3]">
+	<div className="print-page">
+			{/* Drive Mechanism Section */}
+			<div className="content-block blog-content">
+				<h2>Drive Mechanism</h2>
+				<p>
+					The ball is driven by two 12V REV Hex motors arranged on opposite corners of the mechanism—one powered wheel on either side of the ball, with two unpowered wheels. This tank drive configuration allows the robot to roll forwards, backwards, and turn as normal.
+				</p>
+				<p>
+					To prevent the internal robot from teetering or flipping inside the ball, we added two ball bearings pressed against the top of the shell on the corners without powered wheels. These act as suspension, mounted on springs to absorb impacts. The motors are secured with a custom 3D-printed ABS plastic body that has three layers—the top and middle sections sandwich the motors with bolt holes, while the bottom section holds the battery and additional weights to increase system torque.
+				</p>
+			</div>
+
+	</div>
+	<div className="print-page">
+
+			{/* Electronics & Control System Section */}
+			<div className="content-block-highlight blog-content">
+				<h2>Electronics & Control System</h2>
+				<p>
+					As electronics lead, I designed the control system around an Arduino Nano microcontroller. The signal flow works as follows: a DS-600 RC boat controller transmits PWM (pulse width modulation) signals to the receiver, which the Arduino interprets and converts to motor control signals sent to a motor driver. The motor driver then controls the flow of power to the motors in the correct direction and speed.
+				</p>
+				<p>
+					The REV 12V battery powers the system, but since 12V would overload the Arduino and receiver, we use a step-down converter to reduce voltage to 5V for these components. A resistor on the back of the system limits inrush current to the motor driver&apos;s 1000µF capacitor, preventing destructive capacitance. This does heat up slightly during extended use, but remained cool during our 2-hour continuous test runs (well within the safe range for our expected 15-30 minute runtime).
+				</p>
+				<p>
+					I wrote custom control code that reads PWM signals from the RC antenna (one for left/right, one for forward/backward), determines the dominant direction and speed, and handles dead-zone logic when the joystick is centered. The code then translates these inputs into the correct output signals for the motor controller. All electronics are connected via custom 3D-printed enclosures that I designed, printed, and assembled to minimize wiring distance and protect components.
+				</p>
+			</div>
+	</div>
+	<div className="print-page">
+
+			{/* Shell Design Section */}
+			<div className="content-block blog-content">
+				<h2>Shell Design</h2>
+				<p>
+					The shell (which we named &quot;Munchkin&quot;) protects all internal components and serves as the interface for cheetah interaction. It&apos;s made from ASA plastic, a durable material designed for outdoor use that resists UV degradation. The shell has a 10-inch inner diameter with 0.25-inch wall thickness and features ridged exterior surfaces for traction and tactile interest.
+				</p>
+				<p>
+					The shell splits into two hemispherical halves with overlapping lips that seal together. Brass insert holes along each lip can be fastened to hold it shut more securely to withstand impact forces. Assembly simply requires aligning the holes and screwing in four bolts.
+				</p>
+				<p>
+					We manufactured each half using Prusa XL 3D printers at the Rice OEDK, with each half taking about two days to print. We tested the shell extensively—throwing it down stairs, hitting it with tools, kicking it around, and dropping it repeatedly. This was one of the most fun parts of the process. When properly screwed together, it stays intact and can withstand significant force. The shell handles slobber and water sprays but is not fully waterproof.
+				</p>
+			</div>
+	</div>
+	<div className="print-page">
+
+			{/* Testing & Deployment Section */}
+			<div className="content-block blog-content">
 				<h2>Testing & Deployment</h2>
-				<p>
-					We conducted extensive testing throughout development, evaluating durability, mobility, engagement, and ease of use. We set goals ahead of our tests for specific metrics we wanted our design to hit, and went back and revised the design to address all tests that did not meet these goals. Our testing process was thorough and iterative, helping us identify and fix issues before full deployment.
-				</p>
 				
-				<h3>Durability Testing</h3>
-				<p>
-					We performed drop tests by throwing the shell down stairs at two different locations: The interlocking mechanism kept the shell together with no visible cracking or damage. We also kicked the assembled ball at high impact on grass to test the shell&apos;s integrity during rough play. Both tests were successful.
-				</p>
-
-				<h3>Engagement Testing</h3>
-				<p>
-					Our preliminary engagement test involved moving just the robot (without the shell) near a baby jaguar behind a fence. The movement attracted the jaguar from a distance, confirming that motion-based enrichment would be engaging. We then placed just the shell (no robot) in the cheetah enclosure to attract initial interest. The cheetahs engaged with the shell, smelling and rubbing against it, which validated our material and texture choices.
-				</p>
-
-				
-			</div>
-			<div className="image-gallery flex-[2]">
-				<div className="gallery-item">
-					<div className="image-wrapper">
-						<Image src="/cacti/jaguar.png" alt="jaguar testing" fill style={{objectFit: "cover"}} />
+				<div className="flex gap-6 mb-8">
+					<div className="flex-[3] blog-content">
+						<p>
+							We conducted extensive testing throughout development, evaluating durability, mobility, engagement, and ease of use. We set goals ahead of our tests for specific metrics we wanted our design to hit, and went back and revised the design to address all tests that did not meet these goals. Our testing process was thorough and iterative, helping us identify and fix issues before full deployment.
+						</p>
+						
+						<div className="content-block" >
+							<h3>Durability Testing</h3>
+							<p>
+								We performed drop tests by throwing the shell down stairs at two different locations: The interlocking mechanism kept the shell together with no visible cracking or damage. We also kicked the assembled ball at high impact on grass to test the shell&apos;s integrity during rough play. Both tests were successful.
+							</p>
+						</div>
+						<div className="content-block" >
+							<h3>Engagement Testing</h3>
+							<p>
+								Our preliminary engagement test involved moving just the robot (without the shell) near a baby jaguar behind a fence. The movement attracted the jaguar from a distance, confirming that motion-based enrichment would be engaging. We then placed just the shell (no robot) in the cheetah enclosure to attract initial interest. The cheetahs engaged with the shell, smelling and rubbing against it, which validated our material and texture choices.
+							</p>
+						</div>
 					</div>
-					<div className="gallery-item-caption">
-						Baby Jaguar engagement test
+					<div className="image-gallery flex-[2]">
+						<div className="gallery-item">
+							<div className="image-wrapper">
+								<Image src="/cacti/jaguar.png" alt="jaguar testing" fill style={{objectFit: "cover"}} />
+							</div>
+							<div className="gallery-item-caption">
+								Baby Jaguar engagement test
+							</div>
+						</div>
+					</div>
+				</div>
+	
+	</div>
+	<div className="print-page">
+			<div className="blog-content">
+				<div className="content-block" >
+					<h3>Mobility Testing</h3>
+					<p>
+						We tested the integrated device on multiple terrain types. On smooth flat concrete and short grass, the ball moved successfully, matching remote controls (up → forward, down → back, etc.). However, initial testing in the enclosure with long grass and mud failed—the device just wiggled around without moving forward. We determined this was a weight issue and added more weights to the bottom of the robot, which solved the problem in subsequent tests.
+					</p>
+				</div>
+				<div className="content-block" >
+					<h3>Waterproofing Test</h3>
+					<p>
+						Our waterproofing test involved submerging the shell for 2 minutes and measuring water ingress via absorbent towels inside. We found high levels of water ingress, indicating that we failed in our attempts to waterproof the system. However, the zoo later confirmed that full waterproofing was not a strict requirement - the water feature in the habitat will just need to be drained during use.
+					</p>
+				</div>
+				<div className="content-block" >
+					<h3>Long-Term Reliability</h3>
+					<p>
+						We conducted a 2-hour continuous test run to evaluate battery life and component heating. The battery provided sufficient power throughout, and while the current-limiting resistor warmed slightly, it never reached concerning temperatures. The controller and robot both functioned reliably when properly calibrated and operated in the correct sequence (controller on first, robot off first).
+					</p>
+				</div>
+			</div>
+			</div>
+	</div>
+	<div className="print-page">
+
+			{/* Project Outcomes Section */}
+			<div className="content-block-highlight blog-content">
+				<h2>Project Outcomes</h2>
+				<p>
+					As of May 2025, we handed the ball off to the Houston Zoo for testing with Dash and Dinari. The device successfully met our core design criteria: it&apos;s safe for cheetah use, mobile enough to navigate the enclosure terrain, durable enough to withstand cheetah play, and maintainable with simple tools.
+				</p>
+				<div className="image-gallery my-6">
+					<div className="gallery-item" style={{justifyContent: 'flex-start'}}>
+						<div className="image-wrapper" style={{minHeight: '500px'}}>
+							<Image src="/cacti/in_hab.png" alt="cheetah with ball" fill style={{objectFit: "cover"}} />
+						</div>
+						<div className="gallery-item-caption">
+						Dinari investigating Munchkin
+						</div>
+					</div>
+				</div>
+				
+				<div className="content-block" >
+					<div className="mr-6">
+						<p>
+						The project taught me a lot about iterative design. One of the biggest lessons was the importance of crude prototyping early on. Our initial four-wheel drive concept seemed promising, but ultimately had fundamental issues that only became apparent when actually constructing a physical system. Making a crude prototype to demonstrate would have saved us several days of time spent pursuing a dead-end design. 
+						</p>
+					</div>
+	</div>
+	<div className="print-page">
+				<div className="content-block" >
+					<h3>Key Achievements:</h3>
+					<ul>
+						<li>- Designed and built complete robotic enrichment system from concept to deployment</li>
+						<li>- Successfully pivoted from complex drive mechanism to simpler, more reliable tank drive</li>
+						<li>- Implemented Arduino-based control system with 2+ hour battery life</li>
+						<li>- Created durable ASA plastic shell that withstood extensive impact testing</li>
+						<li>- Developed user-friendly maintenance process requiring only single screwdriver</li>
+						<li>- Passed all critical safety and mobility tests for zoo deployment</li>
+					</ul>
+				</div>
+				
+				<div className="content-block" >
+					<h3>Future Improvements</h3>
+					<p>
+						While we&apos;re proud of what we accomplished, we identified several areas for future enhancement. The primary challenge is improving the robot&apos;s ability to apply torque to the shell—it sometimes moves inside the shell without pushing it effectively. Other potential improvements include better waterproofing for the interlocking mechanism, optimization of the weight distribution, and exploring autonomous movement patterns that could maintain cheetah interest when keepers aren&apos;t present. While my team&apos;s time with this project has concluded, it&apos;s possible that future students in Rice Engineering Design may continue development. 
+					</p>
+				</div>
+			</div>
+	</div>
+	<div className="print-page">
+
+				<div className="ml-6 image-gallery">
+					<div className="gallery-item">
+						<div className="image-wrapper">
+							<Image src="/cacti/showcase.png" alt="final design" fill style={{objectFit: "cover"}} />
+						</div>
+						<div className="gallery-item-caption">
+						Final design & Poster at the 2025 OEDK Engineering Showcase
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div className="blog-content mt-8">
-			<h3>Mobility Testing</h3>
-			<p>
-				We tested the integrated device on multiple terrain types. On smooth flat concrete and short grass, the ball moved successfully, matching remote controls (up → forward, down → back, etc.). However, initial testing in the enclosure with long grass and mud failed—the device just wiggled around without moving forward. We determined this was a weight issue and added more weights to the bottom of the robot, which solved the problem in subsequent tests.
-			</p>
-
-			<h3>Waterproofing Test</h3>
-			<p>
-				Our waterproofing test involved submerging the shell for 2 minutes and measuring water ingress via absorbent towels inside. We found high levels of water ingress, indicating that we failed in our attempts to waterproof the system. However, the zoo later confirmed that full waterproofing was not a strict requirement - the water feature in the habitat will just need to be drained during use.
-			</p>
-
-			<h3>Long-Term Reliability</h3>
-			<p>
-				We conducted a 2-hour continuous test run to evaluate battery life and component heating. The battery provided sufficient power throughout, and while the current-limiting resistor warmed slightly, it never reached concerning temperatures. The controller and robot both functioned reliably when properly calibrated and operated in the correct sequence (controller on first, robot off first).
-			</p>
 		</div>
 	</div>
-
-	<div className="content-block-highlight mt-8 blog-content">
-		<h2>Project Outcomes</h2>
-		<p>
-			As of May 2025, we handed the ball off to the Houston Zoo for testing with Dash and Dinari. The device successfully met our core design criteria: it&apos;s safe for cheetah use, mobile enough to navigate the enclosure terrain, durable enough to withstand cheetah play, and maintainable with simple tools.
-		</p>
-		<div className="image-gallery my-6">
-			<div className="gallery-item" style={{justifyContent: 'flex-start'}}>
-				<div className="image-wrapper" style={{minHeight: '500px'}}>
-					<Image src="/cacti/in_hab.png" alt="cheetah with ball" fill style={{objectFit: "cover"}} />
-				</div>
-				<div className="gallery-item-caption">
-				Dinari investigating Munchkin
-				</div>
-			</div>
-		</div>
-		
-		<div className="flex">
-			<div className="flex-[4] mr-6">
-			<p>
-			The project taught me a lot about iterative design. One of the biggest lessons was the importance of crude prototyping early on. Our initial four-wheel drive concept seemed promising, but ultimately had fundamental issues that only became apparent when actually constructing a physical system. Making a crude prototype to demonstrate would have saved us several days of time spent pursuing a dead-end design. 
-			</p>
-			<h3>Key Achievements:</h3>
-			<ul>
-				<li>- Designed and built complete robotic enrichment system from concept to deployment</li>
-				<li>- Successfully pivoted from complex drive mechanism to simpler, more reliable tank drive</li>
-				<li>- Implemented Arduino-based control system with 2+ hour battery life</li>
-				<li>- Created durable ASA plastic shell that withstood extensive impact testing</li>
-				<li>- Developed user-friendly maintenance process requiring only single screwdriver</li>
-				<li>- Passed all critical safety and mobility tests for zoo deployment</li>
-			</ul>
-			</div>
-			<div className="flex-[1] ml-6 image-gallery">
-				<div className="gallery-item">
-					<div className="image-wrapper">
-						<Image src="/cacti/showcase.png" alt="final design" fill style={{objectFit: "cover"}} />
-					</div>
-					<div className="gallery-item-caption">
-					Final design & Poster at the 2025 OEDK Engineering Showcase
-					</div>
-				</div>
-			</div>
-		</div>
-		<h3>Future Improvements</h3>
-		<p>
-			While we&apos;re proud of what we accomplished, we identified several areas for future enhancement. The primary challenge is improving the robot&apos;s ability to apply torque to the shell—it sometimes moves inside the shell without pushing it effectively. Other potential improvements include better waterproofing for the interlocking mechanism, optimization of the weight distribution, and exploring autonomous movement patterns that could maintain cheetah interest when keepers aren&apos;t present. While my team&apos;s time with this project has concluded, it&apos;s possible that future students in Rice Engineering Design may continue development. 
-		</p>
-	</div>
-</div>
 	</div>
 </PaletteProvider>
 	);
