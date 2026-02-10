@@ -95,7 +95,19 @@ export const IKEDA_PALETTES: Record<string, ColorPalette> = {
         color1: '#91ec92ff',
         color2: '#61be63ff',
         color3: '#33be36ff',
-    }
+    },
+	astronomy: {
+		name: 'Astronomy',
+		color1: '#ffa4a4',
+		color2: '#a6faa3',
+		color3: '#99f3ff',
+	},
+	particles: {
+		name: 'Particles',
+		color1: '#bdf1ff',
+		color2: '#61ffd8',
+		color3: '#919191',
+	}
 };
 
 const PaletteContext = createContext<ColorPalette | null>(null);

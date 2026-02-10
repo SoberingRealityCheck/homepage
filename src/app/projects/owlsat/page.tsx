@@ -119,7 +119,7 @@ export default function OwlsatPage() {
 				</div>
 				<div className="data-box">
 					<h3 className="text-data text-highlight mb-2">Status</h3>
-					<p>Ongoing</p>
+					<p>Concluded</p>
 				</div>
 			</div>
 

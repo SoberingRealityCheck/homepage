@@ -180,16 +180,7 @@ export default function ProjectTemplate() {
 						</div>
 					</div>
 				</div>
-				<div className="image-gallery flex-[1.5]">
-					<div className="gallery-item">
-						<div className="image-wrapper">
-							<Image src="/cacti/habitat.png" alt="Zoo habitat" fill style={{objectFit: "cover"}} />
-						</div>
-						<div className="gallery-item-caption">
-						Houston Zoo Cheetah Habitat
-						</div>
-					</div>
-				</div>
+				<Image src="/cacti/habitat.png" alt="Zoo habitat" fill style={{objectFit: "cover"}} />
 			</div>
 	</div>
 	<div className="print-page">

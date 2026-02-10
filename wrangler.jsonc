@@ -14,6 +14,12 @@
     // Custom domains configured in dashboard:
     // - claygoldsmith.com
     // - www.claygoldsmith.com
+	"routes" : [
+		{
+			"pattern": "claygoldsmith.com",
+			"custom_domain":true
+		},
+	],
 	"compatibility_flags": [
 		"nodejs_compat",
 		"global_fetch_strictly_public"

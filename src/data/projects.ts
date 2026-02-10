@@ -22,17 +22,7 @@ export const PROJECTS: Project[] = [
 		link: '/projects/rice-robotics',
 		featured: true,
 	},
-	/*
-	{	id: 'arachne',
-		title: 'Arachne Hexapod Robot',
-		description: 'ROS2-Powered Hexapod Robot Dorm Pet to torment my roommates with.',
-		tags: ['ROS2', 'C++', 'Python', 'Computer Vision', 'Web Development'],
-		year: '2025',
-		palette: IKEDA_PALETTES.arachne,
-		link: '/projects/arachne',
-		featured: false,
-	},
-	*/
+	
 	{
 		id: 'owlsat',
 		title: 'OwlSAT CubeSAT Mission',
@@ -41,7 +31,7 @@ export const PROJECTS: Project[] = [
 		year: '2025-2026',
 		palette: IKEDA_PALETTES.owlsat,
 		link: '/projects/owlsat',
-		featured: true,
+		featured: false,
 	},
 	 
 	{
@@ -54,6 +44,39 @@ export const PROJECTS: Project[] = [
 		link: '/projects/cacti',
 		featured: true,
 	},
+
+	{	
+		id: 'arachne',
+		title: 'Arachne Hexapod Robot',
+		description: 'ROS2-Powered Hexapod Robot Dorm Pet to torment my roommates with.',
+		tags: ['ROS2', 'C++', 'Python', 'Computer Vision', 'Web Development'],
+		year: '2025',
+		palette: IKEDA_PALETTES.arachne,
+		link: '/projects/arachne',
+		featured: false,
+	},
+
+	{
+		id: 'beehive-cluster',
+		title: 'Little Beehive Cluster',
+		description: 'Visualization and mathematical modeling of the Little Beehive Cluster via GAIA DR3 data for my ASTR 230 Final Project. Collected and processed my own data from McDonald Observatory in Fort Davis, Texas.',
+		tags: ['Astronomy', 'Data Visualization', 'Python', 'Astropy'],
+		year: '2025',
+		palette: IKEDA_PALETTES.astronomy,
+		link: '/projects/beehive-cluster',
+		featured: true,
+	},
+	
+	// {
+	//	id: 'anomaly-detection',
+	//	title: 'CERN Anomalous Data Detection',
+	//	description: 'Development of machine learning models for detecting anomalous events in particle collision data at CERN during my time at the Baylor High Energy Physics Lab.',
+	//	tags: ['Python', 'Machine Learning', 'Tensorflow', 'Data Analysis'],
+	//	year: '2024',
+	//	palette: IKEDA_PALETTES.particles,
+	//	link: '/projects/anomaly-detection',
+	//	featured: false,
+	//}
 
 
 ];

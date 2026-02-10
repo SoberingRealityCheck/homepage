@@ -73,6 +73,8 @@
 import { PaletteProvider, IKEDA_PALETTES } from "@/utils/palette";
 import { IkedaImage } from "@/utils/ikedaImage";
 
+import Image from "next/image";
+
 export default function RiceRoboticsPage() {
 	return (
 <PaletteProvider palette={IKEDA_PALETTES.robotics}>
@@ -124,6 +126,25 @@ export default function RiceRoboticsPage() {
 				</div>
 			</div>
 
+			<div className="image-gallery my-8">
+				<div className="gallery-item">
+					<div className="image-wrapper">
+						<video 
+							autoPlay 
+							loop 
+							muted 
+							playsInline
+							style={{width: '100%', height: '100%', objectFit: 'cover'}}
+						>
+							<source src="/robotics/the goober.mp4" type="video/mp4" />
+							<source src="/robotics/the goober.webm" type="video/webm" />
+						</video>
+					</div>
+					<div className="gallery-item-caption">
+						First simulation run of the servobot quadruped gait policy. Unstable but promising first steps!
+					</div>
+				</div>
+			</div>
 			{/* Optional showcase video/image */}
 			{/* <div className="image-gallery my-8">
 				<div className="gallery-item">
@@ -322,17 +343,17 @@ export default function RiceRoboticsPage() {
 						</p>
 					</div>
 
-					{/* Optional side image */}
-					{/* <div className="image-gallery flex-[2]">
+
+					 <div className="image-gallery flex-[2]">
 						<div className="gallery-item">
 							<div className="image-wrapper">
-								<Image src="/robotics/testing.png" alt="Robot testing" fill style={{objectFit: "cover"}} />
+								<Image src="/robotics/family.png" alt="Robot testing" fill style={{objectFit: "cover"}} />
 							</div>
 							<div className="gallery-item-caption">
-								Robot testing in lab environment
+								Genesis running ~100 simultaneous robot simulations for training!
 							</div>
 						</div>
-					</div> */}
+					</div>
 				</div>
 
 				{/* Optional: Gallery of test results or gait visualizations */}
