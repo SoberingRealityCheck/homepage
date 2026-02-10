@@ -175,6 +175,38 @@ export default function RiceRoboticsPage() {
 				</div> */}
 			</div>
 
+			{/* Initial Research */}
+			<div className="content-block-highlight blog-content">
+				<h2>Initial Research</h2>
+				<div className="flex items-start gap-6">
+					<div className="flex-[3]">
+						<p>
+							Before diving into the build, I spent a few weeks researching hexapod kinematics, ROS2 architecture patterns, reinforcement learning for locomotion, and available hardware options. I used Obsidian to organize my notes into a connected knowledge graph, linking concepts across topics like inverse kinematics, sim-to-real transfer, sensor fusion, and mechanical design constraints.
+						</p>
+						<p>		
+							My general philosophy towards this project was always that I wanted this to be a learning experience first and foremost, and my favorite way of learning something is to start with an end goal and work backwards. This meant I dove headfirst into the project with only a rough idea of what I wanted to build and a lot of questions about how to actually do it, and then spent a lot of time doing research and learning as I went along. I think this approach is really effective for me because it keeps me motivated and engaged with the project, and allows me to learn in a more hands-on way by immediately applying new concepts to the project as I learn them. 
+						</p>
+						<p>
+							This research phase helped me identify the key technical challenges early on and informed a lot of the design decisions I made later, like choosing ROS2 over a simpler framework and prioritizing modularity in the software architecture so I could iterate quickly on individual components.
+						</p>
+					</div>
+					<div className="flex-[2] image-gallery">
+						<div className="gallery-item">
+							<div className="image-wrapper">
+								<img
+									src="/arachne/obsidian_research_graph.png"
+									alt="Obsidian research knowledge graph"
+									className="w-full h-full object-cover"
+								/>
+							</div>
+							<div className="gallery-item-caption">
+								Obsidian knowledge graph from the research phase
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			{/* Technical Requirements / Research Goals */}
 			<div className="content-block blog-content">
 				<h2>Research Objectives</h2>

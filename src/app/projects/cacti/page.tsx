@@ -100,7 +100,7 @@ export default function ProjectTemplate() {
 			{/* Project Header - Always include this */}
 			<div className="content-block-highlight mb-8">
 				<div className="flex justify-between items-start mb-4">
-					<h1 className="text-display text-4xl">CACTI Cheetah Ball Robot</h1>
+					<h1 className="text-display text-4xl">Cheetah Ball Robot</h1>
 					<span className="text-data text-accent">2024 - 2025</span>
 				</div>
 				<div className="data-stripe mb-6" />

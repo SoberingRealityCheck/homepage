@@ -36,7 +36,7 @@ export const PROJECTS: Project[] = [
 	 
 	{
 		id: 'cacti',
-		title: '"CACTI" Cheetah Ball Robot',
+		title: 'Cheetah Ball Robot',
 		description: 'Design and implementation of a spherical robot toy for enrichment of Houston Zoo cheetahs.',
 		tags: ['C++', 'Real-World', 'Electrical Design', 'Arduino'],
 		year: '2024-2025',
