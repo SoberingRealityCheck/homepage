@@ -116,8 +116,8 @@ export default function BeehiveClusterPage() {
 					<p>Solo Researcher</p>
 				</div>
 				<div className="data-box">
-					<h3 className="text-data text-secondary mb-2">Course</h3>
-					<p>ASTR 230 &mdash; Rice University</p>
+					<h3 className="text-data text-secondary mb-2">Timeline</h3>
+					<p>March 2025 &mdash; May 2025</p>
 				</div>
 				<div className="data-box">
 					<h3 className="text-data text-highlight mb-2">Status</h3>

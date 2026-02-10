@@ -123,26 +123,6 @@ export default function RiceRoboticsPage() {
 				</div>
 			</div>
 
-			{/* Optional showcase video/image */}
-			{/* <div className="image-gallery my-8">
-				<div className="gallery-item">
-					<div className="image-wrapper">
-						<video 
-							autoPlay 
-							loop 
-							muted 
-							playsInline
-							style={{width: '100%', height: '100%', objectFit: 'cover'}}
-						>
-							<source src="/robotics/showcase.mp4" type="video/mp4" />
-						</video>
-					</div>
-					<div className="gallery-item-caption">
-						Quadruped robot locomotion demo
-					</div>
-				</div>
-			</div> */}
-
 			{/* Main Content */}
 			<div className="content-block-highlight blog-content whitespace-pre-wrap">
 				<h2>Project Description</h2>
@@ -241,26 +221,29 @@ export default function RiceRoboticsPage() {
 				<div className="flex-[2] mr-6">
 					<h2>Robot Platform & System Design</h2>
 					<p>
-						The robot is a custom-built hexapod with 18 degrees of freedom (3 per leg) designed to be a functional and visually interesting platform for testing my locomotion and perception software. The mechanical design and pallete are both inspired by the angular aesthetics of several of my favorite fictional robots, such as BB-8 from Star Wars and the crab-like robots from Horizon: Zero Dawn. 
+						The robot is a custom-built hexapod with 18 degrees of freedom (3 per leg) designed to be a functional and visually interesting platform for testing my locomotion and perception software. The mechanical design and pallete are both inspired by the angular aesthetics of several of my favorite fictional robots, such as BB-8 from Star Wars and the crab-like robots from Horizon: Zero Dawn.
 					</p>
 					<p>
 						The hardware design is intentionally simple and modular, using off-the-shelf components like the MG996R servos for actuation, a Servo2040 microcontroller for control and calibration, and a Raspberry Pi for onboard computation. The legs are designed to be easily replaceable, allowing for quick iteration on the mechanical design as I test different configurations and gaits.
 					</p>
 					<p>
-						The software is generally designed to be modular and flexible, to make updates and experinentation easier as I learn more about ROS2 and robotics system design. 
+						The software is generally designed to be modular and flexible, to make updates and experinentation easier as I learn more about ROS2 and robotics system design.
 					</p>
 				</div>
-				{/* Optional side image */}
-				{/* <div className="flex-[1] ml-6 image-gallery">
+				<div className="flex-[1] ml-6 image-gallery">
 					<div className="gallery-item">
 						<div className="image-wrapper">
-							<Image src="/robotics/hardware.png" alt="Hardware design" fill style={{objectFit: "cover"}} />
+							<img
+								src="/arachne/arachne_cute_head_design.png"
+								alt="Arachne head design"
+								className="w-full h-full object-cover"
+							/>
 						</div>
 						<div className="gallery-item-caption">
-							Robot hardware overview
+							Head design concept
 						</div>
 					</div>
-				</div> */}
+				</div>
 			</div>
 
 			{/* Software & RL Implementation */}
@@ -270,34 +253,77 @@ export default function RiceRoboticsPage() {
 					The software architecture is built on ROS2, with a focus on modularity and flexibility. The main components of the software system include the low-level control node for servo actuation, a perception node for processing camera input and estimating the robot&apos;s state, and a reinforcement learning node that learns locomotion policies in simulation and transfers them to the real robot.
 				</p>
 				
-				{/* Optional large image */}
-				{/* <div className="image-gallery">
-					<div className="gallery-item">
-						<div className="image-wrapper">
-							<Image src="/robotics/software-arch.png" alt="Software architecture" fill style={{objectFit: "cover"}} />
-						</div>
-						<div className="gallery-item-caption">
-							Software system architecture
-						</div>
-					</div>
-				</div> */}
-
-
 				<div className="content-block blog-content">
 					<h3>Reinforcement Learning Pipeline</h3>
 					<p>
-						My Reinforcement Learning Pipeline is basically copied directly from my work on the Rice Robotics Quadruped - our system there is generalized enough to be easily adapted to the hexapod platform. The main idea is to use the Genesis simulator to train a locomotion policy in a simplified environment, using a reward function that encourages efficient and stable movement. The trained policy is then transferred to the real robot, where I can test its performance and make adjustments as needed. 
+						My Reinforcement Learning Pipeline is basically copied directly from my work on the Rice Robotics Quadruped - our system there is generalized enough to be easily adapted to the hexapod platform. The main idea is to use the Genesis simulator to train a locomotion policy in a simplified environment, using a reward function that encourages efficient and stable movement. The trained policy is then transferred to the real robot, where I can test its performance and make adjustments as needed.
 					</p>
+
+					<div className="image-gallery my-6">
+						<div className="gallery-item">
+							<div className="image-wrapper">
+								<img
+									src="/arachne/pybullet.jpg"
+									alt="PyBullet simulation environment"
+									className="w-full h-full object-cover"
+								/>
+							</div>
+							<div className="gallery-item-caption">
+								PyBullet simulation environment for locomotion training
+							</div>
+						</div>
+					</div>
+
 					<p>
 						Making the jump from simulation to reality is something I am quite curious about. I have not made it to the point of testing the sim-to-real transfer yet, but I am interested to see how well the policies trained in simulation will perform on the real robot, and what adjustments I will need to make to account for the differences between the sim and real environments. Adjusting a neural network is not as simple as adjusting a traditional control policy, so I am interested to see how I can iterate on the policy design and reward function to achieve better performance on the real robot without as much direct control over its behavior.
 					</p>
 				</div>
 
-				<div className="content-block blog-content">
-					<h3>Perception & State Estimation</h3>
-					<p>
-						For perception, I am using a simple RGB camera mounted on the front of the robot along with a 1-axis YLIDAR module for depth sensing. The perception node processes the camera input to estimate the robot&apos;s state and its environment, which is then used by the RL policy for decision making. I am still in the early stages of developing the perception system, but I am interested to see how well I can integrate the camera and LIDAR data to create a useful representation of the robot&apos;s surroundings for navigation and interaction. My goal is ultimately to provide it with enough data for it to make decisions autonomously on where to move and how to interact with objects in the environment, but that is obviously a massive goal and one I am currently taking very small steps towards!
-					</p>
+				<div className="content-block blog-content pt-0">
+					
+					<div className="flex items-start gap-6 pt-0">
+						<div className="flex-[8] blog-content">
+						<h3>Perception & State Estimation</h3>
+						<p>
+							For perception, I am using a simple RGB camera mounted on the front of the robot along with a 1-axis YLIDAR module for depth sensing. The perception node processes the camera input to estimate the robot&apos;s state and its environment, which is then used by the RL policy for decision making. 
+						</p>
+						<p>
+							I am still in the early stages of developing the perception system, but I am interested to see how well I can integrate the camera and LIDAR data to create a useful representation of the robot&apos;s surroundings for navigation and interaction. 
+						</p>
+						<p>
+							My goal is ultimately to provide it with enough data for it to make decisions autonomously on where to move and how to interact with objects in the environment, but that is obviously a massive goal and one I am currently taking very small steps towards!
+						</p>
+						</div>
+						{/* Optional side image */}
+						{/* <div className="image-gallery flex-[3]">
+							<div className="gallery-item">
+								<div className="image-wrapper">
+									<Image src="/robotics/perception.png" alt="Perception system diagram" fill style={{objectFit: "cover"}} />
+								</div>
+								<div className="gallery-item-caption">
+									Perception system diagram
+								</div>
+							</div>
+						</div> */}
+					<div className="image-gallery max-w-xs">
+						<div className="gallery-item">
+							<div className="image-wrapper">
+								<video
+									autoPlay
+									loop
+									muted
+									playsInline
+									style={{width: '100%', height: '100%', objectFit: 'cover',}}
+								>
+									<source src="/arachne/lidar_camera_rosboard_nodes.mp4" type="video/mp4" />
+								</video>
+							</div>
+							<div className="gallery-item-caption">
+								LIDAR, camera, and ROSBoard nodes running simultaneously
+							</div>
+						</div>
+					</div>
+					</div>
 				</div>
 			</div>
 
@@ -318,18 +344,45 @@ export default function RiceRoboticsPage() {
 					Software-wise, I have set up the basic ROS2 architecture and have successfully implemented low-level control of the servos and basic processing of the camera, IMU, and LIDAR input, but have not yet implemented any of the reinforcement learning components or done any work on the perception system beyond basic views of the sensor feeds in a web interface. My next steps on the software side are to implement a simple RL training pipeline in simulation and start testing some basic locomotion policies on the real robot. I would also like to implement a SLAM system using the camera and LIDAR data to enable the robot to build a map of its environment and localize itself within that map, which I think would be a really fun feature to have and would also provide a lot of useful information for the RL policy to use for decision making.
 				</p>
 				
-				{/* Optional large image */}
-				{/* <div className="image-gallery my-6">
-					<div className="gallery-item">
-						<div className="image-wrapper">
-							<Image src="/robotics/current.png" alt="Current work" fill style={{objectFit: "cover"}} />
-						</div>
-						<div className="gallery-item-caption">
-							Current robot configuration
+				<div className="grid-2 my-6">
+					<div className="image-gallery">
+						<div className="gallery-item">
+							<div className="image-wrapper">
+								<video
+									autoPlay
+									loop
+									muted
+									playsInline
+									style={{width: '100%', height: '100%', objectFit: 'cover'}}
+								>
+									<source src="/arachne/early_camera_rosboard_setup.mp4" type="video/mp4" />
+								</video>
+							</div>
+							<div className="gallery-item-caption">
+								Early camera and ROSBoard setup
+							</div>
 						</div>
 					</div>
-				</div> */}
-				
+					<div className="image-gallery">
+						<div className="gallery-item">
+							<div className="image-wrapper">
+								<video
+									autoPlay
+									loop
+									muted
+									playsInline
+									style={{width: '100%', height: '100%', objectFit: 'cover'}}
+								>
+									<source src="/arachne/fun_ascii_art_node.mp4" type="video/mp4" />
+								</video>
+							</div>
+							<div className="gallery-item-caption">
+								ASCII art camera node
+							</div>
+						</div>
+					</div>
+				</div>
+
 				<div className="flex">
 					<div className="flex-[4] mr-6">
 						<p>
@@ -342,17 +395,6 @@ export default function RiceRoboticsPage() {
 							<li>- Local ROS2 Web Interface using ROSBoard </li>
 						</ul>
 					</div>
-					{/* Optional side image */}
-					{/* <div className="flex-[1] ml-6 image-gallery">
-						<div className="gallery-item">
-							<div className="image-wrapper">
-								<Image src="/robotics/team.png" alt="Team" fill style={{objectFit: "cover"}} />
-							</div>
-							<div className="gallery-item-caption">
-								Rice Robotics team
-							</div>
-						</div>
-					</div> */}
 				</div>
 			</div>
 		</div>
