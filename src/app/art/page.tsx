@@ -17,6 +17,20 @@ export default function ContactPage() {
             </div>
 		<div className="flex md:flex-row flex-col gap-8">
             <div className="flex-1 gap-8">
+				<div className="content-block">
+                    <h2 className="text-heading text-2xl mb-6">Sand</h2>
+					<Link href="https://sand.claygoldsmith.com" target="_blank" rel="noopener noreferrer">
+						<Image
+						src="/art/sand.png"
+						alt="Sand"
+						className=" w-full h-auto"
+						width={600}
+						height={400}
+						/>
+					</Link>
+					<p> Chladni sand plate simulation, tuned to respond to human voice frequencies rather than ultrasonics. Utilizes your device mic. </p>
+                </div>
+
                 <div className="content-block">
                     <h2 className="text-heading text-2xl mb-6">Oasis</h2>
 					<Link href="https://oasis.claygoldsmith.com" target="_blank" rel="noopener noreferrer">
