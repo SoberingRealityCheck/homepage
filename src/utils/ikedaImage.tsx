@@ -123,14 +123,41 @@ export async function processIkedaImage(
 					finalThresholds = calculateHistogramThresholds(data, colorDistribution);
 				}
 
+				// Step 4.5: Remap pixel values so histogram thresholds align with dither levels.
+				// Without this, colorDistribution has no effect — the thresholds were computed but
+				// never applied. This stretches/compresses tonal ranges so the dithering will
+				// distribute colors according to the desired proportions.
+				const [t0, t1, t2] = finalThresholds;
+				const ditherLevels: [number, number, number, number] = [0, 85, 170, 255];
+				// Map thresholds to midpoints between dither levels (the quantizer decision boundaries).
+				// This ensures t0 pixels are 50/50 black/color1, t1 are 50/50 color1/color2, etc.
+				const mid0 = 42, mid1 = 128, mid2 = 213;
+				const lut = new Uint8Array(256);
+				for (let v = 0; v < 256; v++) {
+					let remapped: number;
+					if (v <= t0) {
+						remapped = t0 === 0 ? 0 : (v / t0) * mid0;
+					} else if (v <= t1) {
+						remapped = mid0 + ((v - t0) / (t1 - t0 || 1)) * (mid1 - mid0);
+					} else if (v <= t2) {
+						remapped = mid1 + ((v - t1) / (t2 - t1 || 1)) * (mid2 - mid1);
+					} else {
+						remapped = t2 === 255 ? 255 : mid2 + ((v - t2) / (255 - t2 || 1)) * (255 - mid2);
+					}
+					lut[v] = Math.max(0, Math.min(255, Math.round(remapped)));
+				}
+				for (let i = 0; i < data.length; i += 4) {
+					const mapped = lut[data[i]];
+					data[i] = data[i + 1] = data[i + 2] = mapped;
+				}
+
 				// Step 5: Apply dithering with 4-level quantization
-				// The dithering will use thresholds to choose the right level for each pixel
 				if (ditherMethod === 'floyd-steinberg') {
-					multiLevelFloydSteinberg(data, canvas.width, canvas.height, [0, 85, 170, 255]);
+					multiLevelFloydSteinberg(data, canvas.width, canvas.height, ditherLevels);
 				} else if (ditherMethod === 'atkinson') {
-					multiLevelAtkinson(data, canvas.width, canvas.height, [0, 85, 170, 255]);
+					multiLevelAtkinson(data, canvas.width, canvas.height, ditherLevels);
 				} else {
-					multiLevelOrdered(data, canvas.width, canvas.height, [0, 85, 170, 255]);
+					multiLevelOrdered(data, canvas.width, canvas.height, ditherLevels);
 				}
 
 				// Step 6: Map quantized levels to actual colors
@@ -165,6 +192,8 @@ export async function processIkedaImage(
 					data[i] = color.r;
 					data[i + 1] = color.g;
 					data[i + 2] = color.b;
+					// black level is the backdrop. Make it transparent so the page shows through.
+					if (colorIndex === 0) data[i + 3] = 0;
 				}
 
 				ctx.putImageData(imageData, 0, 0);
@@ -350,6 +379,11 @@ function calculateHistogramThresholds(
  * Convert hex color to RGB
  */
 function hexToRgb(hex: string): { r: number; g: number; b: number } {
+	// Handle rgb(...) format
+	const rgbMatch = /^rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i.exec(hex.trim());
+	if (rgbMatch) {
+		return { r: parseInt(rgbMatch[1]), g: parseInt(rgbMatch[2]), b: parseInt(rgbMatch[3]) };
+	}
 	// Remove # if present and strip alpha channel if it exists (8-char hex)
 	const cleanHex = hex.replace('#', '').substring(0, 6);
 	const result = /^([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(cleanHex);
@@ -437,7 +471,7 @@ export function IkedaImage({
 	return processedSrc ? (
 		<div className="flex gap-4">
 			{/* eslint-disable-next-line @next/next/no-img-element */}
-			<img src={processedSrc} alt={alt} className={className} />
+			<img src={processedSrc} alt={alt} className={className} style={{ imageRendering: 'pixelated' }} />
 			{showDebug && debugInfo && (
 				<div className="content-block text-sm font-mono space-y-2">
 					<div className="text-accent font-bold mb-3">DEBUG INFO</div>

@@ -8,7 +8,7 @@ export default function AboutPage() {
 			<div className="section">
 			<div className="mb-12">
 				<h1 className="text-display mb-4">
-					<span className="text-secondary">{'>'}</span> About
+					About
 				</h1>
 				<div className="data-stripe" />
 			</div>
@@ -83,15 +83,6 @@ export default function AboutPage() {
 								</a>
 							</p>
 						</div>
-					</div>
-
-					<div className="data-box">
-						<h3 className="text-data text-secondary mb-4">Currently</h3>
-						<ul className="space-y-2 text-sm">
-							<li>Building awesome robots</li>
-							<li>Trying not to fail quantum physics</li>
-							<li>Solving real-world problems</li>
-						</ul>
 					</div>
 				</div>
 			</div>

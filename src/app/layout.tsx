@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Zilla_Slab } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
-import GridBackground from "@/components/GridBackground";
+import BackgroundFade from "@/components/BackgroundFade";
 import ImageGalleryModal from "@/components/ImageGalleryModal";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
 	subsets: ["latin"],
+});
+
+const zilla = Zilla_Slab({
+	variable: "--font-zilla",
+	subsets: ["latin"],
+	weight: ["500", "600"],
 });
 
 const geistMono = Geist_Mono({
@@ -31,13 +37,15 @@ export default function RootLayout({
 			<head>
 				<link rel="icon" href="/favicon.svg" type="image/svg+xml"></link>
 			</head>
-			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-				<GridBackground />
-				<Navigation />
+			<body className={`${geistSans.variable} ${geistMono.variable} ${zilla.variable} antialiased`}>
+				<BackgroundFade />
 				<ImageGalleryModal />
-				<main className="pt-20">
-					{children}
-				</main>
+				<div className="shell">
+					<Navigation />
+					<main>
+						{children}
+					</main>
+				</div>
 			</body>
 		</html>
 	);

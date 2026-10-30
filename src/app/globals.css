@@ -1,481 +1,324 @@
 @import "tailwindcss";
 
-/* Ryoji Ikeda Dataverse-inspired Design System */
+/* Minimal redesign. Warm charcoal, one accent, serif headings.
+   Class names from the old Ikeda theme are kept so the project pages still work.
+   PaletteProvider still sets --accent etc. on :root. We ignore those on purpose. */
 :root {
-	/* Core Colors - Dark theme with data visualization palette */
-	--background: #000000;
-	--foreground: #ffffff;
-	--grid-color: #535252;
-	--grid-accent: #b9b9b9;
-	
-	/* Ikeda signature colors (can be overridden by PaletteProvider) */
-	--ikeda-red: #ff0033;
-	--ikeda-orange: #ff6600;
-	--ikeda-yellow: #ffcc00;
-	--ikeda-green: #00ff00;
-	--ikeda-cyan: #00ffff;
-	--ikeda-blue: #0066ff;
-	--ikeda-white: #ffffff;
-	
-	/* Semantic colors (updated dynamically by PaletteProvider) - Default: Grayscale */
-	--accent: #ffffff;
-	--secondary: #cccccc;
-	--highlight: #999999;
-	
-	/* Palette colors (set by PaletteProvider) - Default: Grayscale */
-	--palette-color-1: #ffffff;
-	--palette-color-2: #cccccc;
-	--palette-color-3: #999999;
+	--bg: #1f1f1e;
+	--ink: #dcdad5;
+	--muted: #8f8d87;
+	--rule: #3a3a38;
+	--panel: #262625;
+	--link: #a8d5a2;
+
+	--font-serif: var(--font-zilla), Georgia, serif;
+	--font-sans: var(--font-geist-sans), -apple-system, sans-serif;
+	--font-mono: var(--font-geist-mono), monospace;
+
+	/* old names, kept for pages that still reference them */
+	--background: var(--bg);
+	--foreground: var(--ink);
+	--grid-color: var(--rule);
+	--grid-accent: var(--rule);
 }
+
+* { box-sizing: border-box; }
+
+/* clip, not hidden: hidden turns body into a scroll container and breaks the sticky sidebar */
+html, body { max-width: 100vw; overflow-x: clip; }
 
 body {
-	background: var(--background);
-	color: var(--foreground);
-	font-family: var(--font-geist-sans), -apple-system, sans-serif;
-	overflow-x: hidden;
+	background: var(--bg);
+	color: var(--ink);
+	font-family: var(--font-sans);
+	line-height: 1.65;
 }
 
-* {
-	box-sizing: border-box;
-}
+a { color: inherit; }
 
-html, body {
-	max-width: 100vw;
-	overflow-x: hidden;
-}
-
-/* Animated Grid Background */
-.grid-background {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 0;
-	pointer-events: none;
-	background-image: 
-		linear-gradient(var(--grid-color) 1px, transparent 1px),
-		linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-	background-size: 50px 50px;
-	opacity: 0.3;
-}
-
-.grid-background::after {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-image: 
-		linear-gradient(var(--grid-accent) 1px, transparent 1px),
-		linear-gradient(90deg, var(--grid-accent) 1px, transparent 1px);
-	background-size: 200px 200px;
-	opacity: 0.5;
-}
-
-/* Scan line effect */
-@keyframes scan {
-	0% { transform: translateY(-100%); }
-	100% { transform: translateY(100vh); }
-}
-
-.scanline {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 2px;
-	background: linear-gradient(90deg, 
-		transparent 0%, 
-		var(--ikeda-cyan) 50%, 
-		transparent 100%);
-	z-index: 1;
-	pointer-events: none;
-	animation: scan 8s linear infinite;
-	opacity: 0.3;
-}
-
-/* Utility Classes - Content Sections */
-.section {
-	position: relative;
-	z-index: 10;
-	padding: 2rem 1rem;
-	max-width: 1400px;
+/* ---------- shell ---------- */
+.shell {
+	display: block;
+	max-width: 90rem;
 	margin: 0 auto;
+	padding: 0 1.5rem;
 }
 
-.section-tight {
-	padding: 2rem 2rem;
+.sidebar {
+	position: relative;
+	z-index: 20;
+	padding: 1.5rem 0 1rem;
 }
 
-.section-wide {
+.sidebar-photo {
+	width: 4.5rem;
+	height: 4.5rem;
+	margin-bottom: 0.75rem;
+	border-radius: 50%;
+	object-fit: cover;
+	object-position: center 20%;
+	background: var(--panel);
+}
+
+.sidebar-name {
+	font-family: var(--font-serif);
+	font-size: 1.5rem;
+	font-weight: 600;
+	line-height: 1.2;
+	text-decoration: none;
+	color: var(--ink);
+}
+
+.sidebar-blurb {
+	margin-top: 0.5rem;
+	font-size: 0.85rem;
+	line-height: 1.5;
+	color: var(--muted);
+}
+
+.sidebar-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem 1.25rem;
+	margin-top: 1rem;
+	font-size: 0.95rem;
+}
+
+.sidebar-nav a {
+	color: var(--muted);
+	text-decoration: none;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a[aria-current="page"] { color: var(--ink); }
+
+.sidebar-nav a[aria-current="page"] { border-bottom: 1px solid var(--link); }
+
+@media (min-width: 1200px) {
+	.shell {
+		display: grid;
+		grid-template-columns: 14rem minmax(0, 1fr);
+		gap: 3rem;
+	}
+	.sidebar {
+		position: sticky;
+		top: 0;
+		align-self: start;
+		padding: 4rem 0;
+	}
+	.sidebar-nav {
+		flex-direction: column;
+		gap: 0.5rem;
+		margin-top: 2rem;
+	}
+	.sidebar-nav a[aria-current="page"] { border-bottom: 0; color: var(--link); }
+}
+
+/* Project pages draw a fixed dithered image behind the content.
+   Hack: nudge it right so it doesn't sit under the sidebar. Matches the Tailwind classes they use. */
+.fixed.inset-0.z-0 { z-index: 0; }
+@media (min-width: 1200px) {
+	.fixed.inset-0.z-0 { left: 17rem; }
+}
+
+/* ---------- content ---------- */
+.section {
+	padding: 1.5rem 0 3rem;
 	max-width: 100%;
-	padding: 4rem 4rem;
+	margin: 0;
 }
 
-/* Content Containers */
-.content-block {
-	background: rgba(0, 0, 0, 0.6);
-	border: 1px solid var(--grid-accent);
-	padding: 2rem;
-	margin-bottom: 2rem;
-	backdrop-filter: blur(10px);
+@media (min-width: 1200px) {
+	.section { padding-top: 4rem; }
 }
 
+.section-tight, .section-wide { padding: 2rem 0; }
+
+.content-block,
 .content-block-highlight {
-	background: rgba(0, 0, 0, 0.6);
-	border: 1px solid var(--accent);
-	padding: 2rem;
-	margin-bottom: 2rem;
-	backdrop-filter: blur(10px);
+	/* position matters: pages put <Image fill> straight inside these blocks */
 	position: relative;
-	overflow: hidden;
+	margin-bottom: 2.5rem;
+	padding: 0;
+	border: 0;
+	background: none;
 }
 
-.content-block-highlight::before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 4px;
-	height: 100%;
-	background: var(--accent);
-}
-
-/* Data Viz Boxes */
-.data-box {
-	background: #0a0a0a;
-	border: 1px solid var(--grid-color);
-	padding: 1.5rem;
-	position: relative;
-}
-
+.data-box,
 .data-box-accent {
-	border-color: var(--accent);
-	box-shadow: 0 0 20px rgba(255, 0, 51, 0.1);
+	position: relative;
+	background: var(--panel);
+	border: 1px solid var(--rule);
+	border-radius: 4px;
+	padding: 1.25rem;
 }
 
-/* Typography Utilities */
-.text-data {
-	font-family: var(--font-geist-mono), monospace;
-	letter-spacing: 0.05em;
-	text-transform: uppercase;
-	font-size: 0.875rem;
+/* ---------- type ---------- */
+h1, h2, h3 { font-family: var(--font-serif); font-weight: 600; line-height: 1.2; }
+
+.text-display {
+	font-family: var(--font-serif);
+	font-weight: 600;
+	font-size: 2.25rem;
+	line-height: 1.15;
+	letter-spacing: 0;
 }
 
 .text-heading {
-	font-family: var(--font-geist-mono), monospace;
+	font-family: var(--font-serif);
 	font-weight: 600;
-	letter-spacing: 0.1em;
-	text-transform: uppercase;
+	letter-spacing: 0;
+	text-transform: none;
 	line-height: 1.2;
-	padding:1px;
 }
 
-.text-display {
-	font-family: var(--font-geist-mono), monospace;
-	font-weight: 700;
-	font-size: 3rem;
-	letter-spacing: 0.05em;
-	line-height: 1.1;
+/* small mono labels: dates, tags, section tags */
+.text-data {
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--muted);
 }
 
-.text-accent {
-	color: var(--accent);
-}
+.text-accent, .text-secondary, .text-highlight { color: var(--link); }
 
-.text-secondary {
-	color: var(--secondary);
-}
+/* old gray utility classes in the pages */
+.text-gray-300, .text-gray-400 { color: var(--muted); }
 
-.text-highlight {
-	color: var(--highlight);
-}
-
-/* Grid Layouts */
-.grid-2 {
+/* ---------- grids ---------- */
+.grid-2, .grid-3, .grid-6 {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-	gap: 2rem;
+	gap: 0 2.5rem;
+	grid-template-columns: 1fr;
 }
 
-.grid-3 {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-	gap: 2rem;
+@media (min-width: 700px) {
+	.grid-2 { grid-template-columns: repeat(2, 1fr); }
+	.grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 }
 
-/* Project Cards */
+/* ---------- project entries: plain list, no boxes ---------- */
 .project-card {
-	background: rgba(0, 0, 0, 0.9);
-	border: 1px solid var(--grid-color);
-	padding: 2rem;
-	transition: all 0.3s ease;
-	position: relative;
-	overflow: visible;
-	cursor: pointer;
-}
-
-.project-card::before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 2px;
-	background: var(--accent);
-	transform: scaleX(0);
-	transform-origin: left;
-	transition: transform 0.3s ease;
-}
-
-.project-card:hover {
-	box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
-	transform: translateY(-2px);
-}
-
-.project-card:hover::before {
-	transform: scaleX(1);
-}
-
-/* Lines and Dividers */
-.line-accent {
-	width: 100%;
-	height: 1px;
-	background: var(--accent);
-	margin: 2rem 0;
-}
-
-.line-grid {
-	width: 100%;
-	height: 1px;
-	background: var(--grid-accent);
-	margin: 2rem 0;
-}
-
-/* Data Visualization Elements */
-.data-stripe {
-	height: 4px;
-	background: linear-gradient(90deg, 
-		var(--palette-color-1) 0%, 
-		var(--palette-color-2) 50%,
-		var(--palette-color-3) 100%
-	);
-	margin: 1rem 0;
-}
-
-.data-stripe-colorless {
-	height: 4px;
-	background: linear-gradient(90deg, 
-		#cccccc 0%, 
-		#cccccc 50%,
-		#cccccc 100%
-	);
-	margin: 1rem 0;
-}
-
-.data-pulse {
-	animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-	0%, 100% { opacity: 1; }
-	50% { opacity: 0.5; }
-}
-
-/* Glitch effect for headings */
-@keyframes glitch {
-	0% { transform: translate(0); }
-	20% { transform: translate(-2px, 2px); }
-	40% { transform: translate(-2px, -2px); }
-	60% { transform: translate(2px, 2px); }
-	80% { transform: translate(2px, -2px); }
-	100% { transform: translate(0); }
-}
-
-.glitch:hover {
-	animation: glitch 0.3s ease-in-out;
-}
-
-/* Button Styles */
-.btn {
-	font-family: var(--font-geist-mono), monospace;
-	text-transform: uppercase;
-	letter-spacing: 0.1em;
-	padding: 0.75rem 2rem;
-	border: 1px solid var(--foreground);
-	background: transparent;
-	color: var(--foreground);
-	cursor: pointer;
-	transition: all 0.3s ease;
-	font-size: 0.875rem;
-	font-weight: 600;
-}
-
-.btn:hover {
-	background: var(--foreground);
-	color: var(--background);
-}
-
-.btn-accent {
-	border-color: var(--accent);
-	color: var(--accent);
-}
-
-.btn-accent:hover {
-	background: var(--accent);
-	color: var(--background);
-}
-
-/* Links */
-.link {
-	color: var(--secondary);
+	display: block;
+	padding: 1.25rem 0;
+	border: 0 !important;
+	border-top: 1px solid var(--rule) !important;
+	background: none;
 	text-decoration: none;
-	position: relative;
-	transition: color 0.3s ease;
+	transition: none;
 }
 
-.link::after {
-	content: '';
-	position: absolute;
-	bottom: -2px;
-	left: 0;
-	width: 100%;
+.project-card:hover { transform: none; box-shadow: none; }
+.project-card:hover .project-title { color: var(--link); }
+
+/* ---------- lines (old stripes become plain rules) ---------- */
+.data-stripe, .data-stripe-colorless, .line-grid, .line-accent {
 	height: 1px;
-	background: var(--secondary);
-	transform: scaleX(0);
-	transform-origin: right;
-	transition: transform 0.3s ease;
+	background: var(--rule);
+	margin: 1.5rem 0;
 }
 
-.link:hover {
-	color: var(--accent);
+/* ---------- buttons + links ---------- */
+.btn {
+	display: inline-block;
+	font-size: 0.9rem;
+	padding: 0.4rem 0;
+	border: 0;
+	border-bottom: 1px solid var(--rule);
+	background: none;
+	color: var(--ink);
+	text-decoration: none;
+	cursor: pointer;
 }
 
-.link:hover::after {
-	transform: scaleX(1);
-	transform-origin: left;
-	background: var(--accent);
+.btn:hover, .btn-accent { border-bottom-color: var(--link); }
+.btn-accent { color: var(--link); }
+
+.link {
+	color: var(--link);
+	text-decoration: underline;
+	text-decoration-color: var(--rule);
+	text-underline-offset: 3px;
 }
 
-/* Blog Content Styles */
-.blog-content h1 {
-	font-family: var(--font-geist-mono), monospace;
-	font-size: 2.5rem;
-	font-weight: 700;
-	letter-spacing: 0.05em;
-	margin-bottom: 2rem;
-	color: var(--foreground);
-	text-transform: uppercase;
-}
+.link:hover { text-decoration-color: var(--link); }
 
-.blog-content h2 {
-	font-family: var(--font-geist-mono), monospace;
-	font-size: 1.75rem;
-	font-weight: 600;
-	letter-spacing: 0.05em;
-	margin-top: 1rem;
-	margin-bottom: 1rem;
-	color: var(--accent);
-	text-transform: uppercase;
-}
-
-.blog-content h3 {
-	font-family: var(--font-geist-mono), monospace;
-	font-size: 1.25rem;
-	font-weight: 600;
-	margin-top: 2rem;
-	margin-bottom: 1rem;
-	color: var(--secondary);
-}
+/* ---------- long-form content ---------- */
+.blog-content h1 { font-size: 2rem; margin-bottom: 1.5rem; }
+.blog-content h2 { font-size: 1.5rem; margin: 0 0 0.75rem; color: var(--ink); }
+.blog-content h3 { font-size: 1.15rem; margin: 1.5rem 0 0.5rem; color: var(--ink); }
 
 .blog-content p {
-	font-family: var(--font-geist-sans), sans-serif;
-	line-height: 1.8;
-	margin-bottom: 1.5rem;
 	font-size: 1.05rem;
+	line-height: 1.75;
+	margin-bottom: 1.25rem;
 }
 
-.blog-content ul, .blog-content ol {
-	margin-bottom: 1.5rem;
-	padding-left: 2rem;
+.blog-content a {
+	color: var(--link);
+	text-decoration: underline;
+	text-decoration-color: var(--rule);
+	text-underline-offset: 3px;
 }
 
-.blog-content li {
-	margin-bottom: 0.5rem;
-	line-height: 1.6;
-}
+.blog-content ul, .blog-content ol { margin: 0 0 1.25rem; padding-left: 1.5rem; }
+/* The converted project pages already type their own "- " dashes, so no bullets by default.
+   Pages built with <Post> get real bullets. */
+.post-body ul { list-style: disc; }
+.blog-content li { margin-bottom: 0.4rem; }
 
 .blog-content code {
-	font-family: var(--font-geist-mono), monospace;
-	background: rgba(255, 255, 255, 0.1);
-	padding: 0.2rem 0.5rem;
+	font-family: var(--font-mono);
+	background: var(--panel);
+	padding: 0.1rem 0.35rem;
 	border-radius: 3px;
 	font-size: 0.9em;
-	color: var(--highlight);
 }
 
 .blog-content pre {
-	background: #0a0a0a;
-	border: 1px solid var(--grid-accent);
-	padding: 1.5rem;
-	margin-bottom: 1.5rem;
+	background: var(--panel);
+	border: 1px solid var(--rule);
+	border-radius: 4px;
+	padding: 1rem;
+	margin-bottom: 1.25rem;
 	overflow-x: auto;
-	border-left: 3px solid var(--accent);
 }
 
-.blog-content pre code {
-	background: transparent;
-	padding: 0;
-	color: var(--foreground);
-}
+.blog-content pre code { background: none; padding: 0; }
 
 .blog-content blockquote {
-	border-left: 3px solid var(--accent);
-	padding-left: 1.5rem;
-	margin: 2rem 0;
-	font-style: italic;
-	color: #999;
+	border-left: 2px solid var(--rule);
+	padding-left: 1.25rem;
+	margin: 1.5rem 0;
+	color: var(--muted);
 }
 
-.blog-content img {
-	max-width: 100%;
-	height: auto;
-	margin: 2rem 0;
-	border: 1px solid var(--grid-accent);
-}
+.blog-content img { max-width: 100%; height: auto; margin: 1.5rem 0; }
 
-/* Override blog-content img margins for images inside wrappers */
+/* ---------- galleries ---------- */
 .image-wrapper img,
-.gallery-item img {
-	margin: 0 !important;
-}
+.gallery-item img { margin: 0 !important; }
 
-/* Image Gallery */
 .image-gallery {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-	gap: 2rem;
-	margin: 2rem 0;
+	gap: 1.5rem;
+	margin: 1.5rem 0;
 }
 
+.image-gallery-2 { grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); }
+.image-gallery-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
 .gallery-item {
-	background: #0a0a0a;
-	border: 1px solid var(--grid-color);
-	padding: 1rem;
-	transition: all 0.3s ease;
 	position: relative;
 	overflow: hidden;
-	cursor: pointer;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-}
-
-.gallery-item:hover {
-	border-color: var(--accent);
-	transform: translateY(-4px);
+	background: var(--panel);
+	border-radius: 4px;
+	cursor: pointer;
 }
 
 .gallery-item img {
@@ -483,7 +326,6 @@ html, body {
 	flex: 1;
 	min-height: 250px;
 	object-fit: cover;
-	border: 1px solid var(--grid-accent);
 	cursor: zoom-in;
 }
 
@@ -492,406 +334,82 @@ html, body {
 	width: 100%;
 	flex: 1;
 	min-height: 250px;
-	border: 1px solid var(--grid-accent);
 }
 
-.gallery-item .image-wrapper img {
-	border: none;
-	cursor: zoom-in;
-	margin: 0;
-}
+.gallery-item .image-wrapper img { cursor: zoom-in; }
 
 .gallery-item-title {
-	font-family: var(--font-geist-mono);
-	font-size: 0.875rem;
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
 	text-transform: uppercase;
-	letter-spacing: 0.05em;
-	color: var(--accent);
+	letter-spacing: 0.04em;
+	color: var(--muted);
 	margin-bottom: 0.5rem;
 }
 
 .gallery-item-description {
 	font-size: 0.875rem;
-	color: #999;
+	color: var(--muted);
 	line-height: 1.5;
 }
 
-/* Hover caption overlay */
 .gallery-item-caption {
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background: rgba(0, 0, 0, 0.95);
-	border-top: 2px solid var(--accent);
-	padding: 1rem;
+	background: rgba(31, 31, 30, 0.95);
+	padding: 0.75rem 1rem;
 	transform: translateY(100%);
-	transition: transform 0.3s ease;
-	font-family: var(--font-geist-mono);
+	transition: transform 0.2s ease;
 	font-size: 0.875rem;
-	color: #fff;
-	letter-spacing: 0.05em;
+	color: var(--ink);
 }
 
-.gallery-item:hover .gallery-item-caption {
-	transform: translateY(0);
-}
+.gallery-item:hover .gallery-item-caption { transform: translateY(0); }
 
-/* 2-column gallery variant */
-.image-gallery-2 {
-	grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-}
-
-/* 3-column gallery variant */
-.image-gallery-3 {
-	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-}
-
-/* Hide scrollbar for horizontal scrolling nav */
+/* ---------- utilities ---------- */
 .scrollbar-hide {
 	scrollbar-width: none;
 	-ms-overflow-style: none;
-	overflow-y: hidden;
-	overflow-x: auto;
-	touch-action: pan-x;
-	overscroll-behavior-x: contain;
 }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
 
-.scrollbar-hide::-webkit-scrollbar {
-	display: none;
-}
-
-/* Responsive utilities */
+/* ---------- mobile ---------- */
 @media (max-width: 768px) {
-	.section {
-		padding: 2rem 1rem;
-	}
-	
-	.section-wide {
-		padding: 2rem 1rem;
-	}
-	
-	.text-display {
-		font-size: 1.75rem;
-	}
-	
-	.grid-2, .grid-3 {
-		grid-template-columns: 1fr;
-	}
-	
-	.content-block,
-	.content-block-highlight {
-		padding: 1.25rem;
-		margin-bottom: 1rem;
-	}
-	
-	.data-box {
-		padding: 1.25rem;
-	}
-	
-	/* Make flex layouts stack on mobile */
+	.text-display { font-size: 1.75rem; }
+
 	.flex.gap-6,
 	.flex.my-6,
-	.flex.content-block,
-	.flex.content-block-highlight,
 	.content-block .flex,
 	.content-block-highlight .flex {
 		flex-direction: column;
 		gap: 1rem;
 	}
-	
-	/* Reset flex ratios on mobile - make all children full width */
-	.flex-\[8\],
-	.flex-\[4\],
-	.flex-\[3\],
-	.flex-\[2\],
-	.flex-\[1\.5\] {
+
+	.flex-\[8\], .flex-\[4\], .flex-\[3\], .flex-\[2\], .flex-\[1\.5\] {
 		flex: 1 1 100% !important;
 	}
-	
-	/* Remove horizontal margins on mobile to prevent squashing */
-	.ml-6,
-	.mr-6 {
-		margin-left: 0 !important;
-		margin-right: 0 !important;
-	}
-	
-	/* Ensure images don't overflow */
-	img, video {
-		max-width: 100%;
-		height: auto;
-	}
-	
-	/* Adjust image wrapper heights for mobile */
-	.image-wrapper {
-		min-height: 200px !important;
-	}
-	
-	/* Make gallery items stack */
-	.gallery-container {
-		grid-template-columns: 1fr !important;
-	}
-	
-	/* Gallery items padding */
-	.gallery-item {
-		padding: 0.75rem;
-	}
-	
-	/* Adjust blog content for mobile - keep padding for text */
-	.blog-content {
-		padding: 0.5rem;
-	}
-	
-	.blog-content h1 {
-		font-size: 1.75rem;
-		margin-bottom: 1rem;
-	}
-	
-	.blog-content h2 {
-		font-size: 1.5rem;
-		margin-top: 1.5rem;
-		margin-bottom: 0.75rem;
-	}
-	
-	.blog-content h3 {
-		font-size: 1.25rem;
-		margin-top: 1rem;
-		margin-bottom: 0.5rem;
-	}
-	
-	.blog-content p {
-		font-size: 0.95rem;
-		margin-bottom: 1rem;
-		line-height: 1.6;
-	}
-	
-	.blog-content ul, .blog-content ol {
-		padding-left: 1.5rem;
-		margin-bottom: 1rem;
-	}
-	
-	.blog-content pre {
-		padding: 1rem;
-		overflow-x: auto;
-	}
-	
-	.blog-content blockquote {
-		padding-left: 1rem;
-		margin: 1rem 0;
-	}
-	
-	/* Button responsiveness */
-	.btn {
-		width: 100%;
-		text-align: center;
-		padding: 0.75rem 1.5rem;
-	}
-	
-	/* Project card responsiveness */
-	.project-card {
-		padding: 1.25rem;
-	}
-	
-	/* Adjust heading sizes */
-	.text-heading {
-		font-size: 1.5rem;
-	}
-	
-	h1 {
-		font-size: 2rem;
-	}
-	
-	h2 {
-		font-size: 1.5rem;
-	}
-	
-	/* Ensure proper text wrapping */
-	p, li, blockquote {
-		word-wrap: break-word;
-		overflow-wrap: break-word;
-	}
-	
-	/* Prevent long words or URLs from breaking layout */
-	* {
-		max-width: 100%;
-	}
+
+	.ml-6, .mr-6 { margin-left: 0 !important; margin-right: 0 !important; }
+
+	img, video { max-width: 100%; height: auto; }
+	.image-wrapper { min-height: 200px !important; }
+	.gallery-container { grid-template-columns: 1fr !important; }
+	.image-gallery, .image-gallery-2, .image-gallery-3 { grid-template-columns: 1fr; }
+
+	p, li, blockquote { overflow-wrap: break-word; }
 }
 
-/* Print Styles - Ensure clean printing without cutoffs */
+/* ---------- print ---------- */
 @media print {
-	/* Remove unnecessary elements */
-	nav,
-	.navigation,
-	.scanline,
-	button,
-	.btn,
-	[class*="button"],
-	[type="button"],
-	[type="submit"],
-	.no-print {
-		display: none !important;
-	}
-	
-	/* Ensure content is visible */
-	/* body {
-		background: white;
-		color: black;
-	} */
-	
-	/* Reset margins for print */
-	@page {
-		margin: 1cm;
-		size: auto;
-	}
-	
-	/* Avoid page breaks inside important elements */
-	.content-block,
-	.content-block-highlight,
-	.data-box,
-	.blog-content h1,
-	.blog-content h2,
-	.blog-content h3,
-	.project-card,
-	.gallery-item,
-	pre,
-	blockquote {
-		page-break-inside: avoid;
-		break-inside: avoid;
-	}
-	
-	/* Keep headings with their content */
-	h1, h2, h3, h4, h5, h6 {
-		page-break-after: avoid;
-		break-after: avoid;
-		page-break-inside: avoid;
-		break-inside: avoid;
-	}
-	
-	/* Ensure images fit on page */
-	img {
-		max-width: 100% !important;
-		max-height: 60vh !important;
-		height: auto !important;
-		object-fit: contain !important;
-		page-break-inside: avoid;
-		break-inside: avoid;
-	}
-	
-	/* Limit image wrappers to fit on page */
-	.image-gallery .image-wrapper {
-		max-height: 60vh !important;
-		min-height: auto !important;
-		height: auto !important;
-	}
-	
-	/* Handle background image layout for print - first page only */
-	.fixed.inset-0.z-0 {
-		position: absolute !important;
-		height: 100vh;
-		page-break-after: avoid;
-		break-after: avoid;
-	}
-	
-	/* Scale up background image when printing */
-	.fixed.inset-0.z-0 img,
-	.fixed.inset-0.z-0 canvas {
-		transform: scale(1.5) !important;
-		opacity: 0.5 !important;
-	}
-	
-	/* Make background image container part of first page */
-	.fixed.inset-0.z-0 + .relative.z-10 {
-		position: relative;
-		z-index: 10;
-	}
-	
-	/* Hide the spacer div in print */
-	/* .h-\[50vh\] {
-		display: none !important;
-	} */
-	
-	/* Ensure other gallery images are not affected */
-	.gallery-item img,
-	.image-wrapper img,
-	.blog-content img {
-		position: relative !important;
-		height: auto !important;
-	}
-	
-	/* Reset fixed positioning for other elements */
-	.fixed:not(.inset-0.z-0),
-	[class*="fixed"]:not(.inset-0.z-0) {
-		position: relative !important;
-	}
-	
-	/* Ensure readable text */
-	/* .blog-content,
-	.content-block,
-	.content-block-highlight {
-		color: black !important;
-		background: white !important;
-		border-color: #333 !important;
-	} */
-	
-	/* Show URLs for links */
-	a[href]:after {
-		content: " (" attr(href) ")";
-		font-size: 0.8em;
-		color: #666;
-	}
-	
-	/* Don't show URLs for anchor links */
-	a[href^="#"]:after,
-	a[href^="javascript:"]:after {
-		content: "";
-	}
-	
-	/* Adjust spacing for print */
-	.section {
-		padding: 1rem !important;
-	}
-	
-	/* Compact hero section for print */
-	.section.min-h-\[80vh\] {
-		min-height: 40rem !important;
-		padding-top: 10rem !important;
-		padding-bottom: 5rem !important;
-	}
-	
-	/* Print page wrapper - wrap content blocks in this to center them on each page */
-	.print-page {
-		min-height: 100vh !important;
-		display: flex !important;
-		flex-direction: column !important;
-		justify-content: center !important;
-		page-break-after: always !important;
-		break-after: page !important;
-	}
-	
-	/* Last print page shouldn't force a page break */
-	.print-page:last-child {
-		page-break-after: avoid !important;
-		break-after: avoid !important;
-	}
-	
-	/* Ensure content blocks group together when multiple fit on page */
-	.content-block,
-	.content-block-highlight {
-		margin-bottom: 2rem !important;
-	}
-	
-	/* Keep grid layouts horizontal in print */
-	.grid-2 {
-		grid-template-columns: repeat(4, 1fr) !important;
-	}
-	
-	.grid-3 {
-		grid-template-columns: repeat(3, 1fr) !important;
-	}
-	
-	/* Make data boxes more compact for print */
-	.data-box {
-		padding: 0.5rem !important;
-		font-size: 0.75em;
-	}
+	nav, .sidebar, button, .btn, .no-print { display: none !important; }
+	@page { margin: 1cm; size: auto; }
+	.shell { display: block; }
+	.content-block, .data-box, .project-card, .gallery-item, pre, blockquote,
+	h1, h2, h3 { break-inside: avoid; }
+	h1, h2, h3 { break-after: avoid; }
+	img { max-width: 100% !important; max-height: 60vh !important; height: auto !important; object-fit: contain !important; }
+	a[href]:after { content: " (" attr(href) ")"; font-size: 0.8em; color: #666; }
+	a[href^="#"]:after { content: ""; }
 }

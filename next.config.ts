@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
 	images: {
 		unoptimized: true,
 	},
+	// project pages became blog posts
+	async redirects() {
+		return [{ source: '/projects/:slug', destination: '/blog/:slug', permanent: true }];
+	},
 };
 
 export default nextConfig;
