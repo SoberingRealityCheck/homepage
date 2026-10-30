@@ -19,7 +19,7 @@ as you can see here, it's using that four-bar linkage system on each leg. Each l
 
 ## Challenge 1: Simulating Linkages
 
-First problem we ran into with the sim was that URDF files(the way we represent the robot in the simualtion) are fundamentally structured in a way that makes it pretty damn hard to simulate these legs. URDF files are structured like a tree, and these legs are closed loops (and these loops are the most important part of the whole sim!). We first tried a bit of a hack: writing out most of the catbot as a URDF tree (leaving some pieces still disconnected), and then closing the loops ourselves within the physics sim by creating a force that specifically yanks together those disconnected parts every step to sort of approximate what it would be like if they were connected. This... sort of worked, but led to pretty inconsistent behavior, weird strain on the simulated robot, and an overall feeling that this was a stupid solution to an avoidable problem. So we just switched the file format for the robot to something that supported loops(XML). 
+First problem we ran into with the sim was that URDF files(the way we represent the robot in the simualtion) are fundamentally structured in a way that makes it pretty damn hard to simulate these legs. URDF files are structured like a tree, and these legs are closed loops (and these loops are the most important part of the whole sim!). We first tried a bit of a hack: writing out most of the catbot as a URDF tree (leaving some pieces still disconnected), and then closing the loops ourselves within the physics sim by creating a force that specifically yanks together those disconnected parts every step to sort of approximate what it would be like if they were connected. This... sort of worked, but led to pretty inconsistent behavior, weird strain on the simulated robot, and an overall feeling that this was a stupid solution to an avoidable problem. So we just switched the file format for the robot to XML, which supported closed loops a bit easier. 
 
 [gif of the catbot in sim with the minecraft background; caption: "sim up and running, with a fresh coat of paint :)" ]
 
@@ -32,6 +32,8 @@ We took a ton of early guidance from these three papers:
 - MIT Mini Cheetah RL: https://agility.csail.mit.edu/
 - Energy Efficiency reward leading to RL Gait Emergence: https://arxiv.org/pdf/2111.01674
 - Enforcing Compliance Limits: https://arxiv.org/abs/2510.10759
+
+The Fu, Kumar, Malik, Pathak paper was by far my favorite - their super cool realization in that paper was that giving an energy efficiency incentive to a robot allowed it to sort of figure out the phenomenon of "walking" / "trotting" / "running" without needing to be given explicit direction on each different pattern of movement. Obviously this is sort of how real animals figured it out too, darwinist evolution incentivized energy efficient movement which 
 
 ## Challenge 3: Machine Learning Pitfalls
 
