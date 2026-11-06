@@ -336,6 +336,15 @@ export default function OwlsatPage() {
 					</div> */}
 				</div>
 
+				<div className="my-6">
+					{/* eslint-disable-next-line @next/next/no-img-element */}
+					<img
+						src="/owlsat/keychain.jpg"
+						alt="OWLSAT keychain"
+						style={{width: "100%", height: 340, objectFit: "cover", margin: 0}}
+					/>
+				</div>
+
 				<h3>Lessons Learned</h3>
 				<p>
 					One of the biggest lessons I learned from this project was that real-world engineering projects rarely go as planned. The setbacks we faced had little to do with actual engineering challenges, and more to do with factors beyond our control like NASA&apos;s funding. It taught me the importance of adaptability and resilience in project management, as well as the value of a strong team culture to weather unexpected challenges. I also learned a substantial amount about embedded systems programming and the unique constraints of space systems and radio communications, which has broadened my technical skill set significantly.
