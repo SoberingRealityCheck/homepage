@@ -15,21 +15,58 @@ import { IkedaImage } from '@/utils/ikedaImage';
 // Hero = the CMS endcap photo from the references slide (hero.png), dithered like the other posts.
 // TODO: date, real captions.
 
-// One or more figures in a row. Widths are the flex weights, roughly the aspect ratios.
-function Figs({ items }: { items: { src: string; alt: string; w: number; h: number }[] }) {
+// One or more figures in a row, with a "Figure n: ..." caption. The text points at them with <Ref n />.
+// Widths are the flex weights, roughly the aspect ratios.
+// ext: file type, default png.
+// dark: slide screenshots on a white page. invert + hue-rotate flips light to dark and
+//   keeps the hues close. "lighten" turns the pure black into the page color.
+//   A hack, but it beats a white box on a dark page.
+// wide: let a dense diagram break out of the text column so its labels stay readable.
+type Fig = { src: string; alt: string; w: number; h: number; ext?: string; dark?: boolean; wide?: boolean };
+
+function Ref({ n }: { n: number }) {
+	return <a href={`#fig-${n}`}>Figure {n}</a>;
+}
+
+function Figs({ n, caption, items }: { n: number; caption: string; items: Fig[] }) {
+	const wide = items.length === 1 && items[0].wide;
+	const dark = items.some((f) => f.dark);
 	return (
-		<div className="flex flex-wrap items-center justify-center gap-6 my-8">
-			{items.map((f) => (
-				<Image
-					key={f.src}
-					src={`/blog/beamhalo/${f.src}.png`}
-					alt={f.alt}
-					width={f.w}
-					height={f.h}
-					style={{ margin: 0, flex: `${f.w / f.h} 1 0`, minWidth: 260, height: 'auto' }}
-				/>
-			))}
-		</div>
+		<figure
+			id={`fig-${n}`}
+			className="my-8"
+			// own bg + isolate: mix-blend-mode only sees what is painted inside its stacking context,
+			// so the page bg has to be painted here. No transform on this element, it would isolate too.
+			style={{
+				margin: '2rem 0',
+				...(dark ? { background: 'var(--bg)', isolation: 'isolate' as const } : {}),
+				...(wide ? { width: 'min(1100px, 94vw)', marginLeft: 'calc((100% - min(1100px, 94vw)) / 2)' } : {}),
+			}}
+		>
+			<div className="flex flex-wrap items-center justify-center gap-6">
+				{items.map((f) => (
+					<Image
+						key={f.src}
+						src={`/blog/beamhalo/${f.src}.${f.ext ?? 'png'}`}
+						alt={f.alt}
+						width={f.w}
+						height={f.h}
+						unoptimized={f.ext === 'svg'}
+						style={{
+							margin: 0,
+							flex: `${f.w / f.h} 1 0`,
+							minWidth: 260,
+							height: 'auto',
+							filter: f.dark ? 'invert(1) hue-rotate(180deg)' : undefined,
+							mixBlendMode: f.dark ? 'lighten' : undefined,
+						}}
+					/>
+				))}
+			</div>
+			<figcaption style={{ margin: '0.75rem auto 0', maxWidth: 680, textAlign: 'center', fontSize: '0.9rem', lineHeight: 1.5, color: 'var(--muted)' }}>
+				<b style={{ color: 'var(--ink)' }}>Figure {n}:</b> {caption}
+			</figcaption>
+		</figure>
 	);
 }
 
@@ -73,32 +110,35 @@ export default function BeamHaloPage() {
 
 			<h2>What</h2>
 
-			<Figs items={[
+			<p>
+				For those of you unaware, this is the large hadron collider (<Ref n={1} />)! It’s the largest and most powerful particle accelerator in the world, with four or so different detector experiments positioned at different points along the ring where we induce collisions.
+			</p>
+
+			<Figs n={1} caption="The Large Hadron Collider ring, with the CMS experiment marked." items={[
 				{ src: 'lhc', alt: 'The LHC ring, CMS, and the accelerator tunnel', w: 1000, h: 834 },
+			]} />
+			<p>
+				Our lab works closely with CMS, the Compact Muon Solenoid (<Ref n={2} />), which runs proton-proton collisions to examine interesting physics that emerges at the crazy high energy collisions the LHC can enable.
+			</p>
+
+			<Figs n={2} caption="A cutaway of the CMS detector." items={[
 				{ src: 'cms', alt: 'CMS detector cutaway', w: 1600, h: 1131 },
 			]} />
 
 			<p>
-				For those of you unaware, this is the large hadron collider! It’s the largest and most powerful particle accelerator in the world, with four or so different detector experiments positioned at different points along the ring where we induce collisions.
-			</p>
-			<p>
-				Our lab works closely with CMS, the Compact Muon Solenoid, which runs proton-proton collisions to examine interesting physics that emerges at the crazy high energy collisions the LHC can enable.
+				One of the interesting problems CMS faces is that it collects way too much data, most of which is uninteresting. The beams impact one another every 25 nanoseconds (these collisions are known as Bunch Crossings or BXs). which ends up being around 40 million bunch crossings a second. To counteract this the CMS has what’s known as a two-level Trigger system (which you can think of as a data filter). The level 1 system takes data directly from the sensors and routes it through a super low-level system comprised of FPGAs, which are essentially lower-level logic devices than a computer, more of a reconfigurable circuit board, that can do extremely simple kinds of math extremely fast (<Ref n={3} />). Output from the level 1 trigger is a couple hundred times smaller and is routed into something closer to what you’re probably thinking of, a giant cluster of computers and gpu racks known as the High Level Trigger that does more of the traditional computation kinds of analysis to decide what really needs to be kept.
 			</p>
 
-			<Figs items={[{ src: 'trigger', alt: 'CMS Phase-2 Level-1 trigger architecture', w: 1734, h: 972 }]} />
+			<Figs n={3} caption="CMS Phase-2 Level-1 trigger architecture. Data flows down from the detector electronics at the top to the Global Trigger at the bottom." items={[{ src: 'trigger-crop', alt: 'CMS Phase-2 Level-1 trigger architecture', w: 1716, h: 796, dark: true, wide: true }]} />
 
 			<p>
-				One of the interesting problems CMS faces is that it collects way too much data, most of which is uninteresting. The beams impact one another every 25 nanoseconds (these collisions are known as Bunch Crossings or BXs). which ends up being around 40 million bunch crossings a second. To counteract this the CMS has what’s known as a two-level Trigger system (which you can think of as a data filter). The level 1 system takes data directly from the sensors and routes it through a super low-level system comprised of FPGAs, which are essentially lower-level logic devices than a computer, more of a reconfigurable circuit board, that can do extremely simple kinds of math extremely fast. Output from the level 1 trigger is a couple hundred times smaller and is routed into something closer to what you’re probably thinking of, a giant cluster of computers and gpu racks known as the High Level Trigger that does more of the traditional computation kinds of analysis to decide what really needs to be kept.
+				OK. so now we can get to the key thing here, which is beam halo. Some protons drift to the edges of the beam and smash into collimators or leftover gas upstream of CMS. This creates some interesting sensor noise in the detector: the muon byproducts of these collisions end up just passing directly through in a halo-shaped distribution with around a 2.5 meter radius (<Ref n={4} />). this is a fairly predictable kind of sensor noise, but it does fluctuate over time due to different properties of the beam.
 			</p>
 
-			<Figs items={[
+			<Figs n={4} caption="Beam halo muons. Left: detector hits in the x-y plane form a ring (Jalane Mendo, 2025). Right: side view of CMS. Halo muons (red) run parallel to the beam. Particles from collisions (yellow) fan out from the center." items={[
 				{ src: 'halo-plot', alt: 'Beam halo study, x-y hit map. Image credit: Jalane Mendo, 2025', w: 378, h: 350 },
 				{ src: 'side-view', alt: 'CMS side view with halo muons running parallel to the beam', w: 1260, h: 810 },
 			]} />
-
-			<p>
-				OK. so now we can get to the key thing here, which is beam halo. Some protons drift to the edges of the beam and smash into collimators or leftover gas upstream of CMS. This creates some interesting sensor noise in the detector: the muon byproducts of these collisions end up just passing directly through in a halo-shaped distribution with around a 2.5 meter radius. this is a fairly predictable kind of sensor noise, but it does fluctuate over time due to different properties of the beam.
-			</p>
 			<p>
 				back in like 2013, CMS used to have a system for triggering of beam halo muons. They still have real-time monitoring across all the different sensors, but with all the various upgrades and restructurings the system has undergone over the last decade and a half, the process isn’t available as a per-event tag within the low-level trigger itself anymore. We’re looking to implement that.
 			</p>
@@ -109,39 +149,43 @@ export default function BeamHaloPage() {
 				This project is about prototyping, simulating, and testing a low-level trigger system to flag bunch crossings that contain a halo muon, so we can pass that flag downstream.
 			</p>
 
-			<Figs items={[{ src: 'windows', alt: 'Muon timing windows', w: 1600, h: 978 }]} />
-
 			<p>
-				One of the interesting and compelling problems we’ve been looking at first is the fact that our sensors will read these as traveling back in time. CMS was obviously designed with the intent of capturing data from particles coming inside out from the “interaction vertex” in the center where the collisions happen, and since we’re operating at such insanely fast time scales, we actually need to stagger the data collection windows on each layer of sensors to account for the finite speed of light. So the window for “data from collision 1” starts later on each subsequent layer of sensors such that stuff traveling at relativistic near-lightspeed should all land within the same window.
+				One of the interesting and compelling problems we’ve been looking at first is the fact that our sensors will read these as traveling back in time. CMS was obviously designed with the intent of capturing data from particles coming inside out from the “interaction vertex” in the center where the collisions happen, and since we’re operating at such insanely fast time scales, we actually need to stagger the data collection windows on each layer of sensors to account for the finite speed of light. So the window for “data from collision 1” starts later on each subsequent layer of sensors such that stuff traveling at relativistic near-lightspeed should all land within the same window (<Ref n={5} />).
 			</p>
 
-			<Figs items={[{ src: 'windows-reverse', alt: 'Muon timing windows with a beam-halo muon', w: 1600, h: 978 }]} />
+			<Figs n={5} caption="Muon timing windows. A muon from bunch crossing n passes stations S1, S2 and S3 in turn. Each station's read window starts later to match, so the muon lands in the same window at every station." items={[{ src: 'windows', ext: 'svg', alt: 'Muon timing windows', w: 1190, h: 515 }]} />
 
 			<p>
-				This creates problems and also interesting opportunities for beam halo, which come in from the “wrong” direction, outside-in, and exit from the normal direction, inside-out. From the sensor’s point of view, these particles are confusing to track as they enter and may even end up scattered across multiple windows of collision data that are typically processed in isolation.
+				This creates problems and also interesting opportunities for beam halo, which come in from the “wrong” direction, outside-in, and exit from the normal direction, inside-out. From the sensor’s point of view, these particles are confusing to track as they enter and may even end up scattered across multiple windows of collision data that are typically processed in isolation (<Ref n={6} />).
 			</p>
+
+			<Figs n={6} caption="The same windows with a beam-halo muon (red). It moves outside-in, so it reaches S3 first and S1 last, and S1 reads it in the next bunch crossing's window." items={[{ src: 'windows-reverse', ext: 'svg', alt: 'Muon timing windows with a beam-halo muon', w: 1190, h: 515 }]} />
 			<p>
 				However, this pattern is also a super useful signal to detect them if you know what you’re looking for!
 			</p>
 
-			<Figs items={[{ src: 'l1t-block', alt: 'Level-1 trigger block diagram with the Beam Halo Tagger next to EMTF', w: 1440, h: 815 }]} />
-
 			<p>
-				Our goal is to design a system that sits roughly here, parallel to the Endcap Muon Track Finder, that layers data from a rolling window of time to identify beam halo using indicators like this. To do this, we’ll be implementing code in both Verilog and HLS that we can test on simulated data and development boards in the lab.
+				Our goal is to design a system that sits roughly here (<Ref n={7} />), parallel to the Endcap Muon Track Finder, that layers data from a rolling window of time to identify beam halo using indicators like this. To do this, we’ll be implementing code in both Verilog and HLS that we can test on simulated data and development boards in the lab.
 			</p>
+
+			<Figs n={7} caption="Where the Beam Halo Tagger would sit. It takes input from the endcap muon detectors, next to the Endcap Muon Track Finder, and sends its flag to the Global Muon Trigger." items={[{ src: 'l1t-block-crop', alt: 'Level-1 trigger block diagram with the Beam Halo Tagger next to EMTF', w: 1424, h: 650, dark: true, wide: true }]} />
 
 			<h2>Why</h2>
 
-			<Figs items={[{ src: 'calo', alt: 'Halo muons passing through the calorimeters', w: 1780, h: 850 }]} />
-
 			<p>
-				The hope is that tracking beam halo counts in realtime with a system like this will open the door to more precise energy estimates in the future. One of the inconvenient things about these Beam Halo muons is that they tend to pass directly through a line of calorimeter cells on their way through CMS, meaning they have a nonzero likelihood of contributing false energy readings that we need to account for. We currently do this with estimates from offfline analysis, but getting that data in real-time for each specific collision event would be a major upgrade to the system. This is a bit of a long shot, but we’re also hoping that setting up a system for tracking stray muons on interesting paths like these opens the door to finding more interesting kinds of new physics data that might be discarded and missed with the existing system.
+				The hope is that tracking beam halo counts in realtime with a system like this will open the door to more precise energy estimates in the future. One of the inconvenient things about these Beam Halo muons is that they tend to pass directly through a line of calorimeter cells on their way through CMS, meaning they have a nonzero likelihood of contributing false energy readings that we need to account for (<Ref n={8} />). We currently do this with estimates from offfline analysis, but getting that data in real-time for each specific collision event would be a major upgrade to the system. This is a bit of a long shot, but we’re also hoping that setting up a system for tracking stray muons on interesting paths like these opens the door to finding more interesting kinds of new physics data that might be discarded and missed with the existing system.
 			</p>
+
+			<Figs n={8} caption="Halo muons (red) running through a line of calorimeter cells can add false energy." items={[{ src: 'calo', alt: 'Halo muons passing through the calorimeters', w: 1780, h: 850 }]} />
 
 			<h2>Thanks</h2>
 
 			<p>
 				I’d like to thank my advisor, Dr. Darin Acosta, along with Patrick Kelling, Osvaldo Miguel Colin, and the rest of the Bonner Lab.
+			</p>
+
+			<p>
+				also worth disclosing the beam halo timing window diagrams and the translation from plaintext+slides to HTML page were generated via a coding agent. 
 			</p>
 
 			{/* TODO: references. Slide 9 has them. Not in the script, so left out for now. */}
