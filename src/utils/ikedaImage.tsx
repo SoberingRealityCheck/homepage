@@ -1,37 +1,134 @@
+import { useEffect, useState } from 'react';
 import { ColorPalette } from './palette';
 
 /**
- * Converts an image to a dithered, high-contrast version using a 3-color palette
- * Inspired by Ryoji Ikeda's aesthetic
- * 
- * @param imageUrl - URL or path to the source image
- * @param palette - 3-color palette to use (color1, color2, color3)
- * @param options - Processing options
- * @returns Promise that resolves to a data URL of the processed image
+ * Every knob that changes how the dithered image looks.
+ * Shared by processIkedaImage() and <IkedaImage>. All fields are optional.
+ *
+ * What happens to the image, in order:
+ * 1. resize to `targetWidth`
+ * 2. add `brightnessAdjust`
+ * 3. scale `contrastBoost` around mid gray
+ * 4. flip light/dark if `invert`
+ * 5. convert to grayscale
+ * 6. pick the 3 cut points between the 4 gray levels (from `colorDistribution`, or `colorThresholds`)
+ * 7. dither down to 4 levels with `ditherMethod`
+ * 8. paint the levels: black (made transparent), palette.color1, color2, color3
+ *
+ * Gray level to color: darkest = transparent, then color1, color2, and brightest = color3.
+ */
+export interface IkedaOptions {
+	/**
+	 * How the gray image is squeezed down to 4 levels.
+	 * - `'atkinson'`: crisp, high contrast. Throws away detail in the very darkest and lightest areas. Looks like old Mac graphics.
+	 * - `'floyd-steinberg'`: smoothest and closest to the photo. Also the noisiest.
+	 * - `'ordered'`: a regular grid pattern. Cleanest and most "designed" look. Hides fine detail.
+	 *
+	 * @default 'floyd-steinberg' in processIkedaImage(), 'atkinson' in <IkedaImage>
+	 */
+	ditherMethod?: 'floyd-steinberg' | 'atkinson' | 'ordered';
+
+	/**
+	 * Contrast multiplier around mid gray. 1 = no change, below 1 = flatter, above 1 = harsher.
+	 * Sensible range is 0.5 to 3. Above about 3 most pixels hit pure black or white and the dither has nothing to work with.
+	 *
+	 * @default 1.5
+	 */
+	contrastBoost?: number;
+
+	/**
+	 * Amount added to every pixel's red, green and blue (0 to 255 scale) before contrast.
+	 * Negative = darker, positive = brighter. Sensible range is -80 to 80.
+	 * Runs before `contrastBoost`, so a dark shift plus high contrast crushes shadows to black.
+	 * With `useHistogram` on, the later steps re-balance anyway, so this matters less than you'd think.
+	 *
+	 * @default 0
+	 */
+	brightnessAdjust?: number;
+
+	/**
+	 * Color saturation. 0 = grayscale, 1 = unchanged, above 1 = more vivid.
+	 * HACK: the image goes to grayscale a few steps later, so this has almost no visible effect.
+	 * It's kept so old pages that pass it still compile.
+	 *
+	 * @default 1
+	 */
+	saturation?: number;
+
+	/**
+	 * The 3 gray values (0 to 255, ascending) that split the image into 4 levels:
+	 * `[black -> color1, color1 -> color2, color2 -> color3]`.
+	 * Lower numbers = more of the image lands in the brighter colors.
+	 * Only used when `useHistogram` is false. Otherwise it is ignored.
+	 *
+	 * @default [64, 128, 192]
+	 */
+	colorThresholds?: [number, number, number];
+
+	/**
+	 * Flip light and dark before dithering.
+	 * - `false`: dark parts of the source become transparent, bright parts become color3.
+	 * - `true`: bright parts of the source become transparent, dark parts become color3.
+	 * Black is always the transparent level, so this picks which part of your photo shows up as dots.
+	 * Try both. Photos with a dark background usually want `false`. Light backgrounds want `true`.
+	 *
+	 * @default false in processIkedaImage(), true in <IkedaImage>
+	 */
+	invert?: boolean;
+
+	/**
+	 * Pick the cut points from the image itself, so `colorDistribution` is hit no matter how dark or light the photo is.
+	 * Set false to use fixed `colorThresholds` instead.
+	 *
+	 * @default true
+	 */
+	useHistogram?: boolean;
+
+	/**
+	 * Target share of pixels for each level, in percent: `[black (transparent), color1, color2, color3]`.
+	 * Should add up to 100. Only used when `useHistogram` is true.
+	 * More black = airier, more see-through. More color3 = denser and brighter.
+	 * Only the first three numbers set the cut points. The fourth is whatever is left.
+	 * The dither moves the real result a few percent off target. Turn on `showDebug` to see the actual split.
+	 *
+	 * @default [40, 25, 20, 15]
+	 */
+	colorDistribution?: [number, number, number, number];
+
+	/**
+	 * Resize to this width in pixels (height follows the aspect ratio) BEFORE dithering.
+	 * This sets the dot size. The result is shown with `image-rendering: pixelated`, so small = chunky dots, large = fine grain.
+	 * Sensible range is 200 to 1200. Existing pages use 600.
+	 * Leave it out to use the source's own size. That is slow on big photos and makes tiny dots.
+	 */
+	targetWidth?: number;
+}
+
+/**
+ * Turns an image into a dithered, high-contrast, 3-color picture on a transparent background.
+ * Inspired by Ryoji Ikeda's look.
+ *
+ * Runs in the browser only (it uses a canvas). The image has to be same-origin or served with CORS headers.
+ * Call it from a client component or an effect, not from a server component.
+ *
+ * @param imageUrl - URL or path to the source image, e.g. `/blog/beamhalo/hero.png`
+ * @param palette - Three colors, from dimmest to brightest (color1, color2, color3). Hex, 8-digit hex (alpha is dropped) or `rgb(r, g, b)`. Anything else turns black.
+ * @param options - See {@link IkedaOptions}
+ * @returns a PNG data URL, plus `debugInfo` with the cut points and the real share of pixels per color
  */
 export async function processIkedaImage(
 	imageUrl: string,
 	palette: ColorPalette,
-	options: {
-		ditherMethod?: 'floyd-steinberg' | 'atkinson' | 'ordered';
-		threshold?: number;
-		contrastBoost?: number;
-		brightnessAdjust?: number;
-		saturation?: number;
-		// Custom thresholds for color mapping (0-255)
-		colorThresholds?: [number, number, number]; // [black->color1, color1->color2, color2->color3]
-		invert?: boolean; // Invert the image before processing (for dots-on-black effect)
-		useHistogram?: boolean; // Auto-calculate thresholds from image histogram
-		// Distribution percentages when using histogram (must sum to 100)
-		colorDistribution?: [number, number, number, number]; // [black%, color1%, color2%, color3%]
-		targetWidth?: number; // Upscale/downscale image to this width before processing
-	} = {}
+	options: IkedaOptions = {}
 ): Promise<{
 	dataUrl: string;
 	debugInfo: {
+		/** The 3 gray cut points that were actually used (0 to 255). */
 		thresholds: [number, number, number];
+		/** Pixel count per level: [black, color1, color2, color3]. */
 		colorCounts: [number, number, number, number];
 		totalPixels: number;
+		/** Same as colorCounts, in percent. Compare with `colorDistribution` to see how close the dither got. */
 		colorPercentages: [number, number, number, number];
 	};
 }> {
@@ -225,7 +322,8 @@ export async function processIkedaImage(
 }
 
 /**
- * Multi-level Floyd-Steinberg dithering
+ * Multi-level Floyd-Steinberg dithering.
+ * Pushes all of each pixel's rounding error onto 4 neighbors. Smooth, photo-like, a bit noisy.
  */
 function multiLevelFloydSteinberg(data: Uint8ClampedArray, width: number, height: number, levels: number[]) {
 	for (let y = 0; y < height; y++) {
@@ -247,7 +345,8 @@ function multiLevelFloydSteinberg(data: Uint8ClampedArray, width: number, height
 }
 
 /**
- * Multi-level Atkinson dithering
+ * Multi-level Atkinson dithering.
+ * Pushes only 6/8 of the error onto 6 neighbors. The lost quarter is why it looks crisper and loses detail at the extremes.
  */
 function multiLevelAtkinson(data: Uint8ClampedArray, width: number, height: number, levels: number[]) {
 	for (let y = 0; y < height; y++) {
@@ -271,7 +370,8 @@ function multiLevelAtkinson(data: Uint8ClampedArray, width: number, height: numb
 }
 
 /**
- * Multi-level ordered (Bayer matrix) dithering
+ * Multi-level ordered (Bayer matrix) dithering.
+ * Nudges each pixel by a fixed 4x4 pattern (+/- 20 gray levels) before rounding. No error spreading, so it shows a regular grid.
  */
 function multiLevelOrdered(data: Uint8ClampedArray, width: number, height: number, levels: number[]) {
 	const bayerMatrix = [
@@ -329,7 +429,9 @@ function distributeError(
 }
 
 /**
- * Calculate color thresholds based on histogram distribution
+ * Walk the gray histogram and find the 3 gray values where the running pixel share
+ * reaches distribution[0], [0]+[1] and [0]+[1]+[2] percent.
+ * Cut points are forced to rise by at least 1, so a flat image can't give two equal ones.
  */
 function calculateHistogramThresholds(
 	data: Uint8ClampedArray,
@@ -396,12 +498,51 @@ function hexToRgb(hex: string): { r: number; g: number; b: number } {
 		: { r: 0, g: 0, b: 0 };
 }
 
-/**
- * Simple wrapper component for applying the Ikeda image effect
- * Usage: <IkedaImage src="/path/to/image.jpg" palette={myPalette} alt="Description" />
- */
-import { useEffect, useState } from 'react';
+/** Props for <IkedaImage>. Everything from {@link IkedaOptions} plus the ones below. */
+export interface IkedaImageProps extends IkedaOptions {
+	/** Source image, e.g. `/blog/beamhalo/hero.png`. Same-origin, or served with CORS headers. */
+	src: string;
+	/** The 3 colors to paint with, dimmest to brightest. Use one from `IKEDA_PALETTES` in `./palette`. */
+	palette: ColorPalette;
+	/** Alt text for the final image. */
+	alt: string;
+	/**
+	 * Classes for the output `<img>` (size, opacity, object-fit). Not for the wrapper.
+	 * The `<img>` sits inside a `flex` div, so give it an explicit size like `w-[90%] h-[90vh]`.
+	 *
+	 * @default ''
+	 */
+	className?: string;
+	/**
+	 * Show a side panel with the cut points and the real percent of pixels per color.
+	 * Use it while tuning `colorDistribution`. Turn it off before you ship.
+	 *
+	 * @default false
+	 */
+	showDebug?: boolean;
+}
 
+/**
+ * Drop-in component that shows an image as a dithered 3-color picture. See {@link IkedaOptions} for every knob.
+ *
+ * Needs a client component around it (it runs the canvas code in an effect).
+ * Shows "PROCESSING..." until it finishes and "ERROR" if the image fails to load.
+ *
+ * GOTCHA: the effect re-runs whenever any prop changes by reference.
+ * Pass the `palette`, `colorThresholds` and `colorDistribution` props as stable values
+ * (e.g. `IKEDA_PALETTES.particles` or a constant outside the component).
+ * An inline `[40, 25, 20, 15]` is a new array each parent render and re-dithers the image every time.
+ *
+ * @example
+ * <IkedaImage
+ *   src="/blog/beamhalo/hero.png"
+ *   palette={IKEDA_PALETTES.particles}
+ *   alt="CMS endcap"
+ *   ditherMethod="atkinson"
+ *   targetWidth={600}
+ *   className="w-[90%] h-[90vh] object-contain opacity-40"
+ * />
+ */
 export function IkedaImage({
 	src,
 	palette,
@@ -417,22 +558,7 @@ export function IkedaImage({
 	colorDistribution = [40, 25, 20, 15], // black, color1, color2, color3
 	showDebug = false, // Show debug info
 	targetWidth, // Upscale/downscale to this width
-}: {
-	src: string;
-	palette: ColorPalette;
-	alt: string;
-	className?: string;
-	ditherMethod?: 'floyd-steinberg' | 'atkinson' | 'ordered';
-	contrastBoost?: number;
-	brightnessAdjust?: number;
-	saturation?: number;
-	colorThresholds?: [number, number, number];
-	invert?: boolean;
-	useHistogram?: boolean;
-	colorDistribution?: [number, number, number, number];
-	showDebug?: boolean;
-	targetWidth?: number;
-}) {
+}: IkedaImageProps) {
 	const [processedSrc, setProcessedSrc] = useState<string>('');
 	const [loading, setLoading] = useState(true);
 	const [debugInfo, setDebugInfo] = useState<{ thresholds: number[], colorCounts: number[], totalPixels: number, colorPercentages: number[] } | null>(null);
