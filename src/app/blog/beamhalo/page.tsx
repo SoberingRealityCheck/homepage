@@ -40,7 +40,9 @@ function Figs({ n, caption, items }: { n: number; caption: string; items: Fig[] 
 			style={{
 				margin: '2rem 0',
 				...(dark ? { background: 'var(--bg)', isolation: 'isolate' as const } : {}),
-				...(wide ? { width: 'min(1100px, 94vw)', marginLeft: 'calc((100% - min(1100px, 94vw)) / 2)' } : {}),
+				// The column is left-aligned next to the sidebar (14rem + gaps + shell padding), so grow to the
+				// right only. max(100%, ...) keeps it at column width when the screen is too narrow.
+				...(wide ? { width: 'max(100%, min(calc(100% + 260px), calc(100vw - 21rem)))' } : {}),
 			}}
 		>
 			<div className="flex flex-wrap items-center justify-center gap-6">
