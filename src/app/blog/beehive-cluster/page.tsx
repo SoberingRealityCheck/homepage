@@ -73,6 +73,7 @@
 import { PaletteProvider, IKEDA_PALETTES } from "@/utils/palette";
 import { IkedaImage } from "@/utils/ikedaImage";
 import Image from "next/image";
+import { PostDate } from '@/components/PostDate';
 
 export default function BeehiveClusterPage() {
 	return (
@@ -99,28 +100,11 @@ export default function BeehiveClusterPage() {
 		<div className="section">
 			{/* Project Header */}
 			<div className="content-block-highlight mb-8">
-				<div className="flex justify-between items-start mb-4">
-					<h1 className="text-display text-4xl">Project: Astronomical Study of the Little Beehive Cluster</h1>
-					<span className="text-data text-accent">2025</span>
-				</div>
+				<PostDate slug="beehive-cluster" />
+				<h1 className="text-display text-4xl mb-4">Project: Astronomical Study of the Little Beehive Cluster</h1>
 				<div className="data-stripe mb-6" />
 			</div>
 
-			{/* Project Info Grid */}
-			<div className="grid-3 mb-12">
-				<div className="data-box">
-					<h3 className="text-data text-accent mb-2">Role</h3>
-					<p>Solo Researcher</p>
-				</div>
-				<div className="data-box">
-					<h3 className="text-data text-secondary mb-2">Timeline</h3>
-					<p>March 2025 &mdash; May 2025</p>
-				</div>
-				<div className="data-box">
-					<h3 className="text-data text-highlight mb-2">Status</h3>
-					<p>Complete</p>
-				</div>
-			</div>
 
 			{/* Showcase GIF */}
 			<div className="image-gallery my-8">

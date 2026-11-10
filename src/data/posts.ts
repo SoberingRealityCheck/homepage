@@ -12,8 +12,8 @@ export interface PostMeta {
 export const POSTS: PostMeta[] = [
 	{ slug: 'beamhalo', title: 'FPGA-driven Beam Halo Muon Tagging in the CMS Level 1 Trigger', date: 'October 9, 2026' },
 	{ slug: 'rice-robotics-2', title: 'Rice Robotics R&D (Part 2), Teaching a Cat Robot to Move a Hell of a Lot Faster', date: 'July 14, 2026'},
-	{ slug: 'rice-robotics', title: 'Project: Rice Robotics R&D, Teaching a Robot to Move', date: 'November 4, 2026' },
-	{ slug: 'owlsat', title: 'Project: OwlSAT, CubeSAT Mission', date: 'December 12, 2025' },
+	{ slug: 'rice-robotics', title: 'Project: Rice Robotics R&D, Teaching a Robot to Move', date: 'November 4, 2025' },
+	{ slug: 'owlsat', title: 'Project: OwlSAT, CubeSAT Mission', date: 'September 12, 2025' },
 	{ slug: 'arachne', title: 'Design Project: Horrifying Hexapod Robot to Torment my Roommate', date: 'August 5, 2025' },
 	{ slug: 'cacti', title: 'Project: Houston Zoo, Rolling Ball Robot for the Cheetahs', date: 'June 12, 2025' },
 	{ slug: 'beehive-cluster', title: 'Project: Astronomical Study of the Little Beehive Cluster', date: 'May 20, 2025' },

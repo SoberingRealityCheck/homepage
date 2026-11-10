@@ -3,6 +3,7 @@
 import { PaletteProvider, IKEDA_PALETTES } from "@/utils/palette";
 import { IkedaImage } from "@/utils/ikedaImage";
 import Image from "next/image";
+import { PostDate } from '@/components/PostDate';
 
 // Converted from content.md. Edit the markdown, then ask for a re-conversion.
 
@@ -97,6 +98,7 @@ export default function RiceRobotics2Page() {
 
 		<div className="section">
 			<div className="content-block-highlight mb-8">
+				<PostDate slug="rice-robotics-2" />
 				<h1 className="text-display text-4xl mb-4">Rice Robotics R&D (Part 2), Teaching a Cat Robot to Move a Hell of a Lot Faster</h1>
 				<div className="data-stripe mb-6" />
 			</div>

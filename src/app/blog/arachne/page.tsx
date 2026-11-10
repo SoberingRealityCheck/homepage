@@ -72,6 +72,7 @@
 
 import { PaletteProvider, IKEDA_PALETTES } from "@/utils/palette";
 import { IkedaImage } from "@/utils/ikedaImage";
+import { PostDate } from '@/components/PostDate';
 
 export default function RiceRoboticsPage() {
 	return (
@@ -97,28 +98,11 @@ export default function RiceRoboticsPage() {
 		<div className="section">
 			{/* Project Header */}
 			<div className="content-block-highlight mb-8">
-				<div className="flex justify-between items-start mb-4">
-					<h1 className="text-display text-4xl">Design Project: Horrifying Hexapod Robot to Torment my Roommate</h1>
-					<span className="text-data text-accent">2025 - 2026</span>
-				</div>
+				<PostDate slug="arachne" />
+				<h1 className="text-display text-4xl mb-4">Design Project: Horrifying Hexapod Robot to Torment my Roommate</h1>
 				<div className="data-stripe mb-6" />
 			</div>
 
-			{/* Project Info Grid */}
-			<div className="grid-3 mb-12">
-				<div className="data-box">
-					<h3 className="text-data text-accent mb-2">Role</h3>
-					<p>Solo Developer</p>
-				</div>
-				<div className="data-box">
-					<h3 className="text-data text-secondary mb-2">Timeline</h3>
-					<p>August 2025 - May 2026</p>
-				</div>
-				<div className="data-box">
-					<h3 className="text-data text-highlight mb-2">Status</h3>
-					<p>Ongoing. Slowly. When I find spare time! </p>
-				</div>
-			</div>
 
 			{/* Main Content */}
 			<div className="content-block-highlight blog-content whitespace-pre-wrap">

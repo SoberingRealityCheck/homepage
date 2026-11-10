@@ -73,6 +73,7 @@
 import { PaletteProvider, IKEDA_PALETTES } from "@/utils/palette";
 import { IkedaImage } from "@/utils/ikedaImage";
 import Image from "next/image";
+import { PostDate } from '@/components/PostDate';
 
 export default function ProjectTemplate() {
 	return (
@@ -99,28 +100,11 @@ export default function ProjectTemplate() {
 		<div className="section">
 			{/* Project Header - Always include this */}
 			<div className="content-block-highlight mb-8">
-				<div className="flex justify-between items-start mb-4">
-					<h1 className="text-display text-4xl">Project: Houston Zoo, Rolling Ball Robot for the Cheetahs</h1>
-					<span className="text-data text-accent">2024 - 2025</span>
-				</div>
+				<PostDate slug="cacti" />
+				<h1 className="text-display text-4xl mb-4">Project: Houston Zoo, Rolling Ball Robot for the Cheetahs</h1>
 				<div className="data-stripe mb-6" />
 			</div>
 
-			{/* Optional: Project Info Grid */}
-			<div className="grid-3 mb-12">
-				<div className="data-box">
-					<h3 className="text-data text-accent mb-2">Role</h3>
-					<p>Software Lead, Electronics Lead</p>
-				</div>
-				<div className="data-box">
-					<h3 className="text-data text-secondary mb-2">Timeline</h3>
-					<p>August 2024 - May 2025</p>
-				</div>
-				<div className="data-box">
-					<h3 className="text-data text-highlight mb-2">Status</h3>
-					<p>Complete!!</p>
-				</div>
-			</div>
 	</div>
 	<div className="print-page">
 			<div className="image-gallery my-8">
