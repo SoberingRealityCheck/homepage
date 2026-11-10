@@ -22,7 +22,9 @@ import { IkedaImage } from '@/utils/ikedaImage';
 //   keeps the hues close. "lighten" turns the pure black into the page color.
 //   A hack, but it beats a white box on a dark page.
 // wide: let a dense diagram break out of the text column so its labels stay readable.
-type Fig = { src: string; alt: string; w: number; h: number; ext?: string; dark?: boolean; wide?: boolean };
+type Fig = { src: string; alt: string; w: number; h: number; ext?: string; dark?: boolean; wide?: boolean;
+	// circle: ring drawn over the image, in image pixels. An overlay so the dark-mode filter doesn't recolor it.
+	circle?: { x: number; y: number; r: number } };
 
 function Ref({ n }: { n: number }) {
 	return <a href={`#fig-${n}`}>Figure {n}</a>;
@@ -47,22 +49,31 @@ function Figs({ n, caption, items }: { n: number; caption: string; items: Fig[] 
 		>
 			<div className="flex flex-wrap items-center justify-center gap-6">
 				{items.map((f) => (
-					<Image
-						key={f.src}
-						src={`/blog/beamhalo/${f.src}.${f.ext ?? 'png'}`}
-						alt={f.alt}
-						width={f.w}
-						height={f.h}
-						unoptimized={f.ext === 'svg'}
-						style={{
-							margin: 0,
-							flex: `${f.w / f.h} 1 0`,
-							minWidth: 260,
-							height: 'auto',
-							filter: f.dark ? 'invert(1) hue-rotate(180deg)' : undefined,
-							mixBlendMode: f.dark ? 'lighten' : undefined,
-						}}
-					/>
+					<div key={f.src} style={{ position: 'relative', flex: `${f.w / f.h} 1 0`, minWidth: 260 }}>
+						<Image
+							src={`/blog/beamhalo/${f.src}.${f.ext ?? 'png'}`}
+							alt={f.alt}
+							width={f.w}
+							height={f.h}
+							unoptimized={f.ext === 'svg'}
+							style={{
+								margin: 0,
+								width: '100%',
+								height: 'auto',
+								filter: f.dark ? 'invert(1) hue-rotate(180deg)' : undefined,
+								mixBlendMode: f.dark ? 'lighten' : undefined,
+							}}
+						/>
+						{f.circle && (
+							<svg
+								viewBox={`0 0 ${f.w} ${f.h}`}
+								aria-hidden
+								style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
+							>
+								<circle cx={f.circle.x} cy={f.circle.y} r={f.circle.r} fill="none" stroke="#ff3b3b" strokeWidth={8} />
+							</svg>
+						)}
+					</div>
 				))}
 			</div>
 			<figcaption style={{ margin: '0.75rem auto 0', maxWidth: 680, textAlign: 'center', fontSize: '0.9rem', lineHeight: 1.5, color: 'var(--muted)' }}>
@@ -124,7 +135,7 @@ export default function BeamHaloPage() {
 			</p>
 
 			<Figs n={2} caption="A cutaway of the CMS detector." items={[
-				{ src: 'cms', alt: 'CMS detector cutaway', w: 1600, h: 1131 },
+				{ src: 'cms-dark', alt: 'CMS detector cutaway', w: 1600, h: 1131 },
 			]} />
 
 			<p>
@@ -170,7 +181,7 @@ export default function BeamHaloPage() {
 				Our goal is to design a system that sits roughly here (<Ref n={7} />), parallel to the Endcap Muon Track Finder, that layers data from a rolling window of time to identify beam halo using indicators like this. To do this, we’ll be implementing code in both Verilog and HLS that we can test on simulated data and development boards in the lab.
 			</p>
 
-			<Figs n={7} caption="Where the Beam Halo Tagger would sit. It takes input from the endcap muon detectors, next to the Endcap Muon Track Finder, and sends its flag to the Global Muon Trigger." items={[{ src: 'l1t-block-crop', alt: 'Level-1 trigger block diagram with the Beam Halo Tagger next to EMTF', w: 1424, h: 650, dark: true, wide: true }]} />
+			<Figs n={7} caption="Where the Beam Halo Tagger would sit. It takes input from the endcap muon detectors, next to the Endcap Muon Track Finder, and sends its flag to the Global Muon Trigger." items={[{ src: 'l1t-block-crop', alt: 'Level-1 trigger block diagram with the Beam Halo Tagger next to EMTF', w: 1424, h: 650, dark: true, wide: true, circle: { x: 1214, y: 160, r: 58 } }]} />
 
 			<h2>Why</h2>
 
@@ -178,7 +189,7 @@ export default function BeamHaloPage() {
 				The hope is that tracking beam halo counts in realtime with a system like this will open the door to more precise energy estimates in the future. One of the inconvenient things about these Beam Halo muons is that they tend to pass directly through a line of calorimeter cells on their way through CMS, meaning they have a nonzero likelihood of contributing false energy readings that we need to account for (<Ref n={8} />). We currently do this with estimates from offfline analysis, but getting that data in real-time for each specific collision event would be a major upgrade to the system. This is a bit of a long shot, but we’re also hoping that setting up a system for tracking stray muons on interesting paths like these opens the door to finding more interesting kinds of new physics data that might be discarded and missed with the existing system.
 			</p>
 
-			<Figs n={8} caption="Halo muons (red) running through a line of calorimeter cells can add false energy." items={[{ src: 'calo', alt: 'Halo muons passing through the calorimeters', w: 1780, h: 850 }]} />
+			<Figs n={8} caption="Halo muons (red) running through a line of calorimeter cells can add false energy." items={[{ src: 'calo-mask', alt: 'Halo muons passing through the calorimeters', w: 1780, h: 850 }]} />
 
 			<h2>Thanks</h2>
 
