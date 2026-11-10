@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="205 200 1190 515" width="1190" height="515" role="img">
+<rect x="205" y="200" width="1190" height="515" fill="#1f1f1e"/>
+<defs>
+<marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#dcdad5"/></marker>
+<marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#ef5b5b"/></marker>
+</defs>
+<line x1="272" y1="269" x2="1168" y2="269" stroke="#dcdad5" stroke-width="4" marker-end="url(#a-ink)"/>
+<circle cx="272" cy="269" r="11" fill="#e8875a"/>
+<text x="308" y="248" text-anchor="start" font-family="'Zilla Slab', Georgia, serif" font-size="28" font-weight="normal" fill="#8d8b86"><tspan font-family="Georgia, 'Times New Roman', serif" font-style="italic">v</tspan> = <tspan font-family="Georgia, 'Times New Roman', serif" font-style="italic">βc</tspan> &lt; <tspan font-family="Georgia, 'Times New Roman', serif" font-style="italic">c</tspan></text>
+<text x="272" y="330" text-anchor="middle" font-family="'Zilla Slab', Georgia, serif" font-size="28" font-weight="normal" fill="#8d8b86">BX <tspan font-family="Georgia, 'Times New Roman', serif" font-style="italic">n</tspan></text>
+<rect x="481" y="217" width="45" height="106" fill="none" stroke="#3fb8a8" stroke-width="3.5"/>
+<text x="503" y="362" text-anchor="middle" font-family="'Zilla Slab', Georgia, serif" font-size="28" font-weight="normal" fill="#3fb8a8">S1</text>
+<rect x="739" y="217" width="45" height="106" fill="none" stroke="#6aa6e0" stroke-width="3.5"/>
+<text x="761" y="362" text-anchor="middle" font-family="'Zilla Slab', Georgia, serif" font-size="28" font-weight="normal" fill="#6aa6e0">S2</text>
+<rect x="997" y="217" width="45" height="106" fill="none" stroke="#e8875a" stroke-width="3.5"/>
+<text x="1019" y="362" text-anchor="middle" font-family="'Zilla Slab', Georgia, serif" font-size="28" font-weight="normal" fill="#e8875a">S3</text>
+<line x1="1170" y1="314" x2="352" y2="314" stroke="#ef5b5b" stroke-width="4" marker-end="url(#a-red)"/>
+<circle cx="1170" cy="314" r="9" fill="#ef5b5b"/>
+<text x="890" y="303" text-anchor="middle" font-family="'Zilla Slab', Georgia, serif" font-size="28" font-weight="normal" fill="#ef5b5b" stroke="#1f1f1e" stroke-width="7" paint-order="stroke">beam-halo muon</text>
+<text x="222" y="416" text-anchor="start" font-family="'Zilla Slab', Georgia, serif" font-size="30" font-weight="bold" fill="#dcdad5">Read windows</text>
+<text x="440" y="475" text-anchor="start" font-family="'Zilla Slab', Georgia, serif" font-size="28" font-weight="normal" fill="#8d8b86">BX <tspan font-family="Georgia, 'Times New Roman', serif" font-style="italic">n</tspan></text>
+<line x1="477" y1="487" x2="477" y2="652" stroke="#8d8b86" stroke-width="2" stroke-dasharray="7 6"/>
+<rect x="477" y="494" width="143" height="33" rx="3" fill="#3fb8a8" fill-opacity="0.18" stroke="#3fb8a8" stroke-width="3"/>
+<rect x="548" y="552" width="143" height="33" rx="3" fill="#6aa6e0" fill-opacity="0.18" stroke="#6aa6e0" stroke-width="3"/>
+<rect x="619" y="610" width="143" height="33" rx="3" fill="#e8875a" fill-opacity="0.18" stroke="#e8875a" stroke-width="3"/>
+<text x="858" y="475" text-anchor="start" font-family="'Zilla Slab', Georgia, serif" font-size="28" font-weight="normal" fill="#8d8b86">BX <tspan font-family="Georgia, 'Times New Roman', serif" font-style="italic">n</tspan> + 1</text>
+<line x1="921" y1="487" x2="921" y2="652" stroke="#8d8b86" stroke-width="2" stroke-dasharray="7 6"/>
+<rect x="921" y="494" width="143" height="33" rx="3" fill="#3fb8a8" fill-opacity="0.18" stroke="#3fb8a8" stroke-width="3"/>
+<rect x="992" y="552" width="143" height="33" rx="3" fill="#6aa6e0" fill-opacity="0.18" stroke="#6aa6e0" stroke-width="3"/>
+<rect x="1063" y="610" width="143" height="33" rx="3" fill="#e8875a" fill-opacity="0.18" stroke="#e8875a" stroke-width="3"/>
+<text x="441" y="536" text-anchor="end" font-family="'Zilla Slab', Georgia, serif" font-size="28" font-weight="normal" fill="#3fb8a8">S1</text>
+<text x="441" y="593" text-anchor="end" font-family="'Zilla Slab', Georgia, serif" font-size="28" font-weight="normal" fill="#6aa6e0">S2 (+<tspan font-family="Georgia, 'Times New Roman', serif" font-style="italic">δ</tspan><tspan font-size="19" dy="6">2</tspan><tspan dy="-6">)</tspan></text>
+<text x="441" y="651" text-anchor="end" font-family="'Zilla Slab', Georgia, serif" font-size="28" font-weight="normal" fill="#e8875a">S3 (+<tspan font-family="Georgia, 'Times New Roman', serif" font-style="italic">δ</tspan><tspan font-size="19" dy="6">3</tspan><tspan dy="-6">)</tspan></text>
+<line x1="575" y1="510" x2="716" y2="625" stroke="#dcdad5" stroke-width="4" marker-end="url(#a-ink)"/>
+<circle cx="575" cy="510" r="9" fill="#3fb8a8"/>
+<circle cx="646" cy="568" r="9" fill="#6aa6e0"/>
+<line x1="743" y1="626" x2="955" y2="512" stroke="#ef5b5b" stroke-width="4" marker-end="url(#a-red)"/>
+<circle cx="743" cy="626" r="9" fill="#ef5b5b"/>
+<line x1="388" y1="683" x2="1302" y2="683" stroke="#dcdad5" stroke-width="3" marker-end="url(#a-ink)"/>
+<text x="1316" y="693" text-anchor="start" font-family="'Zilla Slab', Georgia, serif" font-size="28" font-weight="normal" fill="#dcdad5">time</text>
+</svg>
