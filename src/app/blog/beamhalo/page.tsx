@@ -184,14 +184,10 @@ export default function BeamHaloPage() {
 
 			<Figs n={8} caption="Halo muons (red) running through a line of calorimeter cells can add false energy." items={[{ src: 'calo-mask', alt: 'Halo muons passing through the calorimeters', w: 1780, h: 850 }]} />
 
-			<h2>Thanks</h2>
+			<h2>General Timeline</h2>
 
 			<p>
-				I’d like to thank my advisor, Dr. Darin Acosta, along with Patrick Kelling, Osvaldo Miguel Colin, and the rest of the Bonner Lab.
-			</p>
-
-			<p>
-				also worth disclosing the beam halo timing window diagrams and the translation from plaintext+slides to HTML page were generated via a coding agent. 
+				Planning to spend this first semester getting familiarized with FPGAs. reading Nisan and Shocken's <i>The Elements of Computing Systems</i> to get a grasp of digital logic fundamentals and using this awesome HDLbits site to practice my verilog until I can get ahold of an actual development board to start testing prototypes. End goal is to have some general system architecture worked out (using the cmssw software sim clone of the trigger and a sample of the existing Verilog code as my basis) and maybe some initial modules written that I can demonstrate running on an actual board. fingers crossed!
 			</p>
 
 			{/* TODO: references. Slide 9 has them. Not in the script, so left out for now. */}
