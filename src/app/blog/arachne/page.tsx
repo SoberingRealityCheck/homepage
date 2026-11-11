@@ -83,6 +83,8 @@ export default function RiceRoboticsPage() {
 		palette={IKEDA_PALETTES.arachne}
 		ditherMethod="atkinson"
 		targetWidth={600}
+		grit={0.4}
+		splatter={0.6}
 	/>
 
 	{/* Content layer */}

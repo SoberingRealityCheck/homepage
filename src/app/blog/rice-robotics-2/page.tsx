@@ -85,6 +85,8 @@ export default function RiceRobotics2Page() {
 		brightnessAdjust={-30}
 		targetWidth={600}
 		invert={false}
+		grit={0.6}
+		splatter={0.8}
 	/>
 
 	{/* Content layer */}

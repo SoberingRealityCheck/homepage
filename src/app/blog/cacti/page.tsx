@@ -86,6 +86,8 @@ export default function ProjectTemplate() {
 		ditherMethod="ordered"
 		brightnessAdjust={50}
 		targetWidth={600}
+		grit={0.4}
+		splatter={0.6}
 	/>
 
 	{/* Content layer */}

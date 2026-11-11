@@ -16,6 +16,8 @@ import type { ColorPalette } from '@/utils/palette';
 // lift: slide the whole picture up, in vh. 0 = where it normally sits.
 // fade: soften the picture's edges. Only for photos with a solid background. Images with a
 //   transparent background don't need it (it would just dim their corners).
+// grit: 0 to 1. Roughens clean images (renders, diagrams) so they look like grainy photos. See IkedaOptions.
+// splatter: 0 to 1. Flings specks onto the empty background around the shape. See IkedaOptions.
 // Keep the classes "fixed inset-0 z-0": BackgroundFade and a globals.css rule find the layer by them.
 type HeroProps = {
 	src: string;
@@ -29,6 +31,8 @@ type HeroProps = {
 	brightnessAdjust?: number;
 	invert?: boolean;
 	targetWidth?: number;
+	grit?: number;
+	splatter?: number;
 };
 
 type Cropped = { url: string; ar: number };
@@ -78,6 +82,8 @@ export function Hero({
 	brightnessAdjust = 0,
 	invert = true, // same defaults as <IkedaImage>, which these pages used before
 	targetWidth,
+	grit = 0,
+	splatter = 0,
 }: HeroProps) {
 	const [img, setImg] = useState<Cropped | null>(null);
 
@@ -91,12 +97,14 @@ export function Hero({
 			useHistogram: true,
 			colorDistribution: [40, 25, 20, 15],
 			targetWidth,
+			grit,
+			splatter,
 		})
 			.then((r) => cropToContent(r.dataUrl))
 			.then((c) => { if (!cancelled) setImg(c); })
 			.catch((e) => console.error('Hero: failed to process image', e));
 		return () => { cancelled = true; };
-	}, [src, palette, ditherMethod, contrastBoost, brightnessAdjust, invert, targetWidth]);
+	}, [src, palette, ditherMethod, contrastBoost, brightnessAdjust, invert, targetWidth, grit, splatter]);
 
 	return (
 		<div

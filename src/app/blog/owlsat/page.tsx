@@ -83,6 +83,8 @@ export default function OwlsatPage() {
 		palette={IKEDA_PALETTES.owlsat}
 		ditherMethod="ordered"
 		targetWidth={600}
+		grit={0.4}
+		splatter={0.6}
 	/>
 
 	{/* Content layer */}

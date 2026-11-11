@@ -88,6 +88,8 @@ export default function BeehiveClusterPage() {
 		fade
 		scale={1.6}
 		lift={8}
+		grit={0.4}
+		splatter={0.6}
 	/>
 
 	{/* Content layer */}

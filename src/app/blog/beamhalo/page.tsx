@@ -98,6 +98,8 @@ export default function BeamHaloPage() {
 				brightnessAdjust={-80}
 				invert={false}
 				fade
+				grit={0.4}
+				splatter={0.6}
 			/>
 
 			{/* Content layer. The spacer leaves the image visible before the text. Short on phones, where the image already fills the screen. */}

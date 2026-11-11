@@ -102,6 +102,38 @@ export interface IkedaOptions {
 	 * Leave it out to use the source's own size. That is slow on big photos and makes tiny dots.
 	 */
 	targetWidth?: number;
+
+	/**
+	 * Roughness, 0 to 1. Makes clean images (CAD renders, screenshots) look like a grainy photo.
+	 * Clean edges and flat areas dither into tidy lines and grids. Real photos don't, because
+	 * sensors, film and JPEG blur and jitter every pixel a little before it's quantized.
+	 * This fakes that in two steps:
+	 * - crumble: every pixel is read from a random neighbor up to `2 * grit` px away. Edges go ragged.
+	 *   (Runs on the resized color image, before brightness and contrast.)
+	 * - clumped noise: blurred random noise, sigma `30 * grit` gray levels, is added right before
+	 *   the dither. It makes small blobs, not TV static. Pure-black pixels are skipped so the
+	 *   empty background stays clean.
+	 *
+	 * 0 = off. About 0.4 is a hint, 0.6 is clearly grainy, 0.8+ starts to eat thin shapes.
+	 * Same grain every time (fixed random seed), so the image doesn't change between page loads.
+	 *
+	 * @default 0
+	 */
+	grit?: number;
+
+	/**
+	 * Ink splatter, 0 to 1. Lit pixels fling specks onto the empty background around them.
+	 * Each lit pixel throws a drop with chance `0.4 * splatter`, in a random direction.
+	 * Distance has a long tail: mean about `2 + 6 * splatter` px, so most specks land at the edge
+	 * and a few fly far. A drop only lands on an empty pixel and keeps its source color.
+	 * Runs after the dither, so it adds pixels and never moves existing ones.
+	 * Specks can't leave the canvas, so images with no margin get clipped splatter.
+	 * Independent of `grit`. They stack well.
+	 * Same specks every time (fixed random seed).
+	 *
+	 * @default 0
+	 */
+	splatter?: number;
 }
 
 /**
@@ -142,7 +174,10 @@ export async function processIkedaImage(
 		useHistogram = true,
 		colorDistribution = [40, 25, 20, 15], // black, color1, color2, color3
 		targetWidth,
+		grit = 0,
+		splatter = 0,
 	} = options;
+	const rand = mulberry32(1234); // fixed seed: same grain every load
 
 	return new Promise((resolve, reject) => {
 		const img = new Image();
@@ -175,6 +210,9 @@ export async function processIkedaImage(
 				ctx.drawImage(img, 0, 0, width, height);
 				const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 				const data = imageData.data;
+
+				// Step 0: crumble the edges (see `grit`)
+				if (grit > 0) crumble(data, canvas.width, canvas.height, grit * 2, rand);
 
 				// Step 1: Adjust brightness and saturation
 				for (let i = 0; i < data.length; i += 4) {
@@ -248,6 +286,9 @@ export async function processIkedaImage(
 					data[i] = data[i + 1] = data[i + 2] = mapped;
 				}
 
+				// Step 4.9: clumped noise, so the dither can't fall into a tidy pattern (see `grit`)
+				if (grit > 0) addClumpedNoise(data, canvas.width, canvas.height, grit * 30, rand);
+
 				// Step 5: Apply dithering with 4-level quantization
 				if (ditherMethod === 'floyd-steinberg') {
 					multiLevelFloydSteinberg(data, canvas.width, canvas.height, ditherLevels);
@@ -256,6 +297,9 @@ export async function processIkedaImage(
 				} else {
 					multiLevelOrdered(data, canvas.width, canvas.height, ditherLevels);
 				}
+
+				// Step 5.5: splatter specks onto the empty background (see `splatter`)
+				if (splatter > 0) splash(data, canvas.width, canvas.height, splatter, rand);
 
 				// Step 6: Map quantized levels to actual colors
 				const paletteColors = [
@@ -319,6 +363,100 @@ export async function processIkedaImage(
 		img.onerror = () => reject(new Error('Failed to load image'));
 		img.src = imageUrl;
 	});
+}
+
+/** Small seeded random generator. Returns numbers in [0, 1). Same seed, same sequence. */
+function mulberry32(seed: number): () => number {
+	let a = seed >>> 0;
+	return () => {
+		a = (a + 0x6d2b79f5) >>> 0;
+		let t = a;
+		t = Math.imul(t ^ (t >>> 15), t | 1);
+		t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+		return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+	};
+}
+
+/**
+ * Replace every pixel's color with the color of a random neighbor up to `radius` px away.
+ * Alpha stays put. Ragged edges, like a low-res photo that was blown up.
+ */
+function crumble(data: Uint8ClampedArray, width: number, height: number, radius: number, rand: () => number) {
+	const from = Uint8ClampedArray.from(data);
+	for (let y = 0; y < height; y++) {
+		for (let x = 0; x < width; x++) {
+			const sx = Math.min(width - 1, Math.max(0, Math.round(x + (rand() * 2 - 1) * radius)));
+			const sy = Math.min(height - 1, Math.max(0, Math.round(y + (rand() * 2 - 1) * radius)));
+			const i = (y * width + x) * 4;
+			const k = (sy * width + sx) * 4;
+			data[i] = from[k];
+			data[i + 1] = from[k + 1];
+			data[i + 2] = from[k + 2];
+		}
+	}
+}
+
+/**
+ * Add gaussian noise to the gray channel, blurred twice (3x3 box) so it clumps, then rescaled so its
+ * standard deviation is `sigma`. Pixels at 0 are left alone so the empty background stays clean.
+ * Expects gray data (r = g = b). Writes r, g and b.
+ */
+function addClumpedNoise(data: Uint8ClampedArray, width: number, height: number, sigma: number, rand: () => number) {
+	const n = width * height;
+	let f = new Float32Array(n);
+	for (let i = 0; i < n; i++) {
+		// Box-Muller
+		f[i] = Math.sqrt(-2 * Math.log(rand() + 1e-12)) * Math.cos(2 * Math.PI * rand());
+	}
+	for (let pass = 0; pass < 2; pass++) {
+		const g = new Float32Array(n);
+		for (let y = 0; y < height; y++) {
+			for (let x = 0; x < width; x++) {
+				let sum = 0, count = 0;
+				for (let dy = -1; dy <= 1; dy++) {
+					for (let dx = -1; dx <= 1; dx++) {
+						const xx = x + dx, yy = y + dy;
+						if (xx >= 0 && xx < width && yy >= 0 && yy < height) { sum += f[yy * width + xx]; count++; }
+					}
+				}
+				g[y * width + x] = sum / count;
+			}
+		}
+		f = g;
+	}
+	// Blurring shrinks the spread. Scale it back up so `sigma` means what it says.
+	let sumSq = 0;
+	for (let i = 0; i < n; i++) sumSq += f[i] * f[i];
+	const scale = sigma / Math.sqrt(sumSq / n || 1);
+	for (let i = 0; i < n; i++) {
+		const j = i * 4;
+		if (data[j] > 0) data[j] = data[j + 1] = data[j + 2] = data[j] + f[i] * scale;
+	}
+}
+
+/**
+ * Throw drops from lit pixels onto empty ones. Works on dithered gray levels (0 = empty).
+ * Reads from a snapshot, so a drop never throws another drop.
+ * Distance is exponential (mean `2 + 6 * amount` px), capped at 6x the mean.
+ */
+function splash(data: Uint8ClampedArray, width: number, height: number, amount: number, rand: () => number) {
+	const from = Uint8ClampedArray.from(data);
+	const mean = 2 + 6 * amount;
+	for (let y = 0; y < height; y++) {
+		for (let x = 0; x < width; x++) {
+			const i = (y * width + x) * 4;
+			if (from[i] === 0 || rand() > 0.4 * amount) continue;
+			const angle = rand() * 2 * Math.PI;
+			const dist = Math.min(-Math.log(1 - rand()) * mean, mean * 6);
+			const tx = Math.round(x + Math.cos(angle) * dist);
+			const ty = Math.round(y + Math.sin(angle) * dist);
+			if (tx < 0 || tx >= width || ty < 0 || ty >= height) continue;
+			const k = (ty * width + tx) * 4;
+			if (from[k] !== 0) continue;
+			data[k] = data[k + 1] = data[k + 2] = from[i];
+			data[k + 3] = 255; // sources with a transparent background would hide the drop
+		}
+	}
 }
 
 /**
@@ -558,6 +696,8 @@ export function IkedaImage({
 	colorDistribution = [40, 25, 20, 15], // black, color1, color2, color3
 	showDebug = false, // Show debug info
 	targetWidth, // Upscale/downscale to this width
+	grit = 0,
+	splatter = 0,
 }: IkedaImageProps) {
 	const [processedSrc, setProcessedSrc] = useState<string>('');
 	const [loading, setLoading] = useState(true);
@@ -574,6 +714,8 @@ export function IkedaImage({
 			useHistogram,
 			colorDistribution,
 			targetWidth,
+			grit,
+			splatter,
 		})
 			.then((result) => {
 				setProcessedSrc(result.dataUrl);
@@ -584,7 +726,7 @@ export function IkedaImage({
 				console.error('Failed to process image:', error);
 				setLoading(false);
 			});
-	}, [src, palette, ditherMethod, contrastBoost, brightnessAdjust, saturation, colorThresholds, invert, useHistogram, colorDistribution, targetWidth]);
+	}, [src, palette, ditherMethod, contrastBoost, brightnessAdjust, saturation, colorThresholds, invert, useHistogram, colorDistribution, targetWidth, grit, splatter]);
 
 	if (loading) {
 		return (
