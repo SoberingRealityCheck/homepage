@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { Post } from '@/components/Post';
 import { PaletteProvider, IKEDA_PALETTES } from '@/utils/palette';
-import { IkedaImage } from '@/utils/ikedaImage';
+import { Hero, HeroSpacer } from '@/components/Hero';
 
 // SKETCH. Text is the talk script, word for word (src/app/blog/beamhalo/script.txt).
 // Only cut: the "[slide N]" / "CH1" markers.
@@ -49,7 +49,8 @@ function Figs({ n, caption, items }: { n: number; caption: string; items: Fig[] 
 		>
 			<div className="flex flex-wrap items-center justify-center gap-6">
 				{items.map((f) => (
-					<div key={f.src} style={{ position: 'relative', flex: `${f.w / f.h} 1 0`, minWidth: 260 }}>
+					<div key={f.src} // maxWidth: never upscale past the real size (halo-plot is only 378px). justify-center then centers it.
+						style={{ position: 'relative', flex: `${f.w / f.h} 1 0`, minWidth: 260, maxWidth: f.w }}>
 						<Image
 							src={`/blog/beamhalo/${f.src}.${f.ext ?? 'png'}`}
 							alt={f.alt}
@@ -87,32 +88,22 @@ export default function BeamHaloPage() {
 	return (
 		<PaletteProvider palette={IKEDA_PALETTES.particles}>
 			{/* Background image layer */}
-			<div
-				className="flex items-center justify-center min-h-screen fixed inset-0 z-0"
-				// fade the image out on every side so it has no hard rectangle edge
-				style={{
-					WebkitMaskImage: 'radial-gradient(ellipse 46% 46% at 50% 50%, #000 55%, transparent 100%)',
-					maskImage: 'radial-gradient(ellipse 46% 46% at 50% 50%, #000 55%, transparent 100%)',
-				}}
-			>
-				<IkedaImage
-					src="/blog/beamhalo/hero.png"
-					palette={IKEDA_PALETTES.particles}
-					alt="CMS endcap"
-					ditherMethod="atkinson"
-					className="w-[90%] h-[90vh] mx-auto object-contain opacity-40"
-					showDebug={false}
-					targetWidth={600}
-					contrastBoost={2}
-					brightnessAdjust={-80}
-					invert={false}
-				/>
-			</div>
+			<Hero
+				src="/blog/beamhalo/hero.png"
+				alt="CMS endcap"
+				palette={IKEDA_PALETTES.particles}
+				ditherMethod="atkinson"
+				targetWidth={600}
+				contrastBoost={2}
+				brightnessAdjust={-80}
+				invert={false}
+				fade
+			/>
 
-			{/* Content layer. The spacer leaves the image visible before the text. */}
+			{/* Content layer. The spacer leaves the image visible before the text. Short on phones, where the image already fills the screen. */}
 			<div className="relative z-10">
-				<div className="h-[50vh]" />
-		<Post title="FPGA-driven Beam Halo Muon Tagging in the CMS Level 1 Trigger" date="October 9, 2026">
+				<HeroSpacer />
+		<Post title="Designing an FPGA-driven Data Filter for the Large Hadron Collider" date="October 9, 2026">
 			<p>
 				<i> The following is a transcript of a presentation I gave this October introducing my research topic to some peers. Thought it would be interesting to share here. </i>
 			</p>

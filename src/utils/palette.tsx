@@ -98,9 +98,11 @@ export const IKEDA_PALETTES: Record<string, ColorPalette> = {
     },
 	astronomy: {
 		name: 'Astronomy',
-		color1: '#ffa4a4',
-		color2: '#a6faa3',
-		color3: '#99f3ff',
+		// Red, white, black. The dither's darkest level is transparent, so the black is the page.
+		// color1 = dim stars, color2 = mid, color3 = brightest.
+		color1: '#8a1019',
+		color2: '#ff2d38',
+		color3: '#ffffff',
 	},
 	particles: {
 		name: 'Particles',

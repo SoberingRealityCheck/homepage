@@ -6,6 +6,8 @@ import { usePathname } from 'next/navigation';
 
 export default function Navigation() {
 	const pathname = usePathname();
+	// On a post, the header shrinks on small screens (see .sidebar-compact in globals.css). The wide sidebar is unchanged.
+	const compact = pathname.startsWith('/blog/');
 
 	const links = [
 		{ href: '/', label: 'Blog' },
@@ -16,7 +18,7 @@ export default function Navigation() {
 	];
 
 	return (
-		<nav className="sidebar">
+		<nav className={compact ? 'sidebar sidebar-compact' : 'sidebar'}>
 			<Image src="/home/me.jpeg" alt="Clay Goldsmith" width={96} height={96} className="sidebar-photo" />
 			<div className="sidebar-name">Clay Goldsmith</div>
 			<p className="sidebar-blurb">

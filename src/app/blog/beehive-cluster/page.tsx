@@ -26,7 +26,7 @@
 // IMAGE PROCESSING:
 // Use IkedaImage component for automatic dithering:
 //
-// import { IkedaImage } from '@/utils/ikedaImage';
+// import { Hero, HeroSpacer } from '@/components/Hero';
 //
 // <IkedaImage
 //   src="/your-image.jpg"
@@ -71,7 +71,7 @@
 'use client';
 
 import { PaletteProvider, IKEDA_PALETTES } from "@/utils/palette";
-import { IkedaImage } from "@/utils/ikedaImage";
+import { Hero, HeroSpacer } from '@/components/Hero';
 import Image from "next/image";
 import { PostDate } from '@/components/PostDate';
 
@@ -79,23 +79,21 @@ export default function BeehiveClusterPage() {
 	return (
 <PaletteProvider palette={IKEDA_PALETTES.astronomy}>
 	{/* Background image layer */}
-	<div className="flex items-center justify-center min-h-screen fixed inset-0 z-0">
-	<IkedaImage
+	<Hero
 		src="/beehive-cluster/stars.png"
 		palette={IKEDA_PALETTES.astronomy}
-		alt="Background"
 		ditherMethod="atkinson"
-		className="w-[90%] h-[90vh] mx-auto object-contain opacity-40"
-		showDebug={false}
 		targetWidth={1000}
 		invert={false}
+		fade
+		scale={1.6}
+		lift={8}
 	/>
-	</div>
 
 	{/* Content layer */}
 	<div className="relative z-10">
 		{/* Spacer to view full image */}
-		<div className="h-[50vh]" />
+		<HeroSpacer />
 
 		<div className="section">
 			{/* Project Header */}

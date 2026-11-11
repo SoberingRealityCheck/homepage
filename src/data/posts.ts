@@ -10,7 +10,7 @@ export interface PostMeta {
 }
 
 export const POSTS: PostMeta[] = [
-	{ slug: 'beamhalo', title: 'FPGA-driven Beam Halo Muon Tagging in the CMS Level 1 Trigger', date: 'October 9, 2026' },
+	{ slug: 'beamhalo', title: 'Designing an FPGA-driven Data Filter for the Large Hadron Collider', date: 'October 9, 2026' },
 	{ slug: 'rice-robotics-2', title: 'Rice Robotics R&D (Part 2), Teaching a Cat Robot to Move a Hell of a Lot Faster', date: 'July 14, 2026'},
 	{ slug: 'rice-robotics', title: 'Project: Rice Robotics R&D, Teaching a Robot to Move', date: 'November 4, 2025' },
 	{ slug: 'owlsat', title: 'Project: OwlSAT, CubeSAT Mission', date: 'September 12, 2025' },
