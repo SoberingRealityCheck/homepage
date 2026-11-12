@@ -26,7 +26,7 @@
 // IMAGE PROCESSING:
 // Use IkedaImage component for automatic dithering:
 //
-// import { Hero, HeroSpacer } from '@/components/Hero';
+// import { Hero } from '@/components/Hero';
 //
 // <IkedaImage 
 //   src="/your-image.jpg"
@@ -71,40 +71,30 @@
 'use client';
 
 import { PaletteProvider, IKEDA_PALETTES } from "@/utils/palette";
-import { Hero, HeroSpacer } from '@/components/Hero';
+import { Hero } from '@/components/Hero';
 
 import Image from "next/image";
-import { PostDate } from '@/components/PostDate';
+import { Post } from '@/components/Post';
 
 export default function RiceRoboticsPage() {
 	return (
 <PaletteProvider palette={IKEDA_PALETTES.robotics}>
 	{/* Background image layer */}
-	<Hero
-		src="/robotics/servobot.png"
-		palette={IKEDA_PALETTES.robotics}
-		ditherMethod="atkinson"
-		brightnessAdjust={-30}
-		targetWidth={600}
-		invert={false}
-		grit={0.4}
-		splatter={0.6}
-	/>
+	<Hero name="rice-robotics" />
 
 	{/* Content layer */}
 	<div className="relative z-10">
-		{/* Spacer to view full image */}
-		<HeroSpacer />
 		
-		<div className="section">
-			{/* Project Header */}
-			<div className="content-block-highlight mb-8">
-				<PostDate slug="rice-robotics" />
-				<h1 className="text-display text-4xl mb-4">Project: Rice Robotics R&D, Teaching a Robot to Move</h1>
-				<div className="data-stripe mb-6" />
+		<Post slug="rice-robotics" title="Project: Rice Robotics R&D, Teaching a Robot to Move" bullets={false}>
+
+			{/* Main Content */}
+			<div className="content-block-highlight blog-content whitespace-pre-wrap">
+				<h2>Project Description</h2>
+				<p>
+					I am currently serving as the Software Co-Lead for the Rice Robotics team&apos;s quadruped robot project. Our team&apos;s goal is the ongoing development of a cat-inspired robot capable of autonomously navigating to follow the guidance of a laser-pointer-inspired targeting controller. To do this, we are leveraging reinforcement learning (RL) techniques to optimize the robot&apos;s gait and locomotion strategies.
+				</p>
 			</div>
-
-
+			
 			<div className="image-gallery my-8">
 				<div className="gallery-item">
 					<div className="image-wrapper">
@@ -143,13 +133,7 @@ export default function RiceRoboticsPage() {
 				</div>
 			</div> */}
 
-			{/* Main Content */}
-			<div className="content-block-highlight blog-content whitespace-pre-wrap">
-				<h2>Project Description</h2>
-				<p>
-					I am currently serving as the Software Co-Lead for the Rice Robotics team&apos;s quadruped robot project. Our team&apos;s goal is the ongoing development of a cat-inspired robot capable of autonomously navigating to follow the guidance of a laser-pointer-inspired targeting controller. To do this, we are leveraging reinforcement learning (RL) techniques to optimize the robot&apos;s gait and locomotion strategies.
-				</p>
-			</div>
+			
 
 			{/* Background section with side images */}
 			<div className="content-block flex gap-6">
@@ -325,7 +309,7 @@ export default function RiceRoboticsPage() {
 					 <div className="image-gallery flex-[2]">
 						<div className="gallery-item">
 							<div className="image-wrapper">
-								<Image src="/robotics/family.png" alt="Robot testing" fill style={{objectFit: "cover"}} />
+								<Image src="/robotics/family.webp" alt="Robot testing" fill style={{objectFit: "cover"}} />
 							</div>
 							<div className="gallery-item-caption">
 								Genesis running ~100 simultaneous robot simulations for training!
@@ -418,7 +402,7 @@ export default function RiceRoboticsPage() {
 					My next steps are to address some lingering issues with the learned behavior in the simulation by tweaking the reward function and training parameters, integrate the unprivileged student model into the training pipeline, and set up the ROS2 nodes on Servobot to begin real-world testing. I&apos;m also looking forward to collaborating more closely with our mechanical and electrical teams as they finalize the full robot design, which will open up new possibilities for perception and control strategies. Theoretically our training process should translate nicely from Servobot to Catbot, but there will undoubtedly be new challenges to tackle once we have the full hardware platform up and running! :)
 				</p>
 			</div>
-		</div>
+		</Post>
 	</div>
 </PaletteProvider>
 	);

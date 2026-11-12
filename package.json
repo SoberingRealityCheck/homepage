@@ -1,33 +1,40 @@
 {
-	"name": "homepage",
-	"version": "0.1.0",
-	"private": true,
-	"scripts": {
-		"dev": "next dev --turbopack",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint",
-		"deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-		"upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
-		"preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-		"cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts"
-	},
-	"dependencies": {
-		"@opennextjs/cloudflare": "^1.14.4",
-		"next": "15.5.9",
-		"react": "19.1.4",
-		"react-dom": "19.1.4"
-	},
-	"devDependencies": {
-		"@eslint/eslintrc": "^3",
-		"@tailwindcss/postcss": "^4",
-		"@types/node": "^20.19.27",
-		"@types/react": "^19",
-		"@types/react-dom": "^19",
-		"eslint": "^9",
-		"eslint-config-next": "15.4.6",
-		"tailwindcss": "^4",
-		"typescript": "^5",
-		"wrangler": "^4.63.0"
-	}
+  "name": "homepage",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts",
+    "heroes": "esbuild scripts/01-heroes.ts --bundle --platform=node --format=esm --packages=external --jsx=automatic --outfile=scripts/.out/01-heroes.mjs && node scripts/.out/01-heroes.mjs",
+    "shrink": "esbuild scripts/02-shrink-images.ts --bundle --platform=node --format=esm --packages=external --outfile=scripts/.out/02-shrink-images.mjs && node scripts/.out/02-shrink-images.mjs",
+    "videos": "esbuild scripts/03-shrink-videos.ts --bundle --platform=node --format=esm --packages=external --outfile=scripts/.out/03-shrink-videos.mjs && node scripts/.out/03-shrink-videos.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource/eb-garamond": "^5.3.0",
+    "@opennextjs/cloudflare": "^1.14.4",
+    "next": "15.5.9",
+    "react": "19.1.4",
+    "react-dom": "19.1.4"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20.19.27",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "esbuild": "^0.28.2",
+    "eslint": "^9",
+    "eslint-config-next": "15.4.6",
+    "sharp": "^0.35.5",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "wrangler": "^4.63.0"
+  }
 }

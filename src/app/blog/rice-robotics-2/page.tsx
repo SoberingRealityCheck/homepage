@@ -1,9 +1,9 @@
 'use client';
 
 import { PaletteProvider, IKEDA_PALETTES } from "@/utils/palette";
-import { Hero, HeroSpacer } from '@/components/Hero';
+import { Hero } from '@/components/Hero';
 import Image from "next/image";
-import { PostDate } from '@/components/PostDate';
+import { Post } from '@/components/Post';
 
 // Converted from content.md. Edit the markdown, then ask for a re-conversion.
 
@@ -78,27 +78,12 @@ export default function RiceRobotics2Page() {
 	return (
 <PaletteProvider palette={IKEDA_PALETTES.robotics}>
 	{/* Background image layer */}
-	<Hero
-		src="/robotics/catbot.png"
-		palette={IKEDA_PALETTES.robotics}
-		ditherMethod="atkinson"
-		brightnessAdjust={-30}
-		targetWidth={600}
-		invert={false}
-		grit={0.6}
-		splatter={0.8}
-	/>
+	<Hero name="rice-robotics-2" />
 
 	{/* Content layer */}
 	<div className="relative z-10">
-		<HeroSpacer />
 
-		<div className="section">
-			<div className="content-block-highlight mb-8">
-				<PostDate slug="rice-robotics-2" />
-				<h1 className="text-display text-4xl mb-4">Rice Robotics R&D (Part 2), Teaching a Cat Robot to Move a Hell of a Lot Faster</h1>
-				<div className="data-stripe mb-6" />
-			</div>
+		<Post slug="rice-robotics-2" title="Rice Robotics R&D (Part 2), Teaching a Cat Robot to Move a Hell of a Lot Faster" bullets={false}>
 
 			<div className="content-block blog-content">
 				<h2>Intro</h2>
@@ -122,7 +107,7 @@ export default function RiceRobotics2Page() {
 				<div className="image-gallery image-gallery-2 my-8">
 					<div className="gallery-item">
 						<div className="image-wrapper">
-							<Image src="/robotics/catbot in sim.png" alt="Catbot in Genesis" fill style={{objectFit: "cover"}} />
+							<Image src="/robotics/catbot in sim.webp" alt="Catbot in Genesis" fill style={{objectFit: "cover"}} />
 						</div>
 						<div className="gallery-item-caption">
 							now this is a real robot...
@@ -151,7 +136,7 @@ export default function RiceRobotics2Page() {
 								loop
 								muted
 								playsInline
-								poster="/robotics/catbot in minecraft.png"
+								poster="/robotics/catbot in minecraft.webp"
 								style={{width: '100%', height: '100%', objectFit: 'cover'}}
 							>
 								<source src="/robotics/catbot_run_final.webm" type="video/webm" />
@@ -214,7 +199,7 @@ export default function RiceRobotics2Page() {
 
 				<PortraitClip src="/robotics/showcase_table.webm" />
 			</div>
-		</div>
+		</Post>
 	</div>
 </PaletteProvider>
 	);

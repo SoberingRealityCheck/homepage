@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { Post } from '@/components/Post';
 import { PaletteProvider, IKEDA_PALETTES } from '@/utils/palette';
-import { Hero, HeroSpacer } from '@/components/Hero';
+import { Hero } from '@/components/Hero';
 
 // SKETCH. Text is the talk script, word for word (src/app/blog/beamhalo/script.txt).
 // Only cut: the "[slide N]" / "CH1" markers.
@@ -36,15 +36,12 @@ function Figs({ n, caption, items }: { n: number; caption: string; items: Fig[] 
 	return (
 		<figure
 			id={`fig-${n}`}
-			className="my-8"
+			className={wide ? 'my-8 breakout' : 'my-8'}
 			// own bg + isolate: mix-blend-mode only sees what is painted inside its stacking context,
 			// so the page bg has to be painted here. No transform on this element, it would isolate too.
 			style={{
-				margin: '2rem 0',
+				marginTop: '2rem', marginBottom: '2rem', // not `margin`: it would beat .breakout's margin-left
 				...(dark ? { background: 'var(--bg)', isolation: 'isolate' as const } : {}),
-				// The column is left-aligned next to the sidebar (14rem + gaps + shell padding), so grow to the
-				// right only. max(100%, ...) keeps it at column width when the screen is too narrow.
-				...(wide ? { width: 'max(100%, min(calc(100% + 260px), calc(100vw - 21rem)))' } : {}),
 			}}
 		>
 			<div className="flex flex-wrap items-center justify-center gap-6">
@@ -77,7 +74,7 @@ function Figs({ n, caption, items }: { n: number; caption: string; items: Fig[] 
 					</div>
 				))}
 			</div>
-			<figcaption style={{ margin: '0.75rem auto 0', maxWidth: 680, textAlign: 'center', fontSize: '0.9rem', lineHeight: 1.5, color: 'var(--muted)' }}>
+			<figcaption style={{ margin: '0.75rem auto 0', maxWidth: 680, textAlign: 'center', fontFamily: 'var(--font-sans)', fontSize: '0.9rem', lineHeight: 1.5, color: 'var(--muted)' }}>
 				<b style={{ color: 'var(--ink)' }}>Figure {n}:</b> {caption}
 			</figcaption>
 		</figure>
@@ -88,23 +85,9 @@ export default function BeamHaloPage() {
 	return (
 		<PaletteProvider palette={IKEDA_PALETTES.particles}>
 			{/* Background image layer */}
-			<Hero
-				src="/blog/beamhalo/hero.png"
-				alt="CMS endcap"
-				palette={IKEDA_PALETTES.particles}
-				ditherMethod="atkinson"
-				targetWidth={600}
-				contrastBoost={2}
-				brightnessAdjust={-80}
-				invert={false}
-				fade
-				grit={0.4}
-				splatter={0.6}
-			/>
+			<Hero name="beamhalo" alt="CMS endcap" />
 
-			{/* Content layer. The spacer leaves the image visible before the text. Short on phones, where the image already fills the screen. */}
 			<div className="relative z-10">
-				<HeroSpacer />
 		<Post title="Designing an FPGA-driven Data Filter for the Large Hadron Collider" date="October 9, 2026">
 			<p>
 				<i> The following is a transcript of a presentation I gave this October introducing my research topic to some peers. Thought it would be interesting to share here. </i>
@@ -121,14 +104,14 @@ export default function BeamHaloPage() {
 			</p>
 
 			<Figs n={1} caption="The Large Hadron Collider ring, with the CMS experiment marked." items={[
-				{ src: 'lhc', alt: 'The LHC ring, CMS, and the accelerator tunnel', w: 1000, h: 834 },
+				{ src: 'lhc', ext: 'webp', alt: 'The LHC ring, CMS, and the accelerator tunnel', w: 1000, h: 834 },
 			]} />
 			<p>
 				Our lab works closely with CMS, the Compact Muon Solenoid (<Ref n={2} />), which runs proton-proton collisions to examine interesting physics that emerges at the crazy high energy collisions the LHC can enable.
 			</p>
 
 			<Figs n={2} caption="A cutaway of the CMS detector." items={[
-				{ src: 'cms-dark', alt: 'CMS detector cutaway', w: 1600, h: 1131 },
+				{ src: 'cms-dark', ext: 'webp', alt: 'CMS detector cutaway', w: 1600, h: 1131 },
 			]} />
 
 			<p>
@@ -143,7 +126,7 @@ export default function BeamHaloPage() {
 
 			<Figs n={4} caption="Beam halo muons. Left: detector hits in the x-y plane form a ring (Jalane Mendo, 2025). Right: side view of CMS. Halo muons (red) run parallel to the beam. Particles from collisions (yellow) fan out from the center." items={[
 				{ src: 'halo-plot', alt: 'Beam halo study, x-y hit map. Image credit: Jalane Mendo, 2025', w: 378, h: 350 },
-				{ src: 'side-view', alt: 'CMS side view with halo muons running parallel to the beam', w: 1260, h: 810 },
+				{ src: 'side-view', ext: 'webp', alt: 'CMS side view with halo muons running parallel to the beam', w: 1260, h: 810 },
 			]} />
 			<p>
 				back in like 2013, CMS used to have a system for triggering of beam halo muons. They still have real-time monitoring across all the different sensors, but with all the various upgrades and restructurings the system has undergone over the last decade and a half, the process isn’t available as a per-event tag within the low-level trigger itself anymore. We’re looking to implement that.
@@ -182,12 +165,12 @@ export default function BeamHaloPage() {
 				The hope is that tracking beam halo counts in realtime with a system like this will open the door to more precise energy estimates in the future. One of the inconvenient things about these Beam Halo muons is that they tend to pass directly through a line of calorimeter cells on their way through CMS, meaning they have a nonzero likelihood of contributing false energy readings that we need to account for (<Ref n={8} />). We currently do this with estimates from offfline analysis, but getting that data in real-time for each specific collision event would be a major upgrade to the system. This is a bit of a long shot, but we’re also hoping that setting up a system for tracking stray muons on interesting paths like these opens the door to finding more interesting kinds of new physics data that might be discarded and missed with the existing system.
 			</p>
 
-			<Figs n={8} caption="Halo muons (red) running through a line of calorimeter cells can add false energy." items={[{ src: 'calo-mask', alt: 'Halo muons passing through the calorimeters', w: 1780, h: 850 }]} />
+			<Figs n={8} caption="Halo muons (red) running through a line of calorimeter cells can add false energy." items={[{ src: 'calo-mask', ext: 'webp', alt: 'Halo muons passing through the calorimeters', w: 1780, h: 850 }]} />
 
 			<h2>General Timeline</h2>
 
 			<p>
-				Planning to spend this first semester getting familiarized with FPGAs. reading Nisan and Shocken's <i>The Elements of Computing Systems</i> to get a grasp of digital logic fundamentals and using this awesome HDLbits site to practice my verilog until I can get ahold of an actual development board to start testing prototypes. End goal is to have some general system architecture worked out (using the cmssw software sim clone of the trigger and a sample of the existing Verilog code as my basis) and maybe some initial modules written that I can demonstrate running on an actual board. fingers crossed!
+				Planning to spend this first semester getting familiarized with FPGAs. reading Nisan and Shocken&apos;s <i>The Elements of Computing Systems</i> to get a grasp of digital logic fundamentals and using this awesome HDLbits site to practice my verilog until I can get ahold of an actual development board to start testing prototypes. End goal is to have some general system architecture worked out (using the cmssw software sim clone of the trigger and a sample of the existing Verilog code as my basis) and maybe some initial modules written that I can demonstrate running on an actual board. fingers crossed!
 			</p>
 
 			{/* TODO: references. Slide 9 has them. Not in the script, so left out for now. */}

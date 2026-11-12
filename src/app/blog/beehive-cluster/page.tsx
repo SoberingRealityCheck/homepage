@@ -26,7 +26,7 @@
 // IMAGE PROCESSING:
 // Use IkedaImage component for automatic dithering:
 //
-// import { Hero, HeroSpacer } from '@/components/Hero';
+// import { Hero } from '@/components/Hero';
 //
 // <IkedaImage
 //   src="/your-image.jpg"
@@ -71,47 +71,31 @@
 'use client';
 
 import { PaletteProvider, IKEDA_PALETTES } from "@/utils/palette";
-import { Hero, HeroSpacer } from '@/components/Hero';
+import { Hero } from '@/components/Hero';
 import Image from "next/image";
-import { PostDate } from '@/components/PostDate';
+import { Post } from '@/components/Post';
 
 export default function BeehiveClusterPage() {
 	return (
 <PaletteProvider palette={IKEDA_PALETTES.astronomy}>
 	{/* Background image layer */}
-	<Hero
-		src="/beehive-cluster/stars.png"
-		palette={IKEDA_PALETTES.astronomy}
-		ditherMethod="atkinson"
-		targetWidth={1000}
-		invert={false}
-		fade
-		scale={1.6}
-		lift={8}
-		grit={0.4}
-		splatter={0.6}
-	/>
+	<Hero name="beehive-cluster" />
 
 	{/* Content layer */}
 	<div className="relative z-10">
-		{/* Spacer to view full image */}
-		<HeroSpacer />
 
-		<div className="section">
-			{/* Project Header */}
-			<div className="content-block-highlight mb-8">
-				<PostDate slug="beehive-cluster" />
-				<h1 className="text-display text-4xl mb-4">Project: Astronomical Study of the Little Beehive Cluster</h1>
-				<div className="data-stripe mb-6" />
-			</div>
+		<Post slug="beehive-cluster" title="Project: Astronomical Study of the Little Beehive Cluster" bullets={false}>
 
+			<p>
+				Ever wanted to be able to show where all the stars in a photo actually are in 3d space?
+			</p>
 
 			{/* Showcase GIF */}
 			<div className="image-gallery my-8">
 				<div className="gallery-item">
 					<Image src="/beehive-cluster/starpositions.gif" alt="3D star positions animation" width={600} height={600} style={{width: '100%', height: 'auto'}} unoptimized />
 					<div className="gallery-item-caption">
-						Animated view of detected star positions across bands and exposure times.
+						Physical locations of the identified stars in my image with known parallax, color-coded by their distance&apos;s standard deviation from the cluster. Blue X is where I estimated the center of mass of the cluster to be, yellow dot is our sun!
 					</div>
 				</div>
 			</div>
@@ -217,7 +201,7 @@ export default function BeehiveClusterPage() {
 					<div className="grid-2 my-6">
 						<div className="image-gallery">
 							<div className="gallery-item">
-								<Image src="/beehive-cluster/apparentvbandmagnitudes.png" alt="Apparent V band magnitudes" width={600} height={600} style={{width: '100%', height: 'auto'}} />
+								<Image src="/beehive-cluster/apparentvbandmagnitudes.webp" alt="Apparent V band magnitudes" width={600} height={600} style={{width: '100%', height: 'auto'}} />
 								<div className="gallery-item-caption">
 									Apparent V band magnitudes of detected stars.
 								</div>
@@ -225,7 +209,7 @@ export default function BeehiveClusterPage() {
 						</div>
 						<div className="image-gallery">
 							<div className="gallery-item">
-								<Image src="/beehive-cluster/absvbandmagnitudes.png" alt="Absolute V band magnitudes" width={600} height={600} style={{width: '100%', height: 'auto'}} />
+								<Image src="/beehive-cluster/absvbandmagnitudes.webp" alt="Absolute V band magnitudes" width={600} height={600} style={{width: '100%', height: 'auto'}} />
 								<div className="gallery-item-caption">
 									Absolute V band magnitudes after distance correction.
 								</div>
@@ -259,7 +243,7 @@ export default function BeehiveClusterPage() {
 						</div>
 						<div className="image-gallery">
 							<div className="gallery-item">
-								<Image src="/beehive-cluster/colorindex.png" alt="Color-Color Diagram" width={600} height={600} style={{width: '100%', height: 'auto'}} />
+								<Image src="/beehive-cluster/colorindex.webp" alt="Color-Color Diagram" width={600} height={600} style={{width: '100%', height: 'auto'}} />
 								<div className="gallery-item-caption">
 									Color-Color Diagram (B-V vs V-R).
 								</div>
@@ -341,7 +325,7 @@ export default function BeehiveClusterPage() {
 					Thanks to Dr. Megan Reiter, Anthony Atkinson, and Richard Xiao for guidance and instruction. Thanks to Roman Rothstein, Noah Oh, and Mikael Graham for debugging help. Tools used include ds9, Stellarium, Airmass.org, Skyview.org, and Astropy.
 				</p>
 			</div>
-		</div>
+		</Post>
 	</div>
 </PaletteProvider>
 	);

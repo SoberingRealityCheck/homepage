@@ -26,7 +26,7 @@
 // IMAGE PROCESSING:
 // Use IkedaImage component for automatic dithering:
 //
-// import { Hero, HeroSpacer } from '@/components/Hero';
+// import { Hero } from '@/components/Hero';
 //
 // <IkedaImage 
 //   src="/your-image.jpg"
@@ -71,34 +71,19 @@
 'use client';
 
 import { PaletteProvider, IKEDA_PALETTES } from "@/utils/palette";
-import { Hero, HeroSpacer } from '@/components/Hero';
-import { PostDate } from '@/components/PostDate';
+import { Hero } from '@/components/Hero';
+import { Post } from '@/components/Post';
 
 export default function OwlsatPage() {
 	return (
 <PaletteProvider palette={IKEDA_PALETTES.owlsat}>
 	{/* Background image layer */}
-	<Hero
-		src="/owlsat/owlsat.png"
-		palette={IKEDA_PALETTES.owlsat}
-		ditherMethod="ordered"
-		targetWidth={600}
-		grit={0.4}
-		splatter={0.6}
-	/>
+	<Hero name="owlsat" />
 
 	{/* Content layer */}
 	<div className="relative z-10">
-		{/* Spacer to view full image */}
-		<HeroSpacer />
 		
-		<div className="section">
-			{/* Project Header */}
-			<div className="content-block-highlight mb-8">
-				<PostDate slug="owlsat" />
-				<h1 className="text-display text-4xl mb-4">Project: OwlSAT, CubeSAT Mission</h1>
-				<div className="data-stripe mb-6" />
-			</div>
+		<Post slug="owlsat" title="Project: OwlSAT, CubeSAT Mission" bullets={false}>
 
 
 			{/* Optional showcase image/video */}
@@ -320,7 +305,7 @@ export default function OwlsatPage() {
 				<div className="my-6">
 					{/* eslint-disable-next-line @next/next/no-img-element */}
 					<img
-						src="/owlsat/keychain.jpg"
+						src="/owlsat/keychain.webp"
 						alt="OWLSAT keychain"
 						style={{width: "100%", height: 340, objectFit: "cover", margin: 0}}
 					/>
@@ -331,7 +316,7 @@ export default function OwlsatPage() {
 					One of the biggest lessons I learned from this project was that real-world engineering projects rarely go as planned. The setbacks we faced had little to do with actual engineering challenges, and more to do with factors beyond our control like NASA&apos;s funding. It taught me the importance of adaptability and resilience in project management, as well as the value of a strong team culture to weather unexpected challenges. I also learned a substantial amount about embedded systems programming and the unique constraints of space systems and radio communications, which has broadened my technical skill set significantly.
 				</p>
 			</div>
-		</div>
+		</Post>
 	</div>
 </PaletteProvider>
 	);

@@ -1,37 +1,30 @@
-// Band behind the date + title so a hero image doesn't fight the text.
-// Runs far past both sides of the column, so only the top and bottom fade. No visible box.
-// Inline on purpose: the dev server wasn't picking up a new globals.css rule.
-const TITLE_BAND = {
-	position: 'absolute',
-	top: 0,
-	bottom: 0,
-	left: '-100vw',
-	right: '-100vw',
-	zIndex: -1,
-	pointerEvents: 'none',
-	background:
-		'linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--bg) 20%, transparent) 38%, color-mix(in srgb, var(--bg) 20%, transparent) 62%, transparent 100%)',
-} as const;
+import { POSTS } from '@/data/posts';
 
 // Shared wrapper for blog entries. Body goes in as plain JSX (h2, p, ul, pre, img...).
 // blog-content in globals.css styles those tags.
+// date: pass it, or pass `slug` to read it from src/data/posts.ts.
+// bullets: false for the older project pages, which type their own "- " dashes.
 export function Post({
 	title,
 	date,
+	slug,
+	bullets = true,
 	children,
 }: {
 	title: string;
-	date: string;
+	date?: string;
+	slug?: string;
+	bullets?: boolean;
 	children: React.ReactNode;
 }) {
+	const shownDate = date ?? POSTS.find((p) => p.slug === slug)?.date ?? '';
 	return (
-		<article className="section max-w-3xl">
-			<div style={{ position: 'relative', padding: '5rem 0 4rem', marginBottom: '1rem' }}>
-				<div style={TITLE_BAND} />
-				<div className="text-data mb-2">{date}</div>
+		<article className="section post" style={{ maxWidth: '48rem', margin: '0 auto' }}>
+			<div style={{ padding: '0 0 1rem', marginBottom: '1rem' }}>
+				<div className="text-data mb-2">{shownDate}</div>
 				<h1 className="text-display">{title}</h1>
 			</div>
-			<div className="blog-content post-body">{children}</div>
+			<div className={bullets ? 'blog-content post-body' : 'blog-content'}>{children}</div>
 		</article>
 	);
 }

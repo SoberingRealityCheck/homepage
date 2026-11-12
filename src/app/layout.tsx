@@ -1,25 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Zilla_Slab } from "next/font/google";
+// Fonts are self-hosted from npm (@fontsource), not next/font/google. In dev, Turbopack's Google-font
+// loader crashed on Google's font URLs ("queries have exactly one entry"). These are plain CSS + files, no network.
+// EB Garamond for prose + headings (400 text, 600 headings, 700 bold, 400 italic). Inter for UI bits.
+import "@fontsource/eb-garamond/400.css";
+import "@fontsource/eb-garamond/400-italic.css";
+import "@fontsource/eb-garamond/600.css";
+import "@fontsource/eb-garamond/700.css";
+import "@fontsource-variable/inter";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
-import BackgroundFade from "@/components/BackgroundFade";
-import ImageGalleryModal from "@/components/ImageGalleryModal";
-
-const geistSans = Geist({
-	variable: "--font-geist-sans",
-	subsets: ["latin"],
-});
-
-const zilla = Zilla_Slab({
-	variable: "--font-zilla",
-	subsets: ["latin"],
-	weight: ["500", "600"],
-});
-
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
-	subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
 	title: "Clay Goldsmith",
@@ -37,9 +26,7 @@ export default function RootLayout({
 			<head>
 				<link rel="icon" href="/favicon.png" type="image/png"></link>
 			</head>
-			<body className={`${geistSans.variable} ${geistMono.variable} ${zilla.variable} antialiased`}>
-				<BackgroundFade />
-				<ImageGalleryModal />
+			<body className="antialiased">
 				<div className="shell">
 					<Navigation />
 					<main>

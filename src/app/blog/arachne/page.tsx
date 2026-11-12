@@ -26,7 +26,7 @@
 // IMAGE PROCESSING:
 // Use IkedaImage component for automatic dithering:
 //
-// import { Hero, HeroSpacer } from '@/components/Hero';
+// import { Hero } from '@/components/Hero';
 //
 // <IkedaImage 
 //   src="/your-image.jpg"
@@ -71,34 +71,19 @@
 'use client';
 
 import { PaletteProvider, IKEDA_PALETTES } from "@/utils/palette";
-import { Hero, HeroSpacer } from '@/components/Hero';
-import { PostDate } from '@/components/PostDate';
+import { Hero } from '@/components/Hero';
+import { Post } from '@/components/Post';
 
 export default function RiceRoboticsPage() {
 	return (
 <PaletteProvider palette={IKEDA_PALETTES.arachne}>
 	{/* Background image layer */}
-	<Hero
-		src="/arachne/arachne.png"
-		palette={IKEDA_PALETTES.arachne}
-		ditherMethod="atkinson"
-		targetWidth={600}
-		grit={0.4}
-		splatter={0.6}
-	/>
+	<Hero name="arachne" />
 
 	{/* Content layer */}
 	<div className="relative z-10">
-		{/* Spacer to view full image */}
-		<HeroSpacer />
 		
-		<div className="section">
-			{/* Project Header */}
-			<div className="content-block-highlight mb-8">
-				<PostDate slug="arachne" />
-				<h1 className="text-display text-4xl mb-4">Design Project: Horrifying Hexapod Robot to Torment my Roommate</h1>
-				<div className="data-stripe mb-6" />
-			</div>
+		<Post slug="arachne" title="Design Project: Horrifying Hexapod Robot to Torment my Roommate" bullets={false}>
 
 
 			{/* Main Content */}
@@ -273,7 +258,7 @@ export default function RiceRoboticsPage() {
 						<div className="gallery-item">
 							<div className="image-wrapper">
 								<img
-									src="/arachne/pybullet.jpg"
+									src="/arachne/pybullet.webp"
 									alt="PyBullet simulation environment"
 									className="w-full h-full object-cover"
 								/>
@@ -407,7 +392,7 @@ export default function RiceRoboticsPage() {
 					</div>
 				</div>
 			</div>
-		</div>
+		</Post>
 	</div>
 </PaletteProvider>
 	);

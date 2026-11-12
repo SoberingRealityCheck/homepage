@@ -21,11 +21,7 @@ export default function Navigation() {
 		<nav className={compact ? 'sidebar sidebar-compact' : 'sidebar'}>
 			<Image src="/home/me.jpeg" alt="Clay Goldsmith" width={96} height={96} className="sidebar-photo" />
 			<div className="sidebar-name">Clay Goldsmith</div>
-			<p className="sidebar-blurb">
-				Rice University, Class of 2027
-				<br />
-				B.S. in Computational Physics, Minor in Engineering Design.
-			</p>
+			<p className="sidebar-blurb">Computational Physics Student and Engineer Larper at Rice</p>
 			<div className="sidebar-nav">
 				{links.map((link) => (
 					<Link
