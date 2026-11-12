@@ -36,8 +36,27 @@ body {
 
 a { color: inherit; }
 
+/* ---------- background heroes ---------- */
+/* Faint pixel noise. public/noise.png is 128x128 random gray, scaled 3x with hard edges so each pixel is a chunky square.
+   On every page. */
+.bg-noise {
+	position: fixed; inset: 0; z-index: 0; pointer-events: none;
+	background-image: url("/noise.png");
+	background-size: 384px 384px;
+	image-rendering: pixelated;
+	opacity: 0.01;
+}
+
+/* Fixed layer behind everything. The shell sits above it (z-index 1). Small + faint on purpose, like stickers.
+   Under 1200px there's no empty margin (the sidebar stacks on top), so they shrink and fade to sit behind the text. */
+.bg-heroes { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.bg-heroes img { position: absolute; opacity: calc(0.18 * var(--fade, 1)); }
+@media (max-width: 1199px) { .bg-heroes img { width: 4.5rem !important; opacity: calc(0.1 * var(--fade, 1)); } } /* !important beats the inline width */
+
 /* ---------- shell ---------- */
 .shell {
+	position: relative;
+	z-index: 1;
 	display: block;
 	max-width: 90rem;
 	margin: 0 auto;

@@ -8,6 +8,7 @@ import "@fontsource/ubuntu/500.css";
 import "@fontsource/ubuntu/700.css";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
+import BackgroundHeroes from "@/components/BackgroundHeroes";
 
 export const metadata: Metadata = {
 	title: "Clay Goldsmith",
@@ -26,6 +27,7 @@ export default function RootLayout({
 				<link rel="icon" href="/favicon.png" type="image/png"></link>
 			</head>
 			<body className="antialiased">
+				<BackgroundHeroes />
 				<div className="shell">
 					<Navigation />
 					<main>

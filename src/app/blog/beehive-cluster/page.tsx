@@ -93,7 +93,9 @@ export default function BeehiveClusterPage() {
 			{/* Showcase GIF */}
 			<div className="image-gallery my-8">
 				<div className="gallery-item">
-					<Image src="/beehive-cluster/starpositions.gif" alt="3D star positions animation" width={600} height={600} style={{width: '100%', height: 'auto'}} unoptimized />
+					<video autoPlay loop muted playsInline aria-label="3D star positions animation" width={780} height={780} style={{width: '100%', height: 'auto'}}>
+						<source src="/beehive-cluster/starpositions.webm" type="video/webm" />
+					</video>
 					<div className="gallery-item-caption">
 						Physical locations of the identified stars in my image with known parallax, color-coded by their distance&apos;s standard deviation from the cluster. Blue X is where I estimated the center of mass of the cluster to be, yellow dot is our sun!
 					</div>
@@ -310,7 +312,9 @@ export default function BeehiveClusterPage() {
 				{/* Image/GIF: 3D scatterplot of the cluster */}
 				<div className="image-gallery my-6">
 					<div className="gallery-item">
-						<Image src="/beehive-cluster/colorindex3d.gif" alt="3D scatterplot of the cluster" width={600} height={600} style={{width: '100%', height: 'auto'}} unoptimized />
+						<video autoPlay loop muted playsInline aria-label="3D scatterplot of the cluster" width={800} height={690} style={{width: '100%', height: 'auto'}}>
+							<source src="/beehive-cluster/colorindex3d.webm" type="video/webm" />
+						</video>
 						<div className="gallery-item-caption">
 							Interactive 3D scatterplot of cluster members, showing spatial distribution and stellar properties.
 						</div>
