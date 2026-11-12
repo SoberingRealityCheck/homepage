@@ -11,8 +11,8 @@
 	--panel: #262625;
 	--link: #a8d5a2;
 
-	--font-serif: 'EB Garamond', Georgia, serif; /* prose + headings */
-	--font-sans: 'Inter Variable', system-ui, -apple-system, sans-serif; /* UI bits: sidebar blurb + nav, captions, dates, buttons */
+	--font-serif: 'Ubuntu', system-ui, -apple-system, sans-serif; /* same as --font-sans now. Name kept so the rules below still work */
+	--font-sans: 'Ubuntu', system-ui, -apple-system, sans-serif; /* UI bits: sidebar blurb + nav, captions, dates, buttons */
 	--font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 
 	/* old names, kept for pages that still reference them */
@@ -30,8 +30,7 @@ html, body { max-width: 100vw; overflow-x: clip; }
 body {
 	background: var(--bg);
 	color: var(--ink);
-	font-family: var(--font-serif); /* prose is Garamond. UI bits set --font-sans themselves */
-	font-size: 1.15rem; /* Garamond runs small */
+	font-family: var(--font-sans);
 	line-height: 1.65;
 }
 
@@ -64,7 +63,7 @@ a { color: inherit; }
 .sidebar-name {
 	font-family: var(--font-serif);
 	font-size: 1.5rem;
-	font-weight: 600;
+	font-weight: 500;
 	line-height: 1.2;
 	text-decoration: none;
 	color: var(--ink);
@@ -92,6 +91,18 @@ a { color: inherit; }
 	text-decoration: none;
 }
 
+/* Contact: plain muted lines under the nav. Bottom left on desktop. Hidden in the compact post header. */
+.sidebar-contact {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	margin-top: 1.5rem;
+	font-family: var(--font-sans);
+	font-size: 0.85rem;
+}
+.sidebar-contact a { color: var(--muted); text-decoration: none; }
+.sidebar-contact a:hover { color: var(--ink); }
+
 .sidebar-nav a:hover,
 .sidebar-nav a[aria-current="page"] { color: var(--ink); }
 
@@ -109,6 +120,7 @@ a { color: inherit; }
 	.sidebar-compact .sidebar-photo { width: 2.5rem; height: 2.5rem; margin: 0; }
 	.sidebar-compact .sidebar-name { font-size: 1.15rem; }
 	.sidebar-compact .sidebar-blurb { display: none; }
+	.sidebar-compact .sidebar-contact { display: none; }
 	.sidebar-compact .sidebar-nav {
 		flex-basis: 100%;
 		margin-top: 0;
@@ -136,8 +148,13 @@ a { color: inherit; }
 		position: sticky;
 		top: 0;
 		align-self: start;
-		padding: 4rem 0;
+		padding: 4rem 0 2rem;
+		/* full height, so the contact lines can sit at the bottom */
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
 	}
+	.sidebar-contact { margin-top: auto; }
 	.sidebar-nav {
 		flex-direction: column;
 		gap: 0.5rem;
@@ -202,11 +219,11 @@ a { color: inherit; }
 }
 
 /* ---------- type ---------- */
-h1, h2, h3 { font-family: var(--font-serif); font-weight: 600; line-height: 1.2; }
+h1, h2, h3 { font-family: var(--font-serif); font-weight: 500; line-height: 1.2; }
 
 .text-display {
 	font-family: var(--font-serif);
-	font-weight: 600;
+	font-weight: 500;
 	font-size: 2.25rem;
 	line-height: 1.15;
 	letter-spacing: 0;
@@ -214,7 +231,7 @@ h1, h2, h3 { font-family: var(--font-serif); font-weight: 600; line-height: 1.2;
 
 .text-heading {
 	font-family: var(--font-serif);
-	font-weight: 600;
+	font-weight: 500;
 	letter-spacing: 0;
 	text-transform: none;
 	line-height: 1.2;
@@ -257,7 +274,7 @@ h1, h2, h3 { font-family: var(--font-serif); font-weight: 600; line-height: 1.2;
 
 .project-card:hover { transform: none; box-shadow: none; }
 .project-card:hover .project-title { color: var(--link); }
-/* Titles in lists (blog index, project cards) are Inter: Garamond semibold reads small and heavy at list size.
+/* Titles in lists (blog index, project cards) are medium weight, a bit larger than body.
    Goes after .text-heading so it wins. */
 .project-title { font-family: var(--font-sans); font-weight: 500; font-size: 1.15rem; line-height: 1.35; }
 
@@ -302,7 +319,7 @@ h1, h2, h3 { font-family: var(--font-serif); font-weight: 600; line-height: 1.2;
 .blog-content h3 { font-size: 1.15rem; margin: 2rem 0 0.5rem; color: var(--ink); }
 
 .blog-content p {
-	font-size: 1.25rem;
+	font-size: 1.05rem;
 	line-height: 1.75;
 	margin-bottom: 1.25rem;
 }

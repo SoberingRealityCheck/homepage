@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-// Fonts are self-hosted from npm (@fontsource), not next/font/google. In dev, Turbopack's Google-font
+// Ubuntu everywhere, self-hosted from npm (@fontsource), not next/font/google. In dev, Turbopack's Google-font
 // loader crashed on Google's font URLs ("queries have exactly one entry"). These are plain CSS + files, no network.
-// EB Garamond for prose + headings (400 text, 600 headings, 700 bold, 400 italic). Inter for UI bits.
-import "@fontsource/eb-garamond/400.css";
-import "@fontsource/eb-garamond/400-italic.css";
-import "@fontsource/eb-garamond/600.css";
-import "@fontsource/eb-garamond/700.css";
-import "@fontsource-variable/inter";
+// Ubuntu has no 600 weight, so headings use 500 (Medium). 700 is for bold text, italic is 400 only.
+import "@fontsource/ubuntu/400.css";
+import "@fontsource/ubuntu/400-italic.css";
+import "@fontsource/ubuntu/500.css";
+import "@fontsource/ubuntu/700.css";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 

@@ -30,7 +30,8 @@ function Ref({ n }: { n: number }) {
 	return <a href={`#fig-${n}`}>Figure {n}</a>;
 }
 
-function Figs({ n, caption, items }: { n: number; caption: string; items: Fig[] }) {
+// source: URL of where the image came from. Shows as a small superscript [source] link after the caption. Leave it out for your own figures.
+function Figs({ n, caption, source, items }: { n: number; caption: string; source?: string; items: Fig[] }) {
 	const wide = items.length === 1 && items[0].wide;
 	const dark = items.some((f) => f.dark);
 	return (
@@ -76,6 +77,7 @@ function Figs({ n, caption, items }: { n: number; caption: string; items: Fig[] 
 			</div>
 			<figcaption style={{ margin: '0.75rem auto 0', maxWidth: 680, textAlign: 'center', fontFamily: 'var(--font-sans)', fontSize: '0.9rem', lineHeight: 1.5, color: 'var(--muted)' }}>
 				<b style={{ color: 'var(--ink)' }}>Figure {n}:</b> {caption}
+				{source && <sup> <a href={source} target="_blank" rel="noopener noreferrer">[source]</a></sup>}
 			</figcaption>
 		</figure>
 	);
@@ -110,7 +112,7 @@ export default function BeamHaloPage() {
 				Our lab works closely with CMS, the Compact Muon Solenoid (<Ref n={2} />), which runs proton-proton collisions to examine interesting physics that emerges at the crazy high energy collisions the LHC can enable.
 			</p>
 
-			<Figs n={2} caption="A cutaway of the CMS detector." items={[
+			<Figs n={2} caption="A cutaway of the CMS detector." source="https://en.wikipedia.org/wiki/Compact_Muon_Solenoid#/media/File:CMS_160312_06.png" items={[
 				{ src: 'cms-dark', ext: 'webp', alt: 'CMS detector cutaway', w: 1600, h: 1131 },
 			]} />
 
@@ -118,7 +120,7 @@ export default function BeamHaloPage() {
 				One of the interesting problems CMS faces is that it collects way too much data, most of which is uninteresting. The beams impact one another every 25 nanoseconds (these collisions are known as Bunch Crossings or BXs). which ends up being around 40 million bunch crossings a second. To counteract this the CMS has what’s known as a two-level Trigger system (which you can think of as a data filter). The level 1 system takes data directly from the sensors and routes it through a super low-level system comprised of FPGAs, which are essentially lower-level logic devices than a computer, more of a reconfigurable circuit board, that can do extremely simple kinds of math extremely fast (<Ref n={3} />). Output from the level 1 trigger is a couple hundred times smaller and is routed into something closer to what you’re probably thinking of, a giant cluster of computers and gpu racks known as the High Level Trigger that does more of the traditional computation kinds of analysis to decide what really needs to be kept.
 			</p>
 
-			<Figs n={3} caption="CMS Phase-2 Level-1 trigger architecture. Data flows down from the detector electronics at the top to the Global Trigger at the bottom." items={[{ src: 'trigger-crop', alt: 'CMS Phase-2 Level-1 trigger architecture', w: 1716, h: 796, dark: true, wide: true }]} />
+			<Figs n={3} caption="CMS Phase-2 Level-1 trigger architecture. Data flows down from the detector electronics at the top to the Global Trigger at the bottom." source="https://github.com/acostad/Lectures/blob/main/TriggerLecture.pdf" items={[{ src: 'trigger-crop', alt: 'CMS Phase-2 Level-1 trigger architecture', w: 1716, h: 796, dark: true, wide: true }]} />
 
 			<p>
 				OK. so now we can get to the key thing here, which is beam halo. Some protons drift to the edges of the beam and smash into collimators or leftover gas upstream of CMS. This creates some interesting sensor noise in the detector: the muon byproducts of these collisions end up just passing directly through in a halo-shaped distribution with around a 2.5 meter radius (<Ref n={4} />). this is a fairly predictable kind of sensor noise, but it does fluctuate over time due to different properties of the beam.

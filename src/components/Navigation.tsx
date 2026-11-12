@@ -14,7 +14,6 @@ export default function Navigation() {
 		{ href: '/art', label: 'Art' },
 		{ href: '/resume', label: 'Resume' },
 		{ href: '/about', label: 'About' },
-		{ href: 'https://github.com/soberingrealitycheck', label: 'GitHub' },
 	];
 
 	return (
@@ -32,6 +31,11 @@ export default function Navigation() {
 						{link.label}
 					</Link>
 				))}
+			</div>
+			<div className="sidebar-contact">
+				<a href="mailto:clayton.goldsmith@rice.edu">clayton.goldsmith@rice.edu</a>
+				<a href="https://github.com/soberingrealitycheck" target="_blank" rel="noopener noreferrer">github.com/soberingrealitycheck</a>
+				<a href="https://linkedin.com/in/spaceclay" target="_blank" rel="noopener noreferrer">linkedin.com/in/spaceclay</a>
 			</div>
 		</nav>
 	);

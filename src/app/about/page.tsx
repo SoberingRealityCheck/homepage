@@ -13,9 +13,8 @@ export default function AboutPage() {
 				<div className="data-stripe" />
 			</div>
 
-			<div className="grid md:grid-cols-3 gap-8">
-				<div className="md:col-span-2">
-					<div className="content-block blog-content">
+			<div className="max-w-3xl">
+					<div className="content-block blog-content post-body">
 						<h2>Background</h2>
 						<p>
 							I&apos;m a student at Rice University pursuing a B.S. in Computational Physics with a minor in Engineering Design. I&apos;m interested in robotics and space technology, particularly involving systems that can learn and develop over time.
@@ -50,41 +49,6 @@ export default function AboutPage() {
 							Most of all, though, I believe that the biggest obstacle to achieving great things is the belief that one lacks the required skills or expertise to do so. I&apos;m a big believer in starting first, learning what I need to along the way, and iterating towards success.
 						</p>
 					</div>
-				</div>
-
-				<div>
-					<div className="data-box-accent mb-6">
-						<h3 className="text-data text-accent mb-4">Contact</h3>
-						<div className="space-y-2 text-sm">
-							<p>
-								<span className="text-gray-500">Email:</span>
-								<br />
-								<a href="mailto:clayton.goldsmith@rice.edu" className="link">
-									clayton.goldsmith@rice.edu
-								</a>
-							</p>
-							<p>
-								<span className="text-gray-500">GitHub:</span>
-								<br />
-								<a href="https://github.com/soberingrealitycheck" target="_blank" rel="noopener noreferrer" className="link">
-									github.com/soberingrealitycheck
-								</a>
-							</p>
-							<p>
-								<span className="text-gray-500">LinkedIn:</span>
-								<br />
-								<a
-									href="https://linkedin.com/in/spaceclay"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="link"
-								>
-									linkedin.com/in/spaceclay
-								</a>
-							</p>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 		</PaletteProvider>

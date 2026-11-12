@@ -210,7 +210,7 @@ export default function ProjectTemplate() {
 					Our preliminary engagement test involved moving just the robot (without the shell) near a baby jaguar behind a fence. The movement attracted the jaguar from a distance, confirming that motion-based enrichment would be engaging. We then placed just the shell (no robot) in the cheetah enclosure to attract initial interest. The cheetahs engaged with the shell, smelling and rubbing against it, which validated our material and texture choices.
 				</p>
 			
-				<Pic src="/cacti/jaguar.png" w={360} h={640} alt="jaguar testing" caption={'Baby Jaguar engagement test\n(a resounding success)'} maxW={280} />
+				<Pic src="/cacti/jaguar.png" w={360} h={640} alt="jaguar testing" caption="Baby Jaguar engagement test \n (a resounding success)" maxW={280} />
 			<h3>Mobility Testing</h3>
 			<p>
 				We tested the integrated device on multiple terrain types. On smooth flat concrete and short grass, the ball moved successfully, matching remote controls (up → forward, down → back, etc.). However, initial testing in the enclosure with long grass and mud failed—the device just wiggled around without moving forward. We determined this was a weight issue and added more weights to the bottom of the robot, which solved the problem in subsequent tests.
